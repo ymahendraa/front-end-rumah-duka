@@ -33,7 +33,17 @@ export const authOptions: NextAuthOptions = {
         const user = await res.json();
 
         if (res.ok && user) {
+          // get authorization data
+          const resAuth = await fetch(
+            "http://localhost:3000/api/authorization",
+            {
+              headers: {
+                Authorization: `Bearer ${user.accessToken}`,
+              },
+            }
+          );
           // Any object returned will be saved in `user` property of the JWT
+          user.authorization = await resAuth.json();
           return user;
         } else {
           // If you return null then an error will be displayed advising the user to check their details.
