@@ -1,3 +1,17 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    "next/core-web-vitals"
+    // "plugin:testing-library/react",
+    // "plugin:jest-dom/recommended"
+  ],
+  "plugins": [
+    // "jest-dom",
+    "@typescript-eslint"
+  ],
+  "rules": {
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["error"],
+    "import/no-unresolved": "error",
+    "import/named": "off"
+  }
 }

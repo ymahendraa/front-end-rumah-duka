@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 57 69" style="enable-background:new 0 0 57 69;" xml:space="preserve">
+<style type="text/css">
+	.st0{
+        fill: #CFCFCF;
+        stroke-width: 1px;
+        stroke: #CFCFCF;
+    }
+    .st0-green{
+        fill: #007f3c;
+    }
+    .st0a{
+        fill: none;
+        stroke-width: 2px;
+        stroke: #007f3c;
+        stroke-dasharray: 50;
+        stroke-dashoffset: 150;
+        animation: dash 1.5s linear infinite;
+        -webkit-animation: dash 1.5s linear infinite;
+        -o-animation: dash 1.5s linear infinite;
+        -moz-animation: dash 1.5s linear infinite;
+    }
+    .st1a{
+        fill: none;
+        stroke: #C0C0C0;
+    }
+	.st1{
+        fill:#FFFFFF;
+        stroke: #fbb040;
+        stroke-linecap: round;
+        stroke-dasharray: 50;
+        stroke-dashoffset: 180;
+        stroke-width: 2;
+        animation: dash 1.5s linear infinite;
+        -webkit-animation: dash 1.5s linear infinite;
+        -o-animation: dash 1.5s linear infinite;
+        -moz-animation: dash 1.5s linear infinite;
+    }
+    @-webkit-keyframes dash {
+        0% {
+            stroke-dashoffset: 180;
+        }
+        /* 25% {
+            stroke-dashoffset: 70;
+        }
+        50% {
+            stroke-dashoffset: 140;
+        }
+        75% {
+            stroke-dashoffset: 210;
+        } */
+        100% {
+            stroke-dashoffset: 280;
+        }
+    }
+</style>
+    <g>
+	<path class="st0" d="M2.57,5.97c0,0,0.42-2.77,2.98-3.39h9.35c0,0,2.46,0.69,3.01,3.01l0.03,23.05l0.01,35.8   c0,0-0.27,2.52-3.04,3.3H5.58c0,0-2.59-0.78-3.02-3.55V5.97z" />
+</g>
+    <g>
+	<path class="st0" d="M24.56,42.16c0,0,7.2-1.32,13.51-6.16L54.42,61.9c0,0,1.18,2.29-0.55,4.5c0,0-0.85,0.76-1.73,1.04H41.46   c0,0-1.11,0.12-2.54-1.15L24.56,42.16z" />
+        <path class="st0a" d="M24.56,42.16c0,0,7.2-1.32,13.51-6.16L54.42,61.9c0,0,1.18,2.29-0.55,4.5c0,0-0.85,0.76-1.73,1.04H41.46   c0,0-1.11,0.12-2.54-1.15L24.56,42.16z" />
+</g>
+    <path class="st1a" d="M2.89,29.25c0,0,12.97,0.37,15.83-0.67c0,0,8.59-1.17,13.47-8.06c0,0,1.73-2.06,2.94-5.16  c0,0,1.45-2.77,1.97-7.69c0,0,0.17-1.05,0.2-2.14c0,0,0.23-2.37,3.32-2.96h9.9c0,0,2.61,0.88,2.79,2.59c0,0,0.3,5.03-2.4,12.79  c0,0-2.56,7.13-7.07,12.54c0,0-3.22,3.71-5.47,5.33c0,0-4.43,4.02-13.51,6.3c0,0-5.96,1.39-12.12,1.87c0,0-7.7,0-9.87-0.28V29.25z" />
+    <path class="st1" d="M2.89,29.25c0,0,12.97,0.37,15.83-0.67c0,0,8.59-1.17,13.47-8.06c0,0,1.73-2.06,2.94-5.16  c0,0,1.45-2.77,1.97-7.69c0,0,0.17-1.05,0.2-2.14c0,0,0.23-2.37,3.32-2.96h9.9c0,0,2.61,0.88,2.79,2.59c0,0,0.3,5.03-2.4,12.79  c0,0-2.56,7.13-7.07,12.54c0,0-3.22,3.71-5.47,5.33c0,0-4.43,4.02-13.51,6.3c0,0-5.96,1.39-12.12,1.87c0,0-7.7,0-9.87-0.28V29.25z" />
+</svg>

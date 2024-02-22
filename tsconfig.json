@@ -22,6 +22,15 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "middleware.ts",
+    "app/api/auth/[...nextauth].js",
+    "jest.config.js",
+    "app/(public)/login/component/Login.test.text"
+  ],
   "exclude": ["node_modules"]
 }

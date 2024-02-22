@@ -1,0 +1,140 @@
+{
+  "permissions": [
+    {
+      "name": "master.customer.create",
+      "description": "Allows the user to create a new customer"
+    },
+    {
+      "name": "master.customer.update",
+      "description": "Allows the user to update an existing customer"
+    },
+    {
+      "name": "master.customer.delete",
+      "description": "Allows the user to delete an existing customer"
+    },
+    {
+      "name": "master.customer.read",
+      "description": "Allows the user to read an existing customer"
+    },
+    {
+      "name": "transaction.transaction1.read",
+      "description": "Allows the user to read an existing transaction 1"
+    },
+    {
+      "name": "transaction.transaction1.update",
+      "description": "Allows the user to update an existing transaction 1"
+    },
+    {
+      "name": "transaction.transaction1.delete",
+      "description": "Allows the user to delete an existing transaction 1"
+    },
+    {
+      "name": "transaction.transaction1.update",
+      "description": "Allows the user to create a new transaction 1"
+    },
+    {
+      "name": "transaction.transaction2.create",
+      "description": "Allows the user to create a new transaction 2"
+    },
+    {
+      "name": "transaction.transaction2.read",
+      "description": "Allows the user to read an existing transaction 2"
+    },
+    {
+      "name": "transaction.transaction2.update",
+      "description": "Allows the user to update an existing transaction 2"
+    },
+    {
+      "name": "transaction.transaction2.delete",
+      "description": "Allows the user to delete an existing transaction 2"
+    },
+    {
+      "name": "authorization.permission.read",
+      "description": "Allows the user to read an existing permission"
+    },
+    {
+      "name": "authorization.role.read",
+      "description": "Allows the user to read an existing role"
+    },
+    {
+      "name": "authorization.role.create",
+      "description": "Allows the user to create a new role"
+    },
+    {
+      "name": "authorization.role.update",
+      "description": "Allows the user to update an existing role"
+    },
+    {
+      "name": "authorization.role.delete",
+      "description": "Allows the user to delete an existing role"
+    },
+    {
+      "name": "authorization.group.read",
+      "description": "Allows the user to read an existing group"
+    },
+    {
+      "name": "authorization.group.create",
+      "description": "Allows the user to create a new group"
+    },
+    {
+      "name": "authorization.group.update",
+      "description": "Allows the user to update an existing group"
+    },
+    {
+      "name": "authorization.group.delete",
+      "description": "Allows the user to delete an existing group"
+    },
+    {
+      "name": "authorization.menu.read",
+      "description": "Allows the user to read an existing menu"
+    },
+    {
+      "name": "authorization.menu.edit",
+      "description": "Allows the user to edit an existing menu"
+    },
+    {
+      "name": "authorization.group.read",
+      "description": "Allows the user to read an existing group"
+    },
+    {
+      "name": "authorization.group.update",
+      "description": "Allows the user to update an existing group"
+    },
+    {
+      "name": "authorization.group.delete",
+      "description": "Allows the user to delete an existing group"
+    },
+    {
+      "name": "authorization.users.create",
+      "description": "Allows the user to create a new users"
+    },
+    {
+      "name": "authorization.users.read",
+      "description": "Allows the user to read an existing users"
+    },
+    {
+      "name": "authorization.users.update",
+      "description": "Allows the user to update an existing users"
+    },
+    {
+      "name": "authorization.users.delete",
+      "description": "Allows the user to delete an existing users"
+    },
+    {
+      "name": "report.report1.create",
+      "description": "Allows the user to create a new report 1"
+    },
+    {
+      "name": "report.report1.read",
+      "description": "Allows the user to read an existing report 1"
+    },
+    {
+      "name": "report.report1.update",
+      "description": "Allows the user to update an existing report 1"
+    },
+    {
+      "name": "report.report1.delete",
+      "description": "Allows the user to delete an existing report 1"
+    }
+  ]
+}

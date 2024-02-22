@@ -1,0 +1,1280 @@
+{
+  "customers": [
+    {
+      "id": 1,
+      "first_name": "John",
+      "last_name": "Does",
+      "email": "john.doe@example.com",
+      "join_date": "2024-03-17"
+    },
+    {
+      "id": 2,
+      "first_name": "Jane",
+      "last_name": "Doe",
+      "email": "jane.doe@example.com",
+      "join_date": "2023-10-25"
+    },
+    {
+      "id": 3,
+      "first_name": "Alice",
+      "last_name": "Johnson",
+      "email": "alice.johnson@example.com",
+      "join_date": "2020-04-30"
+    },
+    {
+      "id": 4,
+      "first_name": "Bob",
+      "last_name": "Smith",
+      "email": "bob.smith@example.com",
+      "join_date": "2020-01-20"
+    },
+    {
+      "id": 5,
+      "first_name": "Eva",
+      "last_name": "Brown",
+      "email": "eva.brown@example.com",
+      "join_date": "2023-03-31"
+    },
+    {
+      "id": 6,
+      "first_name": "Chris",
+      "last_name": "Williams",
+      "email": "chris.williams@example.com",
+      "join_date": "2023-07-14"
+    },
+    {
+      "id": 7,
+      "first_name": "Olivia",
+      "last_name": "White",
+      "email": "olivia.white@example.com",
+      "join_date": "2022-03-03"
+    },
+    {
+      "id": 8,
+      "first_name": "Michael",
+      "last_name": "Davis",
+      "email": "michael.davis@example.com",
+      "join_date": "2023-09-15"
+    },
+    {
+      "id": 9,
+      "first_name": "Sophia",
+      "last_name": "Moore",
+      "email": "sophia.moore@example.com",
+      "join_date": "2024-09-12"
+    },
+    {
+      "id": 10,
+      "first_name": "David",
+      "last_name": "Taylor",
+      "email": "david.taylor@example.com",
+      "join_date": "2024-07-06"
+    },
+    {
+      "id": 11,
+      "first_name": "Emma",
+      "last_name": "Wilson",
+      "email": "emma.wilson@example.com",
+      "join_date": "2024-05-06"
+    },
+    {
+      "id": 12,
+      "first_name": "Daniel",
+      "last_name": "Martinez",
+      "email": "daniel.martinez@example.com",
+      "join_date": "2022-04-03"
+    },
+    {
+      "id": 13,
+      "first_name": "Ava",
+      "last_name": "Johnson",
+      "email": "ava.johnson@example.com",
+      "join_date": "2021-05-31"
+    },
+    {
+      "id": 14,
+      "first_name": "Liam",
+      "last_name": "Thompson",
+      "email": "liam.thompson@example.com",
+      "join_date": "2024-09-02"
+    },
+    {
+      "id": 15,
+      "first_name": "Mia",
+      "last_name": "Clark",
+      "email": "mia.clark@example.com",
+      "join_date": "2023-02-07"
+    },
+    {
+      "id": 16,
+      "first_name": "Jackson",
+      "last_name": "Adams",
+      "email": "jackson.adams@example.com",
+      "join_date": "2023-07-04"
+    },
+    {
+      "id": 17,
+      "first_name": "Sophie",
+      "last_name": "Turner",
+      "email": "sophie.turner@example.com",
+      "join_date": "2024-07-03"
+    },
+    {
+      "id": 18,
+      "first_name": "Lucas",
+      "last_name": "Harris",
+      "email": "lucas.harris@example.com",
+      "join_date": "2021-05-24"
+    },
+    {
+      "id": 19,
+      "first_name": "Aria",
+      "last_name": "Miller",
+      "email": "aria.miller@example.com",
+      "join_date": "2022-10-23"
+    },
+    {
+      "id": 20,
+      "first_name": "Oliver",
+      "last_name": "Parker",
+      "email": "oliver.parker@example.com",
+      "join_date": "2020-12-06"
+    },
+    {
+      "id": 21,
+      "first_name": "Ella",
+      "last_name": "Bennett",
+      "email": "ella.bennett@example.com",
+      "join_date": "2022-09-06"
+    },
+    {
+      "id": 22,
+      "first_name": "Logan",
+      "last_name": "Coleman",
+      "email": "logan.coleman@example.com",
+      "join_date": "2024-03-10"
+    },
+    {
+      "id": 23,
+      "first_name": "Aiden",
+      "last_name": "Ward",
+      "email": "aiden.ward@example.com",
+      "join_date": "2022-06-10"
+    },
+    {
+      "id": 24,
+      "first_name": "Charlotte",
+      "last_name": "Shaw",
+      "email": "charlotte.shaw@example.com",
+      "join_date": "2020-11-09"
+    },
+    {
+      "id": 25,
+      "first_name": "Carter",
+      "last_name": "Hall",
+      "email": "carter.hall@example.com",
+      "join_date": "2020-11-04"
+    },
+    {
+      "id": 26,
+      "first_name": "Scarlett",
+      "last_name": "King",
+      "email": "scarlett.king@example.com",
+      "join_date": "2023-02-19"
+    },
+    {
+      "id": 27,
+      "first_name": "Henry",
+      "last_name": "Turner",
+      "email": "henry.turner@example.com",
+      "join_date": "2020-01-23"
+    },
+    {
+      "id": 28,
+      "first_name": "Penelope",
+      "last_name": "Cox",
+      "email": "penelope.cox@example.com",
+      "join_date": "2021-05-22"
+    },
+    {
+      "id": 29,
+      "first_name": "William",
+      "last_name": "Reed",
+      "email": "william.reed@example.com",
+      "join_date": "2023-08-17"
+    },
+    {
+      "id": 30,
+      "first_name": "Grace",
+      "last_name": "Fisher",
+      "email": "grace.fisher@example.com",
+      "join_date": "2024-06-27"
+    },
+    {
+      "id": 31,
+      "first_name": "Liam",
+      "last_name": "Holmes",
+      "email": "liam.holmes@example.com",
+      "join_date": "2021-08-08"
+    },
+    {
+      "id": 32,
+      "first_name": "Eleanor",
+      "last_name": "Foster",
+      "email": "eleanor.foster@example.com",
+      "join_date": "2021-10-11"
+    },
+    {
+      "id": 33,
+      "first_name": "Matthew",
+      "last_name": "Armstrong",
+      "email": "matthew.armstrong@example.com",
+      "join_date": "2023-03-29"
+    },
+    {
+      "id": 34,
+      "first_name": "Abigail",
+      "last_name": "Bell",
+      "email": "abigail.bell@example.com",
+      "join_date": "2024-11-01"
+    },
+    {
+      "id": 35,
+      "first_name": "Jack",
+      "last_name": "Nelson",
+      "email": "jack.nelson@example.com",
+      "join_date": "2024-07-28"
+    },
+    {
+      "id": 36,
+      "first_name": "Amelia",
+      "last_name": "Sanchez",
+      "email": "amelia.sanchez@example.com",
+      "join_date": "2020-04-30"
+    },
+    {
+      "id": 37,
+      "first_name": "Benjamin",
+      "last_name": "Wallace",
+      "email": "benjamin.wallace@example.com",
+      "join_date": "2020-08-19"
+    },
+    {
+      "id": 38,
+      "first_name": "Chloe",
+      "last_name": "Mitchell",
+      "email": "chloe.mitchell@example.com",
+      "join_date": "2020-06-12"
+    },
+    {
+      "id": 39,
+      "first_name": "Jameson",
+      "last_name": "Black",
+      "email": "jameson.black@example.com",
+      "join_date": "2020-07-28"
+    },
+    {
+      "id": 40,
+      "first_name": "Natalie",
+      "last_name": "Hudson",
+      "email": "natalie.hudson@example.com",
+      "join_date": "2020-10-21"
+    },
+    {
+      "id": 41,
+      "first_name": "Aiden",
+      "last_name": "Fitzgerald",
+      "email": "aiden.fitzgerald@example.com",
+      "join_date": "2024-03-01"
+    },
+    {
+      "id": 42,
+      "first_name": "Lucy",
+      "last_name": "Perez",
+      "email": "lucy.perez@example.com",
+      "join_date": "2021-10-21"
+    },
+    {
+      "id": 43,
+      "first_name": "Elijah",
+      "last_name": "Carter",
+      "email": "elijah.carter@example.com",
+      "join_date": "2020-01-12"
+    },
+    {
+      "id": 44,
+      "first_name": "Hannah",
+      "last_name": "Richards",
+      "email": "hannah.richards@example.com",
+      "join_date": "2022-09-18"
+    },
+    {
+      "id": 45,
+      "first_name": "Logan",
+      "last_name": "Marshall",
+      "email": "logan.marshall@example.com",
+      "join_date": "2020-07-11"
+    },
+    {
+      "id": 46,
+      "first_name": "Grace",
+      "last_name": "Newman",
+      "email": "grace.newman@example.com",
+      "join_date": "2022-12-23"
+    },
+    {
+      "id": 47,
+      "first_name": "Nolan",
+      "last_name": "Powell",
+      "email": "nolan.powell@example.com",
+      "join_date": "2020-11-22"
+    },
+    {
+      "id": 48,
+      "first_name": "Lily",
+      "last_name": "Rogers",
+      "email": "lily.r@gmail.com",
+      "join_date": "2021-02-04"
+    },
+    {
+      "id": 49,
+      "first_name": "Ethan",
+      "last_name": "Butler",
+      "email": "ethan@example.com",
+      "join_date": "2021-10-26"
+    },
+    {
+      "id": 50,
+      "first_name": "Avery",
+      "last_name": "Foster",
+      "email": "avery.f@example.com",
+      "join_date": "2023-03-05"
+    },
+    {
+      "id": 51,
+      "first_name": "Isaac",
+      "last_name": "Davis",
+      "email": "isaac.davis@example.com",
+      "join_date": "2020-12-12"
+    },
+    {
+      "id": 52,
+      "first_name": "Sophie",
+      "last_name": "Barnes",
+      "email": "sophie.barnes@example.com",
+      "join_date": "2023-09-21"
+    },
+    {
+      "id": 53,
+      "first_name": "Mason",
+      "last_name": "Ward",
+      "email": "mason.ward@example.com",
+      "join_date": "2020-01-25"
+    },
+    {
+      "id": 54,
+      "first_name": "Aria",
+      "last_name": "Hill",
+      "email": "aria.hill@example.com",
+      "join_date": "2022-07-11"
+    },
+    {
+      "id": 55,
+      "first_name": "Nathan",
+      "last_name": "Turner",
+      "email": "nathan.turner@example.com",
+      "join_date": "2024-05-26"
+    },
+    {
+      "id": 56,
+      "first_name": "Sophia",
+      "last_name": "Jones",
+      "email": "sophia.jones@example.com",
+      "join_date": "2023-12-01"
+    },
+    {
+      "id": 57,
+      "first_name": "Oliver",
+      "last_name": "Reed",
+      "email": "oliver.reed@example.com",
+      "join_date": "2021-08-22"
+    },
+    {
+      "id": 58,
+      "first_name": "Amelia",
+      "last_name": "Fitzgerald",
+      "email": "amelia.fitzgerald@example.com",
+      "join_date": "2023-04-20"
+    },
+    {
+      "id": 59,
+      "first_name": "Henry",
+      "last_name": "Bennett",
+      "email": "henry.bennett@example.com",
+      "join_date": "2020-08-12"
+    },
+    {
+      "id": 60,
+      "first_name": "Emma",
+      "last_name": "Cox",
+      "email": "emma.cox@example.com",
+      "join_date": "2022-02-10"
+    },
+    {
+      "first_name": "admin",
+      "last_name": "adsmin",
+      "email": "admin@sdokc.com",
+      "id": 61
+    },
+    {
+      "first_name": "admin",
+      "last_name": "admin",
+      "email": "adas@sdscsdad.cdd",
+      "join_date": "2024-02-10",
+      "id": 62
+    },
+    {
+      "first_name": "admine",
+      "last_name": "admina",
+      "email": "asdadij@dsadd.ccc",
+      "join_date": "2024-02-07",
+      "id": 63
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "email": "muh.achsan@kalla.co.id",
+      "phone": "0899899892",
+      "first_name": "muhammad",
+      "last_name": "achsan",
+      "password": "admin",
+      "status": "inactive",
+      "role": "admin"
+    },
+    {
+      "id": 2,
+      "username": "superadmin",
+      "email": "muhammad.yusril@kalla.co.id",
+      "phone": "092829382392",
+      "first_name": "muhammad",
+      "last_name": "yusril",
+      "password": "superadmin",
+      "status": true,
+      "role": "superadmin"
+    },
+    {
+      "id": 3,
+      "username": "billing",
+      "email": "muh.luthfi@kalla.co.id",
+      "phone": "08213212312",
+      "first_name": "muhammad",
+      "last_name": "luthfi",
+      "password": "billing",
+      "status": true,
+      "role": "billing"
+    },
+    {
+      "username": "tes",
+      "first_name": "test",
+      "email": "test@gmailc.om",
+      "last_name": "test",
+      "phone": "test",
+      "password": "test",
+      "confirm_password": "test",
+      "status": "active",
+      "role": ["cashier", "superadmin"],
+      "id": 4
+    }
+  ],
+  "group-menu": [
+    {
+      "id": 1,
+      "name": "Home",
+      "code": "HOME",
+      "position": 1,
+      "icon": "HomeIcon",
+      "description": "Home group menu",
+      "group": null
+    },
+    {
+      "id": 2,
+      "name": "Report",
+      "code": "RPRT",
+      "position": 1,
+      "icon": "TableCells",
+      "description": "Report group menu",
+      "group": null
+    },
+    {
+      "name": "Transaction",
+      "code": "TRSC",
+      "position": "1",
+      "icon": "BuildingStorefront",
+      "description": null,
+      "group": null,
+      "id": 4
+    },
+    {
+      "name": "Car sale",
+      "group": 4,
+      "code": "CAR-SLS",
+      "position": "1",
+      "icon": "CreditCard",
+      "description": "This is menu for car sales transaction",
+      "id": 5
+    }
+  ],
+  "menu": [
+    {
+      "id": 1,
+      "group": {
+        "id": 3,
+        "code": "RPRT-PPL",
+        "name": "Report People Resources"
+      },
+      "icon": "UserIcon",
+      "name": "Report User",
+      "description": "Report User menu",
+      "position": 1,
+      "actions": [
+        {
+          "id": 1,
+          "value": "read"
+        },
+        {
+          "id": 2,
+          "value": "create"
+        },
+        {
+          "id": 3,
+          "value": "update"
+        },
+        {
+          "id": 4,
+          "value": "delete"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "group": {
+        "id": 3,
+        "code": "RPRT-PPL",
+        "name": "Report People Resources"
+      },
+      "icon": "CustomerIcon",
+      "name": "Report Customer",
+      "description": "Report Customer menu",
+      "position": 1,
+      "actions": [
+        {
+          "id": 1,
+          "value": "read"
+        },
+        {
+          "id": 2,
+          "value": "create"
+        },
+        {
+          "id": 3,
+          "value": "update"
+        },
+        {
+          "id": 4,
+          "value": "delete"
+        }
+      ]
+    },
+    {
+      "name": "add",
+      "group": 2,
+      "position": "1",
+      "icon": "BookOpenIcon",
+      "description": "asdads",
+      "actions": [
+        {
+          "id": 1,
+          "value": "read"
+        },
+        {
+          "id": 2,
+          "value": "create"
+        },
+        {
+          "id": 3,
+          "value": "update"
+        },
+        {
+          "id": 4,
+          "value": "delete"
+        }
+      ],
+      "id": 3
+    },
+    {
+      "name": "asji",
+      "group": 4,
+      "position": "1",
+      "icon": "BookOpenIcon",
+      "description": "asdasd",
+      "actions": [
+        {
+          "id": 1,
+          "value": "read"
+        },
+        {
+          "id": 2,
+          "value": "create"
+        },
+        {
+          "id": 3,
+          "value": "update"
+        },
+        {
+          "id": 4,
+          "value": "delete"
+        }
+      ],
+      "id": 4
+    }
+  ],
+  "permissions": [
+    {
+      "id": 1,
+      "name": "master.customer.create",
+      "description": "Allows the user to create a new customer"
+    },
+    {
+      "id": 2,
+      "name": "master.customer.update",
+      "description": "Allows the user to update an existing customer"
+    },
+    {
+      "id": 3,
+      "name": "master.customer.delete",
+      "description": "Allows the user to delete an existing customer"
+    },
+    {
+      "id": 4,
+      "name": "master.customer.read",
+      "description": "Allows the user to read an existing customer"
+    },
+    {
+      "id": 5,
+      "name": "transaction.transaction1.read",
+      "description": "Allows the user to read an existing transaction 1"
+    },
+    {
+      "id": 6,
+      "name": "transaction.transaction1.update",
+      "description": "Allows the user to update an existing transaction 1"
+    },
+    {
+      "id": 7,
+      "name": "transaction.transaction1.delete",
+      "description": "Allows the user to delete an existing transaction 1"
+    },
+    {
+      "id": 8,
+      "name": "transaction.transaction1.create",
+      "description": "Allows the user to create a new transaction 1"
+    },
+    {
+      "id": 9,
+      "name": "transaction.transaction2.create",
+      "description": "Allows the user to create a new transaction 2"
+    },
+    {
+      "id": 10,
+      "name": "transaction.transaction2.read",
+      "description": "Allows the user to read an existing transaction 2"
+    },
+    {
+      "id": 11,
+      "name": "transaction.transaction2.update",
+      "description": "Allows the user to update an existing transaction 2"
+    },
+    {
+      "id": 12,
+      "name": "transaction.transaction2.delete",
+      "description": "Allows the user to delete an existing transaction 2"
+    },
+    {
+      "id": 13,
+      "name": "authorization.permission.read",
+      "description": "Allows the user to read an existing permission"
+    },
+    {
+      "id": 14,
+      "name": "authorization.role.read",
+      "description": "Allows the user to read an existing role"
+    },
+    {
+      "id": 15,
+      "name": "authorization.role.create",
+      "description": "Allows the user to create a new role"
+    },
+    {
+      "id": 16,
+      "name": "authorization.role.update",
+      "description": "Allows the user to update an existing role"
+    },
+    {
+      "id": 17,
+      "name": "authorization.role.delete",
+      "description": "Allows the user to delete an existing role"
+    },
+    {
+      "id": 22,
+      "name": "authorization.menu.read",
+      "description": "Allows the user to read an existing menu"
+    },
+    {
+      "id": 23,
+      "name": "authorization.menu.edit",
+      "description": "Allows the user to edit an existing menu"
+    },
+    {
+      "id": 24,
+      "name": "authorization.group.read",
+      "description": "Allows the user to read an existing group"
+    },
+    {
+      "id": 25,
+      "name": "authorization.group.update",
+      "description": "Allows the user to update an existing group"
+    },
+    {
+      "id": 26,
+      "name": "authorization.group.delete",
+      "description": "Allows the user to delete an existing group"
+    },
+    {
+      "id": 27,
+      "name": "authorization.users.create",
+      "description": "Allows the user to create a new users"
+    },
+    {
+      "id": 28,
+      "name": "authorization.users.read",
+      "description": "Allows the user to read an existing users"
+    },
+    {
+      "id": 29,
+      "name": "authorization.users.update",
+      "description": "Allows the user to update an existing users"
+    },
+    {
+      "id": 30,
+      "name": "authorization.users.delete",
+      "description": "Allows the user to delete an existing users"
+    },
+    {
+      "id": 31,
+      "name": "report.report1.create",
+      "description": "Allows the user to create a new report 1"
+    },
+    {
+      "id": 32,
+      "name": "report.report1.read",
+      "description": "Allows the user to read an existing report 1"
+    },
+    {
+      "id": 33,
+      "name": "report.report1.update",
+      "description": "Allows the user to update an existing report 1"
+    },
+    {
+      "id": 34,
+      "name": "report.report1.delete",
+      "description": "Allows the user to delete an existing report 1"
+    }
+  ],
+  "user-permissions": [
+    {
+      "id": 1,
+      "name": "superadmin",
+      "group": {
+        "id": 1,
+        "name": "superadmin",
+        "permissions": [
+          "master.customer.create",
+          "master.customer.update",
+          "master.customer.delete",
+          "master.customer.read",
+          "transaction.transaction1.read",
+          "transaction.transaction1.update",
+          "transaction.transaction1.delete",
+          "transaction.transaction1.update",
+          "transaction.transaction2.create",
+          "transaction.transaction2.read",
+          "transaction.transaction2.update",
+          "transaction.transaction2.delete",
+          "authorization.permission.read",
+          "authorization.role.read",
+          "authorization.role.create",
+          "authorization.role.update",
+          "authorization.role.delete",
+          "authorization.menu.read",
+          "authorization.menu.edit",
+          "authorization.users.create",
+          "authorization.users.read",
+          "authorization.users.update",
+          "authorization.users.delete",
+          "report.report1.create",
+          "report.report1.read",
+          "report.report1.update",
+          "report.report1.delete"
+        ]
+      },
+      "menu": [
+        {
+          "name": "Home",
+          "path": "/home",
+          "icon": "HomeIcon"
+        },
+        {
+          "name": "Master",
+          "icon": "CircleStack",
+          "children": [
+            {
+              "name": "Customers",
+              "path": "/master/customers"
+            }
+          ]
+        },
+        {
+          "name": "Transaction",
+          "icon": "ClipboardDocumentIcon",
+          "children": [
+            {
+              "name": "Transaction 1",
+              "path": "/transaction/1"
+            },
+            {
+              "name": "Transaction 2",
+              "path": "/transaction/2"
+            }
+          ]
+        },
+        {
+          "name": "Authorization Management",
+          "icon": "UserGroup",
+          "children": [
+            {
+              "name": "Menu",
+              "path": "/authorization-management/menu"
+            },
+            {
+              "name": "Permissions Actions",
+              "path": "/authorization-management/permissions-actions"
+            },
+
+            {
+              "name": "User Role",
+              "path": "/authorization-management/user-role"
+            },
+            {
+              "name": "Users",
+              "path": "/authorization-management/users"
+            }
+          ]
+        },
+        {
+          "name": "Documentation",
+          "path": "/documentation",
+          "icon": "BookOpenIcon"
+        },
+        {
+          "name": "Report",
+          "icon": "TableCells",
+          "children": [
+            {
+              "name": "Report 1",
+              "path": "/report-1"
+            },
+            {
+              "name": "Report 2",
+              "path": "/report-2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "admin",
+      "group": {
+        "id": 2,
+        "name": "admin",
+        "permissions": [
+          "master.customer.create",
+          "master.customer.update",
+          "master.customer.delete",
+          "master.customer.read",
+          "transaction.transaction1.read",
+          "transaction.transaction1.update",
+          "transaction.transaction1.delete",
+          "transaction.transaction1.update",
+          "transaction.transaction2.create",
+          "transaction.transaction2.read",
+          "transaction.transaction2.update",
+          "transaction.transaction2.delete",
+          "report.report1.create",
+          "report.report1.read",
+          "report.report1.update",
+          "report.report1.delete"
+        ]
+      },
+      "menu": [
+        {
+          "name": "Home",
+          "path": "/home",
+          "icon": "HomeIcon"
+        },
+        {
+          "name": "Master",
+          "icon": "CircleStack",
+          "children": [
+            {
+              "name": "Customers",
+              "path": "/master/customers"
+            }
+          ]
+        },
+        {
+          "name": "Transaction",
+          "icon": "ClipboardDocumentIcon",
+          "children": [
+            {
+              "name": "Transaction 1",
+              "path": "/transaction/1"
+            },
+            {
+              "name": "Transaction 2",
+              "path": "/transaction/2"
+            }
+          ]
+        },
+        {
+          "name": "Documentation",
+          "path": "/documentation",
+          "icon": "BookOpenIcon"
+        },
+        {
+          "name": "Report",
+          "icon": "TableCells",
+          "children": [
+            {
+              "name": "Report 1",
+              "path": "/report-1"
+            },
+            {
+              "name": "Report 2",
+              "path": "/report-2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "cashier",
+      "group": {
+        "id": 2,
+        "name": "cashier",
+        "permissions": [
+          "transaction.transaction1.read",
+          "transaction.transaction1.update",
+          "transaction.transaction1.delete",
+          "transaction.transaction1.update",
+          "transaction.transaction2.create",
+          "transaction.transaction2.read",
+          "transaction.transaction2.update",
+          "transaction.transaction2.delete",
+          "report.report1.create",
+          "report.report1.read",
+          "report.report1.update",
+          "report.report1.delete"
+        ]
+      },
+      "menu": [
+        {
+          "name": "Home",
+          "path": "/home",
+          "icon": "HomeIcon"
+        },
+        {
+          "name": "Transaction",
+          "icon": "ClipboardDocumentIcon",
+          "children": [
+            {
+              "name": "Transaction 1",
+              "path": "/transaction/1"
+            },
+            {
+              "name": "Transaction 2",
+              "path": "/transaction/2"
+            }
+          ]
+        },
+        {
+          "name": "Documentation",
+          "path": "/documentation",
+          "icon": "BookOpenIcon"
+        },
+        {
+          "name": "Report",
+          "icon": "TableCells",
+          "children": [
+            {
+              "name": "Report 1",
+              "path": "/report-1"
+            },
+            {
+              "name": "Report 2",
+              "path": "/report-2"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "user-role": [
+    {
+      "id": 1,
+      "name": "admin",
+      "description": "admin role",
+      "permissions": [
+        {
+          "id": 1,
+          "name": "master.customer.create"
+        },
+        {
+          "id": 2,
+          "name": "master.customer.update"
+        },
+        {
+          "id": 3,
+          "name": "master.customer.delete"
+        },
+        {
+          "id": 4,
+          "name": "master.customer.read"
+        },
+        {
+          "id": 5,
+          "name": "transaction.transaction1.read"
+        },
+        {
+          "id": 6,
+          "name": "transaction.transaction1.update"
+        },
+        {
+          "id": 7,
+          "name": "transaction.transaction1.delete"
+        },
+        {
+          "id": 8,
+          "name": "transaction.transaction1.update"
+        },
+        {
+          "id": 9,
+          "name": "transaction.transaction2.create"
+        },
+        {
+          "id": 10,
+          "name": "transaction.transaction2.read"
+        },
+        {
+          "id": 11,
+          "name": "transaction.transaction2.update"
+        },
+        {
+          "id": 12,
+          "name": "transaction.transaction2.delete"
+        },
+        {
+          "id": 13,
+          "name": "report.report1.create"
+        },
+        {
+          "id": 14,
+          "name": "report.report1.read"
+        },
+        {
+          "id": 15,
+          "name": "report.report1.update"
+        },
+        {
+          "id": 16,
+          "name": "report.report1.delete"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "cashier",
+      "description": "cashier role",
+      "permissions": [
+        {
+          "id": "transaction.transaction1.read",
+          "name": "transaction.transaction1.read"
+        },
+        {
+          "id": "transaction.transaction1.update",
+          "name": "transaction.transaction1.update"
+        },
+        {
+          "id": "transaction.transaction1.create",
+          "name": "transaction.transaction1.create"
+        },
+        {
+          "id": "transaction.transaction2.create",
+          "name": "transaction.transaction2.create"
+        },
+        {
+          "id": "transaction.transaction2.read",
+          "name": "transaction.transaction2.read"
+        },
+        {
+          "id": "transaction.transaction2.update",
+          "name": "transaction.transaction2.update"
+        },
+        {
+          "id": "report.report1.create",
+          "name": "report.report1.create"
+        },
+        {
+          "id": "report.report1.read",
+          "name": "report.report1.read"
+        },
+        {
+          "id": "report.report1.update",
+          "name": "report.report1.update"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "superadmin",
+      "description": "superadmin role",
+      "permissions": [
+        {
+          "id": 1,
+          "name": "master.customer.create"
+        },
+        {
+          "id": 2,
+          "name": "master.customer.update"
+        },
+        {
+          "id": 3,
+          "name": "master.customer.delete"
+        },
+        {
+          "id": 4,
+          "name": "master.customer.read"
+        },
+        {
+          "id": 5,
+          "name": "transaction.transaction1.read"
+        },
+        {
+          "id": 6,
+          "name": "transaction.transaction1.update"
+        },
+        {
+          "id": 7,
+          "name": "transaction.transaction1.delete"
+        },
+        {
+          "id": 8,
+          "name": "transaction.transaction1.create"
+        },
+        {
+          "id": 9,
+          "name": "transaction.transaction2.create"
+        },
+        {
+          "id": 10,
+          "name": "transaction.transaction2.read"
+        },
+        {
+          "id": 11,
+          "name": "transaction.transaction2.update"
+        },
+        {
+          "id": 12,
+          "name": "transaction.transaction2.delete"
+        },
+        {
+          "id": 13,
+          "name": "authorization.permission.read"
+        },
+        {
+          "id": 14,
+          "name": "authorization.role.read"
+        },
+        {
+          "id": 15,
+          "name": "authorization.role.create"
+        },
+        {
+          "id": 16,
+          "name": "authorization.role.update"
+        },
+        {
+          "id": 17,
+          "name": "authorization.role.delete"
+        },
+        {
+          "id": 18,
+          "name": "authorization.group.read"
+        },
+        {
+          "id": 22,
+          "name": "authorization.menu.read"
+        },
+        {
+          "id": 23,
+          "name": "authorization.menu.edit"
+        },
+        {
+          "id": 24,
+          "name": "authorization.users.create"
+        },
+        {
+          "id": 25,
+          "name": "authorization.users.read"
+        },
+        {
+          "id": 26,
+          "name": "authorization.users.update"
+        },
+        {
+          "id": 27,
+          "name": "authorization.users.delete"
+        },
+        {
+          "id": 28,
+          "name": "report.report1.create"
+        },
+        {
+          "id": 29,
+          "name": "report.report1.read"
+        },
+        {
+          "id": 30,
+          "name": "report.report1.update"
+        },
+        {
+          "id": 31,
+          "name": "report.report1.delete"
+        }
+      ]
+    }
+  ]
+}
