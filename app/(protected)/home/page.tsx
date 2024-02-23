@@ -1,9 +1,8 @@
-'use client'
 import React from 'react'
 import Image from 'next/image'
-import { useSession } from 'next-auth/react'
 
 const Home: React.FC = () => {
+
     return (
         <div className="h-full flex flex-col items-center justify-center bg-white">
             <main className="mx-auto px-4 sm:px-6 lg:px-8">
