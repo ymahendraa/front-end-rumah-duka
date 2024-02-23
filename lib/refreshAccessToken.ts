@@ -6,7 +6,7 @@ import axios from "./axios";
  * @param refreshToken string of refresh token
  * @returns new access token
  */
-export async function refreshAccessToken(refreshToken: string) {
+export async function refreshAccessToken(refreshToken: string, id: string) {
   try {
     // Send a request to the refresh token endpoint
     const res = await axios("/refresh", {
@@ -30,6 +30,9 @@ export async function refreshAccessToken(refreshToken: string) {
   } catch (error: any) {
     console.error("Failed to refresh access token:", error);
     if (error.response.status === 401) {
+      // delete the redis data with key id
+      axios.delete(`/redis/${id}`);
+
       console.log(error);
       // If the refresh token is expired, sign out
       signOut();
