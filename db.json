@@ -474,18 +474,6 @@
       "password": "billing",
       "status": true,
       "role": "billing"
-    },
-    {
-      "username": "tes",
-      "first_name": "test",
-      "email": "test@gmailc.om",
-      "last_name": "test",
-      "phone": "test",
-      "password": "test",
-      "confirm_password": "test",
-      "status": "active",
-      "role": ["cashier", "superadmin"],
-      "id": 4
     }
   ],
   "group-menu": [
@@ -643,22 +631,22 @@
   "permissions": [
     {
       "id": 1,
-      "name": "master.customer.create",
+      "name": "master.customers.create",
       "description": "Allows the user to create a new customer"
     },
     {
       "id": 2,
-      "name": "master.customer.update",
+      "name": "master.customers.update",
       "description": "Allows the user to update an existing customer"
     },
     {
       "id": 3,
-      "name": "master.customer.delete",
+      "name": "master.customers.delete",
       "description": "Allows the user to delete an existing customer"
     },
     {
       "id": 4,
-      "name": "master.customer.read",
+      "name": "master.customers.read",
       "description": "Allows the user to read an existing customer"
     },
     {
@@ -733,7 +721,7 @@
     },
     {
       "id": 23,
-      "name": "authorization.menu.edit",
+      "name": "authorization.menu.update",
       "description": "Allows the user to edit an existing menu"
     },
     {
@@ -800,10 +788,10 @@
         "id": 1,
         "name": "superadmin",
         "permissions": [
-          "master.customer.create",
-          "master.customer.update",
-          "master.customer.delete",
-          "master.customer.read",
+          "master.customers.create",
+          "master.customers.update",
+          "master.customers.delete",
+          "master.customers.read",
           "transaction.transaction1.read",
           "transaction.transaction1.update",
           "transaction.transaction1.delete",
@@ -818,7 +806,7 @@
           "authorization.role.update",
           "authorization.role.delete",
           "authorization.menu.read",
-          "authorization.menu.edit",
+          "authorization.menu.update",
           "authorization.users.create",
           "authorization.users.read",
           "authorization.users.update",
@@ -910,10 +898,9 @@
         "id": 2,
         "name": "admin",
         "permissions": [
-          "master.customer.create",
-          "master.customer.update",
-          "master.customer.delete",
-          "master.customer.read",
+          "master.customers.create",
+          "master.customers.update",
+          "master.customers.read",
           "transaction.transaction1.read",
           "transaction.transaction1.update",
           "transaction.transaction1.delete",
@@ -981,10 +968,10 @@
     },
     {
       "id": 2,
-      "name": "cashier",
+      "name": "billing",
       "group": {
         "id": 2,
-        "name": "cashier",
+        "name": "billing",
         "permissions": [
           "transaction.transaction1.read",
           "transaction.transaction1.update",
@@ -1050,19 +1037,19 @@
       "permissions": [
         {
           "id": 1,
-          "name": "master.customer.create"
+          "name": "master.customers.create"
         },
         {
           "id": 2,
-          "name": "master.customer.update"
+          "name": "master.customers.update"
         },
         {
           "id": 3,
-          "name": "master.customer.delete"
+          "name": "master.customers.delete"
         },
         {
           "id": 4,
-          "name": "master.customer.read"
+          "name": "master.customers.read"
         },
         {
           "id": 5,
@@ -1116,7 +1103,7 @@
     },
     {
       "id": 2,
-      "name": "cashier",
+      "name": "billing",
       "description": "cashier role",
       "permissions": [
         {
@@ -1164,19 +1151,19 @@
       "permissions": [
         {
           "id": 1,
-          "name": "master.customer.create"
+          "name": "master.customers.create"
         },
         {
           "id": 2,
-          "name": "master.customer.update"
+          "name": "master.customers.update"
         },
         {
           "id": 3,
-          "name": "master.customer.delete"
+          "name": "master.customers.delete"
         },
         {
           "id": 4,
-          "name": "master.customer.read"
+          "name": "master.customers.read"
         },
         {
           "id": 5,
@@ -1240,7 +1227,7 @@
         },
         {
           "id": 23,
-          "name": "authorization.menu.edit"
+          "name": "authorization.menu.update"
         },
         {
           "id": 24,
