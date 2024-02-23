@@ -1,6 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 import jwt from "jsonwebtoken";
-import remapActions from "@/utils/remap-actions";
+import remapActions from "@/utils/remapActions";
 
 export async function GET(req: NextRequest) {
   // get token from headers
