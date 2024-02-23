@@ -1,5 +1,5 @@
 'use client'
-import React, { useCallback } from 'react'
+import React, { useCallback, useContext } from 'react'
 
 // components import
 import Loading from '../../loading'
@@ -25,9 +25,11 @@ import useDebounce from '@/hooks/useDebounce'
 import useSubmit from '@/hooks/useSubmit'
 
 // utils import
-import formatCurrentPath from '@/utils/format-current-path'
+import formatCurrentPath from '@/utils/formatCurrentPath'
 import CRUDHeaderSection from '@/components/organisms/sections/crud-header-section'
-
+import { AuthorizationContext } from '@/context/AuthorizationContext/context'
+import { TODO } from '@/types/todo'
+import { checkPermissions } from '@/utils/checkPermissions'
 
 /**
  * 
@@ -39,6 +41,9 @@ const CustomerPage = () => {
     // get the current route path
     const path = usePathname()
     const formattedPath = formatCurrentPath(path)
+
+    const authData: TODO = useContext(AuthorizationContext) // get auth data from context
+    const permissions = authData?.group?.permissions // get permissions from auth data
 
     // define search params
     const searchParams = useSearchParams()
@@ -65,7 +70,7 @@ const CustomerPage = () => {
         openDelete,
         setOpenEdit,
         setOpenDelete,
-    } = useColumns()
+    } = useColumns(permissions)
 
     // get modal state
     const {
@@ -129,6 +134,7 @@ const CustomerPage = () => {
                     onChange={(e) => {
                         router.push(pathname + '?' + createQueryString('q', e.target.value))
                     }}
+                    disableCreate={!checkPermissions(['master.customers.create'], permissions)}
                     PopOverComponent={
                         <Section className='w-full flex flex-col gap-2 text-slate-500 text-sm' >
                             <p>Advanced Filter</p>
