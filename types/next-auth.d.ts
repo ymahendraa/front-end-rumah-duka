@@ -1,4 +1,5 @@
 import NextAuth from "next-auth";
+// import { TODO } from "./todo";
 
 declare module "next-auth" {
   interface Session {
@@ -9,6 +10,7 @@ declare module "next-auth" {
       image: string;
       accessToken: string;
       refreshToken: string;
+      // authorization: TODO;
     };
   }
 }
