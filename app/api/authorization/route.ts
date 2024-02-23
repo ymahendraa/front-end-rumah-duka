@@ -17,8 +17,13 @@ export async function GET(req: NextRequest) {
     // fetch data from json server
     const response = await fetch(
       `http://localhost:3001/user-permissions?group.name=${role}`
-    );
-    const data = await response.json();
+    )
+      .then((res) => res.json())
+      .catch((err) => {
+        return NextResponse.json({ error: err }, { status: 500 });
+      });
+
+    const data = await response;
     return NextResponse.json(data[0]);
   }
 }
