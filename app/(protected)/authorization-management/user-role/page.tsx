@@ -15,13 +15,18 @@ import Edit from './components/Edit'
 
 // hooks import
 import { usePaginationState } from '@/hooks/usePaginationState'
-import React, { useCallback } from 'react'
+import React, { useCallback, useContext } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import useColumns from './hooks/useColumns'
 import useModalState from '@/hooks/useModalState'
 import useSubmit from '@/hooks/useSubmit'
 import useDebounce from '@/hooks/useDebounce'
 import { useGetDataWithPagination } from '@/hooks/useGetDataWithPagination'
+
+// utils import
+import { AuthorizationContext } from '@/context/AuthorizationContext/context'
+import { checkPermissions } from '@/utils/checkPermissions'
+import { TODO } from '@/types/todo'
 
 /**
  * 
@@ -41,6 +46,10 @@ const RolePage = () => {
     // define router
     const router = useRouter()
 
+    // get auth data from context
+    const authData: TODO = useContext(AuthorizationContext)
+    const permissions = authData?.group?.permissions
+
     // get pagination state
     const {
         page,
@@ -57,7 +66,7 @@ const RolePage = () => {
         openDelete,
         setOpenEdit,
         setOpenDelete,
-    } = useColumns()
+    } = useColumns(permissions)
 
     // get modal state
     const {
@@ -111,6 +120,7 @@ const RolePage = () => {
                 <CRUDHeaderSection
                     onClickCreate={() => setOpen(true)}
                     value={q}
+                    disableCreate={!checkPermissions(['authorization.role.create'], permissions)}
                     onChange={(e) => {
                         router.push(pathname + '?' + createQueryString('q', e.target.value))
                     }}
