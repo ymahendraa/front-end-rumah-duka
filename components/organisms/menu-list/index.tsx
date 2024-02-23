@@ -1,5 +1,5 @@
 import Menu from '@/components/molecules/menu'
-import type { MenuType } from '@/utils/menu-array'
+import type { MenuType } from '@/utils/menuArray'
 import React from 'react'
 
 type MenuListProps = {

@@ -2,19 +2,18 @@ import React, { useContext, useState } from 'react'
 // components import
 import Image from 'next/image'
 import ModalOverlay from '@/components/atoms/modal-overlay'
+import LoadingKalla from '@/components/atoms/loading'
+import Section from '@/components/atoms/section'
 import MenuList from '@/components/organisms/menu-list'
 
 // hooks import
 import { usePathname } from 'next/navigation'
 
 // utils import
-import { signOut, useSession } from 'next-auth/react'
-import { MenuType } from '@/utils/menu-array'
+import { signOut } from 'next-auth/react'
+import { MenuType } from '@/utils/menuArray'
+import { TODO } from '@/types/todo'
 import { AuthorizationContext } from '@/context/AuthorizationContext/context'
-import LoadingKalla from '@/components/atoms/loading'
-import Section from '@/components/atoms/section'
-import useSWR from 'swr'
-import useFetcher from '@/hooks/useFetcher'
 
 
 type SidebarProps = {
@@ -32,21 +31,26 @@ const SidebarModule: React.FC<SidebarProps> = ({ show, setter }) => {
     const [activeItems, setActiveItems] = useState<MenuType | null>(null)
     const activeroute = usePathname()
 
-    // define menu list from context
-    // const { data } = useContext(AuthorizationContext)
+    // const data: TODO = usePermissions()
+    const permissions: any = useContext(AuthorizationContext);
 
-    // define menu from session data
-    const { data: session, status } = useSession()
-    // const menu = session?.user.authorization.menu
-
-    const fetcher = useFetcher(session)
-    const { data, isLoading } = useSWR(session ? 'http://localhost:3000/api/authorization' : null,
-        fetcher)
-
-    const menu = data?.menu
+    const menu = permissions?.menu ?? []
 
     // get menu from data
     const MENU_ARRAY = menu ?? []
+
+    /**
+     * @description signOutHandler : function to sign out
+     * @returns signOutHandler function
+     */
+    const signOutHandler = async (id: string) => {
+        // delete redis value
+        await fetch(`/api/redis/${id}`, {
+            method: 'DELETE'
+        })
+        signOut()
+
+    }
 
     /**
      * @description toggleActiveItem : function to toggle active item
@@ -64,7 +68,7 @@ const SidebarModule: React.FC<SidebarProps> = ({ show, setter }) => {
 
     // Define our base class
     const className =
-        'flex flex-col bg-white w-[300px] lg:w-[400px] transition-[margin-left] ease-in-out duration-500 fixed lg:sticky top-0 bottom-0 left-0 z-40 gap-y-6 shadow-lg px-4 py-4 justify-between h-screen'
+        'flex flex-col bg-white min-w-[300px] lg:w-[400px] transition-[margin-left] ease-in-out duration-500 fixed lg:sticky top-0 bottom-0 left-0 z-40 gap-y-6 shadow-lg px-4 py-4 justify-between h-screen'
 
     // Append class based on state of sidebar visiblity
     const appendClass = show ? ' ml-0' : 'ml-[-300px] lg:ml-0'
@@ -87,34 +91,26 @@ const SidebarModule: React.FC<SidebarProps> = ({ show, setter }) => {
                     </div>
 
                     {/* MENU */}
-                    {status === 'loading' || isLoading ? (
+                    {/* {status === 'loading' ? (
                         <Section className='w-full h-96 flex items-center justify-center'>
                             <LoadingKalla width={20} height={20} />
                         </Section>
-                    ) : (
-                        <div className="h-[500px] overflow-y-auto scrollbar-hide">
-                            <MenuList
-                                setter={setter}
-                                items={MENU_ARRAY}
-                                activeRoute={activeroute}
-                                toggleActive={toggleActiveItem}
-                                isItemActive={isItemActive}
-                            />
-                        </div>
-                    )}
+                    ) : ( */}
+                    <div className="h-[500px] overflow-y-auto scrollbar-hide">
+                        <MenuList
+                            setter={setter}
+                            items={MENU_ARRAY}
+                            activeRoute={activeroute}
+                            toggleActive={toggleActiveItem}
+                            isItemActive={isItemActive}
+                        />
+                    </div>
+                    {/* )} */}
                 </div>
 
-                <button onClick={() => signOut()} className='bg-primary hover:bg-primaryDark rounded-md text-sm p-1 w-1/3 self-center text-white'>
+                <button onClick={() => signOutHandler(permissions.id)} className='bg-primary hover:bg-primaryDark rounded-md text-sm p-1 w-1/3 self-center text-white'>
                     Sign out
                 </button>
-                {/* USER INFO */}
-                {/* <div>
-          <Pill
-          name={session?.firstName}
-          role={session?.role}
-          menuList={menuList}
-          />
-        </div> */}
             </aside>
             {/* Overlay to prevent clicks in background, also serves as our close button */}
             {show ? <ModalOverlay setter={setter} /> : <></>}

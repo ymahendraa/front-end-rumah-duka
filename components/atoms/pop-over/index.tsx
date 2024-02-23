@@ -1,6 +1,5 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Popover, Transition } from '@headlessui/react'
-import { Fragment } from 'react'
 
 type PopOverProps = {
     PopOverButton: React.ReactNode
@@ -21,12 +20,12 @@ const PopOver: React.FC<PopOverProps> = ({
         <Popover className="relative">
             {({ open }) => (
                 <>
-                    <Popover.Button
+                    <div
                         className={`ring-0 focus:ring-0 focus:outline-none
                 ${open ? 'text-white' : 'text-white/90'}`}
                     >
                         {PopOverButton}
-                    </Popover.Button>
+                    </div>
                     <Transition
                         as={Fragment}
                         enter="transition ease-out duration-200"
