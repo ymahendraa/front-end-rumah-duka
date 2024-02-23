@@ -11,7 +11,7 @@ type CRUDHeaderSectionProps = {
     value?: string
     PopOverComponent?: React.ReactNode
     advancedSearch?: boolean,
-    disableCreate?: boolean
+    disableCreate?: boolean,
 } & React.InputHTMLAttributes<HTMLInputElement>
 /**
  * @description
