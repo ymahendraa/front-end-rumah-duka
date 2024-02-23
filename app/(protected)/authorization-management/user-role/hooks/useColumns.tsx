@@ -4,6 +4,7 @@ import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline'
 // utils import
 import { createColumnHelper } from '@tanstack/react-table'
 import type { Role } from '@/types/authorization'
+import { checkPermissions } from '@/utils/checkPermissions'
 
 // hooks import
 import { useMemo, useState } from 'react'
@@ -19,6 +20,7 @@ const columnHelper = createColumnHelper<Role>()
  * 
  * @description
  * useColumns: useColumns hook for CustomerPage
+ * @params permissions permissions for checking user permissions
  * @returns
  * columns : columns state for table
  * selectedRow : selectedRow state for getting selected row
@@ -37,7 +39,7 @@ const columnHelper = createColumnHelper<Role>()
  *      setOpenDelete,
  *  } = useColumns()
  */
-const useColumns = () => {
+const useColumns = (permissions: string[]) => {
     const [selectedRow, setSelectedRow] = useState<null | SelectedRowType>(null)
     const { openEdit, setOpenEdit, openDelete, setOpenDelete } = useModalState()
 
@@ -79,35 +81,39 @@ const useColumns = () => {
                     const row = info.getValue()
                     return (
                         <div className="flex flex-row gap-x-2">
-                            <button
-                                onClick={() => {
-                                    setSelectedRow({
-                                        // name: row.first_name + ' ' + row.last_name,
-                                        id: row.id,
-                                    })
-                                    setOpenEdit(true)
-                                }}
-                            >
-                                <PencilSquareIcon className="w-5 h-5 hover:text-secondary" />
-                            </button>
-                            <button
-                                onClick={() => {
-                                    setSelectedRow({
-                                        name: row.name,
-                                        id: row.id,
-                                    })
-                                    setOpenDelete(true)
-                                }}
-                            >
-                                <TrashIcon className="w-5 h-5 hover:text-red-500" />
-                            </button>
+                            {checkPermissions(['authorization.role.update'], permissions) && (
+                                <button
+                                    onClick={() => {
+                                        setSelectedRow({
+                                            // name: row.first_name + ' ' + row.last_name,
+                                            id: row.id,
+                                        })
+                                        setOpenEdit(true)
+                                    }}
+                                >
+                                    <PencilSquareIcon className="w-5 h-5 hover:text-secondary" />
+                                </button>
+                            )}
+                            {checkPermissions(['authorization.role.delete'], permissions) && (
+                                <button
+                                    onClick={() => {
+                                        setSelectedRow({
+                                            name: row.name,
+                                            id: row.id,
+                                        })
+                                        setOpenDelete(true)
+                                    }}
+                                >
+                                    <TrashIcon className="w-5 h-5 hover:text-red-500" />
+                                </button>
+                            )}
                         </div>
                     )
                 },
                 size: 10, // Adjust the size as needed
             }),
         ],
-        [],
+        [permissions],
     )
 
     return {

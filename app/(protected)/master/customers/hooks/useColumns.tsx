@@ -6,10 +6,12 @@ import { createColumnHelper } from '@tanstack/react-table'
 import type { Customer } from '@/types/customer'
 import dayjs from 'dayjs'
 import 'dayjs/locale/id'
+import { checkPermissions } from '@/utils/checkPermissions'
 
 // hooks import
-import { useMemo, useState } from 'react'
+import { useContext, useMemo, useState } from 'react'
 import useModalState from '@/hooks/useModalState'
+import { AuthorizationContext } from '@/context/AuthorizationContext/context'
 
 export type SelectedRowType = {
     name: string
@@ -21,6 +23,7 @@ const columnHelper = createColumnHelper<Customer>()
  * 
  * @description
  * useColumns: useColumns hook for CustomerPage
+ * @param permissions permissions for checking user permissions
  * @returns
  * columns : columns state for table
  * selectedRow : selectedRow state for getting selected row
@@ -37,9 +40,11 @@ const columnHelper = createColumnHelper<Customer>()
  *      openDelete,
  *      setOpenEdit,
  *      setOpenDelete,
- *  } = useColumns()
+ *  } = useColumns(
+ *     ['customer.create', 'customer.update', 'customer.delete']
+ * )
  */
-const useColumns = () => {
+const useColumns = (permissions: string[]) => {
     const [selectedRow, setSelectedRow] = useState<null | SelectedRowType>(null)
     const { openEdit, setOpenEdit, openDelete, setOpenDelete } = useModalState()
 
@@ -84,35 +89,38 @@ const useColumns = () => {
                     const row = info.getValue()
                     return (
                         <div className="flex flex-row gap-x-2">
-                            <button
-                                onClick={() => {
-                                    setSelectedRow({
-                                        name: row.first_name + ' ' + row.last_name,
-                                        id: row.id,
-                                    })
-                                    setOpenEdit(true)
-                                }}
-                            >
-                                <PencilSquareIcon className="w-5 h-5 hover:text-secondary" />
-                            </button>
-                            <button
-                                onClick={() => {
-                                    setSelectedRow({
-                                        name: row.first_name + ' ' + row.last_name,
-                                        id: row.id,
-                                    })
-                                    setOpenDelete(true)
-                                }}
-                            >
-                                <TrashIcon className="w-5 h-5 hover:text-red-500" />
-                            </button>
+                            {checkPermissions(['master.customers.update'], permissions) && (
+                                <button
+                                    onClick={() => {
+                                        setSelectedRow({
+                                            name: row.first_name + ' ' + row.last_name,
+                                            id: row.id,
+                                        })
+                                        setOpenEdit(true)
+                                    }}
+                                >
+                                    <PencilSquareIcon className="w-5 h-5 hover:text-secondary" />
+                                </button>
+                            )}
+                            {checkPermissions(['master.customers.delete'], permissions) && (
+                                <button
+                                    onClick={() => {
+                                        setSelectedRow({
+                                            name: row.first_name + ' ' + row.last_name,
+                                            id: row.id,
+                                        })
+                                        setOpenDelete(true)
+                                    }}
+                                >
+                                    <TrashIcon className="w-5 h-5 hover:text-red-500" />
+                                </button>)}
                         </div>
                     )
                 },
                 size: 10, // Adjust the size as needed
             }),
         ],
-        [],
+        [permissions],
     )
 
     return {

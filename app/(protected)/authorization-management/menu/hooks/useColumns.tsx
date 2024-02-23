@@ -1,13 +1,16 @@
 // components import
-import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline'
+import { PencilSquareIcon } from '@heroicons/react/24/outline'
 
 // utils import
 import { createColumnHelper } from '@tanstack/react-table'
 import type { GroupMenu } from '@/types/authorization'
+import { AuthorizationContext } from '@/context/AuthorizationContext/context'
+import { TODO } from '@/types/todo'
 
 // hooks import
-import { useMemo, useState } from 'react'
+import { useContext, useMemo, useState } from 'react'
 import useModalState from '@/hooks/useModalState'
+import { checkPermissions } from '@/utils/checkPermissions'
 
 export type SelectedRowType = {
     name?: string
@@ -40,6 +43,10 @@ const columnHelper = createColumnHelper<GroupMenu>()
 const useColumns = () => {
     const [selectedRow, setSelectedRow] = useState<null | SelectedRowType>(null)
     const { openEdit, setOpenEdit, openDelete, setOpenDelete } = useModalState()
+
+    // get auth data from context
+    const authData: TODO = useContext(AuthorizationContext)
+    const permissions = authData?.group?.permissions
 
     const columns = useMemo(
         () => [
@@ -86,17 +93,19 @@ const useColumns = () => {
                     const row = info.getValue()
                     return (
                         <div className="flex flex-row gap-x-2">
-                            <button
-                                onClick={() => {
-                                    setSelectedRow({
-                                        // name: row.first_name + ' ' + row.last_name,
-                                        id: row.id,
-                                    })
-                                    setOpenEdit(true)
-                                }}
-                            >
-                                <PencilSquareIcon className="w-5 h-5 hover:text-secondary" />
-                            </button>
+                            {checkPermissions(['authorization.menu.update'], permissions) && (
+                                <button
+                                    onClick={() => {
+                                        setSelectedRow({
+                                            // name: row.first_name + ' ' + row.last_name,
+                                            id: row.id,
+                                        })
+                                        setOpenEdit(true)
+                                    }}
+                                >
+                                    <PencilSquareIcon className="w-5 h-5 hover:text-secondary" />
+                                </button>
+                            )}
                             {/* <button
                                 onClick={() => {
                                     setSelectedRow({
@@ -114,7 +123,7 @@ const useColumns = () => {
                 size: 10, // Adjust the size as needed
             }),
         ],
-        [],
+        [permissions],
     )
 
     return {
