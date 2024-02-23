@@ -1,5 +1,6 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { createRedisInstance } from "@/redis";
 
 export const authOptions: NextAuthOptions = {
   pages: {
@@ -34,16 +35,18 @@ export const authOptions: NextAuthOptions = {
 
         if (res.ok && user) {
           // get authorization data
-          const resAuth = await fetch(
-            "http://localhost:3000/api/authorization",
-            {
-              headers: {
-                Authorization: `Bearer ${user.accessToken}`,
-              },
-            }
-          );
+          // const resAuth = await fetch(
+          //   "http://localhost:3000/api/authorization",
+          //   {
+          //     headers: {
+          //       Authorization: `Bearer ${user.accessToken}`,
+          //     },
+          //   }
+          // );
+
+          // user.authorization = await resAuth.json();
           // Any object returned will be saved in `user` property of the JWT
-          user.authorization = await resAuth.json();
+          console.log("user", user);
           return user;
         } else {
           // If you return null then an error will be displayed advising the user to check their details.
