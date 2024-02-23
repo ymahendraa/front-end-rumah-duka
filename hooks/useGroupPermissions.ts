@@ -1,6 +1,6 @@
 import { Permission } from "@/types/authorization";
 import { TODO } from "@/types/todo";
-import { groupingPermission } from "@/utils/grouping-permission";
+import { groupingPermission } from "@/utils/groupingPermission";
 import { useMemo } from "react";
 
 const useGroupPermissions = (object: Permission[]) => {
