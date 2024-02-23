@@ -24,9 +24,6 @@ const LoginComponent: React.FC<Props> = ({ error, callbackUrl }) => {
   const password = useRef('')
   const router = useRouter()
 
-  // get set data state from authorizationContext
-  const { setState } = useContext(AuthorizationContext)
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const res = await signIn('credentials', {
@@ -48,14 +45,6 @@ const LoginComponent: React.FC<Props> = ({ error, callbackUrl }) => {
     if (!res?.error) {
       const session = await getSession()
       if (session) {
-        // get authorization data
-        const resAuth = await axios.get('/authorization', {
-          headers: {
-            Authorization: `Bearer ${session.user.accessToken}`,
-          },
-        })
-        // set data state from authorizationContext
-        setState(resAuth.data)
         // redirect to callbackUrl or home
         router.push(callbackUrl ?? 'http://localhost:3000/home')
       }
