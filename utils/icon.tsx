@@ -23,7 +23,12 @@ import {
   CreditCardIcon,
   CloudIcon,
   EllipsisHorizontalIcon,
-  FolderOpenIcon
+  FolderOpenIcon,
+  UserIcon,
+  CalendarDaysIcon,
+  ArchiveBoxIcon,
+  UserPlusIcon,
+  UsersIcon
 } from '@heroicons/react/24/outline'
 
 export const ICON = {
@@ -51,6 +56,11 @@ export const ICON = {
   CreditCard: <CreditCardIcon className="w-5 h-5" />,
   Cloud: <CloudIcon className="w-5 h-5" />,
   EllipsisHorizontal: <EllipsisHorizontalIcon className="w-5 h-5" />,
-  FolderOpen: <FolderOpenIcon className="w-5 h-5" />
-
+  FolderOpen: <FolderOpenIcon className="w-5 h-5" />,
+  UserIcon: <UserIcon className="w-5 h-5" />,
+  CalendarDaysIcon: <CalendarDaysIcon className="w-5 h-5" />,
+  RoomIcon: <img src='/room.svg' alt="room" className="w-5 h-5" />,
+  ArchiveBoxIcon: <ArchiveBoxIcon className="w-5 h-5" />,
+  UserPlusIcon: <UserPlusIcon className="w-5 h-5" />,
+  UsersIcon: <UsersIcon className="w-5 h-5" />
 }
