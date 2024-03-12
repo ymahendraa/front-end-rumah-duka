@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { FieldError, FieldErrorsImpl, Merge, UseFormRegister } from 'react-hook-form'
 import Label from '../../label'
+import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
 
 type InputTextProps = {
   classNameInput?: string
@@ -8,6 +9,7 @@ type InputTextProps = {
   error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
   label?: string
   rule?: any
+  isPassword?: boolean
   register?: UseFormRegister<any>
 } & React.InputHTMLAttributes<HTMLInputElement>
 
@@ -20,6 +22,7 @@ type InputTextProps = {
  * @param label label for input text
  * @param rule rule for the input text
  * @param register register for integrating with react-hook-form
+ * @param isPassword isPassword for input text
  * @param props props for input text
  * @returns InputText component
  * 
@@ -36,10 +39,14 @@ const InputText: React.FC<InputTextProps> = ({
   register,
   rule,
   label,
+  isPassword,
   ...props
 }) => {
+  const [showPassword, setShowPassword] = useState(false);
+  const toggleShowPassword = () => setShowPassword(!showPassword);
+
   const config = {
-    classNameInput: classNameInput ?? 'w-full h-8 border border-gray-300 rounded-md px-2 text-black text-sm focus:border-primary focus:outline-none',
+    classNameInput: classNameInput ?? 'w-full bg-base h-12 border border-gray-300 rounded-xl px-2 text-white text-sm focus:border-primary focus:outline-none',
     classNameWrapper: classNameWrapper ?? 'flex flex-col gap-y-1'
   }
   return (
@@ -47,10 +54,16 @@ const InputText: React.FC<InputTextProps> = ({
       {label && <Label label={label} name={props.name} aria-required={props['aria-required']} />}
       <input
         id={props.name}
+        type={isPassword ? (showPassword ? 'text' : 'password') : props.type ?? 'text'}
         className={`${config.classNameInput} ${error ? 'border-red-500' : ''}`}
         {...register && register(props.name ?? '', rule)}
         {...props}
       />
+      {isPassword && (
+        <div onClick={toggleShowPassword} className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer">
+          {showPassword ? <EyeIcon className='w-4 h-4 text-white' /> : <EyeSlashIcon className='w-4 h-4 text-white' />}
+        </div>
+      )}
       {error && <span className="text-xs text-red-500">{error.message?.toString()}</span>}
     </div>
   )
