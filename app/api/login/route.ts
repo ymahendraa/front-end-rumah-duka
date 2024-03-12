@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
-import { createRedisInstance } from "@/redis";
 
 const SECRET_KEY = process.env.VERY_SECRET_KEY ?? "yourSecretKey";
 const REFRESH_SECRET_KEY =
@@ -9,6 +8,11 @@ const REFRESH_SECRET_KEY =
 export async function POST(req: NextRequest) {
   // Parse the string as JSON
   const { username, password } = await req.json();
+  const data = await fetch("http://localhost:3001/users").then((res) =>
+    res.json()
+  );
+  console.log("data", data);
+
   // get user from db.json
   const user = await fetch(
     `http://localhost:3001/users?username=${username}&password=${password}`
@@ -43,12 +47,6 @@ export async function POST(req: NextRequest) {
       .catch((err) => {
         return NextResponse.json({ error: err }, { status: 500 });
       });
-
-    // // save the authorization data to redis
-    const redis = createRedisInstance();
-    const authorizationData = await resAuth;
-    await redis.set(user[0].id, JSON.stringify(authorizationData));
-    // await redis.set(user.accessToken, JSON.stringify(authorizationData));
 
     return NextResponse.json({
       accessToken,
