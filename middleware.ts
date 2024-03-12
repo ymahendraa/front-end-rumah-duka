@@ -28,7 +28,7 @@ export default withAuth(
     // get redis data
     try {
       const redisRes = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/redis`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/authorization`,
         {
           headers: {
             Authorization: `Bearer ${token?.accessToken}`,
@@ -55,12 +55,12 @@ export default withAuth(
       };
       const isAuthorized = menu.some(checkPath);
       // if not authorized then redirect to unauthorized page
-      if (!isAuthorized) {
-        const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
-        // remove /api from BASE_URL
-        const url = BASE_URL?.replace("/api", "");
-        return NextResponse.redirect(`${url}/unauthorized`);
-      }
+      // if (!isAuthorized) {
+      //   const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+      //   // remove /api from BASE_URL
+      //   const url = BASE_URL?.replace("/api", "");
+      //   return NextResponse.redirect(`${url}/unauthorized`);
+      // }
     } catch (error) {
       console.log("error", error);
     }
@@ -82,10 +82,11 @@ export default withAuth(
 
 export const config = {
   matcher: [
-    "/master/:path*",
-    "/transaction/:path*",
-    "/home/:path*",
+    "/customer/:path*",
+    "/almarhum/:path*",
     "/report/:path*",
+    "/ruangan/:path*",
+    "/ruangan-kremasi/:path*",
     "/authorization-management/:path*",
   ],
 };
