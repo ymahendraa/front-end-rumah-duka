@@ -31,7 +31,7 @@ export async function refreshAccessToken(refreshToken: string, id: string) {
     console.error("Failed to refresh access token:", error);
     if (error.response.status === 401) {
       // delete the redis data with key id
-      axios.delete(`/redis/${id}`);
+      // axios.delete(`/redis/${id}`);
 
       console.log(error);
       // If the refresh token is expired, sign out
