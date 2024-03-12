@@ -1,10 +1,16 @@
 'use client'
+
+// components import
 import SidebarModule from '@/components/complex-organisms/sidebar'
-// import Sidebar from '@/components/sidebar'
-import '../globals.css'
-// import MobileSidebar from '@/components/mobile-sidebar'
-import { useState } from 'react'
 import MobileSidebar from '@/components/complex-organisms/mobile-sidebar'
+import Section from '@/components/atoms/section'
+import Breadcrumbs from '@/components/molecules/breadcrumbs'
+
+// hooks import
+import { useState } from 'react'
+
+// styles import
+import '../globals.css'
 
 export default function RootLayout({
     children,
@@ -17,10 +23,15 @@ export default function RootLayout({
     return (
         <>
             <MobileSidebar setter={setShowSidebar} />
-            <div className="flex flex-row min-h-screen w-full max-w-screen-2xl">
+            <Section className="flex flex-row min-h-screen w-full max-w-screen-2xl">
                 <SidebarModule show={showSidebar} setter={setShowSidebar} />
-                <div className="w-full pb-8 pt-4 px-4 lg:p-8 mt-14">{children}</div>
-            </div>
+                {/* <Section className="flex-1"> */}
+                <Section className="w-full flex flex-col pb-8 pt-2 px-4 lg:p-8 gap-8">
+                    <Breadcrumbs />
+                    {children}
+                </Section>
+                {/* </Section> */}
+            </Section>
         </>
     )
 }
