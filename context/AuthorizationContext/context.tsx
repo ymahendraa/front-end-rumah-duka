@@ -20,8 +20,16 @@ const AuthorizationProvider = React.memo(({ children }: { children: React.ReactN
     // fetcher function
     const fetcher = useFetcher(session)
 
+    // ACTIVATE THIS CODE IF YOU HAVE REDIS
     // useSWR hook to fetch data
-    const { data } = useSWR(session ? 'http://localhost:3000/api/redis' : null,
+    // activate when use server
+    // const { data } = useSWR(session ? 'http://localhost:3000/api/redis' : null,
+    //     fetcher, {
+    //     revalidateOnFocus: false,
+    //     revalidateOnReconnect: false
+    // })
+
+    const { data } = useSWR(session ? `${process.env.NEXT_PUBLIC_BASE_URL}/authorization` : null,
         fetcher, {
         revalidateOnFocus: false,
         revalidateOnReconnect: false
