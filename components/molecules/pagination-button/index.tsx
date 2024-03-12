@@ -26,10 +26,10 @@ const PaginationButton: React.FC<PaginationButtonProps> = ({
     }
     return (
         <div className='flex gap-x-1'>
-            <Button className={`${config.style} ${disabledPrev ? 'bg-gray-300 hover:bg-gray-400 hover:text-gray-100' : "bg-secondary border-secondary hover:bg-secondaryLight hover:text-secondary hover:border-secondary"}`} onClick={onClickPrev} disabled={disabledPrev}>
+            <Button className={`${config.style} ${disabledPrev ? 'bg-gray-300 hover:text-gray-100' : "bg-ternary border-ternary hover:bg-ternary-dark"}`} onClick={onClickPrev} disabled={disabledPrev}>
                 {labelPrev}
             </Button>
-            <Button className={`${config.style} ${disabledNext ? 'bg-gray-300 hover:bg-gray-400 hover:text-gray-100' : "bg-secondary border-secondary hover:bg-secondaryLight hover:text-secondary hover:border-secondary"}`} onClick={onClickNext} disabled={disabledNext}>
+            <Button className={`${config.style} ${disabledNext ? 'bg-gray-300 hover:text-gray-100' : "bg-ternary border-ternary hover:bg-ternary-dark"}`} onClick={onClickNext} disabled={disabledNext}>
                 {labelNext}
             </Button>
         </div>

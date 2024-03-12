@@ -29,9 +29,9 @@ export const DataTableBase: React.FC<DataTableBaseProps> = ({
 }) => {
     // default DataTableBase props
     const config = {
-        styleContainer: classNameContainer ?? 'overflow-x-auto w-full rounded-md shadow-md',
-        styleTable: classNameTable ?? 'w-full bg-white rounded-md text-slate-600',
-        styleTableHeader: classNameTableHeader ?? 'text-left text-slate-900 p-8 bg-primaryLight',
+        styleContainer: classNameContainer ?? 'overflow-x-auto w-full rounded-md',
+        styleTable: classNameTable ?? 'w-full bg-primary rounded-md ',
+        styleTableHeader: classNameTableHeader ?? 'text-left p-8',
         styleTableBody: classNameTableBody ?? '',
     }
 
@@ -57,7 +57,7 @@ export const DataTableBase: React.FC<DataTableBaseProps> = ({
                             {headerGroup.headers.map((header) => (
                                 <th
                                     key={header.id}
-                                    className="p-3 border-b border-slate-100 font-bold text-sm text-slate-700"
+                                    className="p-3 font-bold text-sm text-white"
                                     style={{
                                         width:
                                             header.getSize() !== 0 ? header.getSize() : undefined,
@@ -89,15 +89,16 @@ export const DataTableBase: React.FC<DataTableBaseProps> = ({
                     {table.getRowModel().rows.map((row, rowIndex) => (
                         <tr
                             key={row.id}
-                            className={`${rowIndex === table.getRowModel().rows.length - 1
-                                ? ''
-                                : 'border-b border-slate-300'
-                                } hover:bg-slate-100`}
+                            className={`hover:bg-[rgba(255,255,255,0.1)]`}
+                        // className={`${rowIndex === table.getRowModel().rows.length - 1
+                        //     ? ''
+                        //     : 'border-b border-slate-300'
+                        //     } hover:bg-primary-light`}
                         >
                             {row.getVisibleCells().map((cell) => (
                                 <td
                                     key={cell.id}
-                                    className="p-3 text-sm text-slate-700 "
+                                    className="p-3 text-sm text-white"
                                     style={{
                                         width:
                                             cell.column.getSize() !== 0

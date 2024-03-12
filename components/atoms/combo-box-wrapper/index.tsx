@@ -43,15 +43,15 @@ const ComboBoxWrapper: React.FC<ComboBoxWrapperProps> = ({
                     {label}
                 </Combobox.Label> */}
                 <div className="relative">
-                    <div className={`relative w-full border border-gray-300 cursor-default overflow-hidden rounded-md bg-white text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm  ${error ? 'border-red-500' : ''}`}>
+                    <div className={`relative w-full border border-gray-300 cursor-default overflow-hidden rounded-xl bg-base text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm  ${error ? 'border-red-500' : ''}`}>
                         <Combobox.Button className="w-full inset-y-0 right-0 flex items-center pr-2">
                             <Combobox.Input
-                                className={`w-full border-none py-2 pl-2 pr-10 text-sm leading-5 text-gray-900 focus:ring-0 focus:outline-none  `}
+                                className={`w-full bg-base h-12 border-none py-2 pl-2 pr-10 text-sm leading-5 text-white focus:ring-0 focus:outline-none `}
                                 onChange={(event) => setQuery(event.target.value)}
                                 displayValue={(optionValue: string | number) =>
                                     getNameFromValue(optionValue)
                                 }
-                                placeholder="Start typing to search..."
+                                placeholder="-- Pilih --"
                                 onBlur={onBlur}
                             />
                             <ChevronUpDownIcon
@@ -67,7 +67,7 @@ const ComboBoxWrapper: React.FC<ComboBoxWrapperProps> = ({
                         leaveTo="opacity-0"
                         afterLeave={() => setQuery("")}
                     >
-                        <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                        <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-primary py-1 text-white shadow-lg ring-1 ring-secondary ring-opacity-5 focus:outline-none sm:text-sm">
                             {filteredOptions.length === 0 && query !== "" ? (
                                 <div className="relative cursor-default select-none py-2 px-4 text-gray-700">
                                     Nothing found.
@@ -77,7 +77,7 @@ const ComboBoxWrapper: React.FC<ComboBoxWrapperProps> = ({
                                     <Combobox.Option
                                         key={option.value}
                                         className={({ active }) =>
-                                            `relative cursor-default py-2 pl-10 pr-4 ${active ? "bg-primary text-white cursor-pointer" : "text-gray-900"
+                                            `relative cursor-default py-2 pl-10 pr-4 ${active ? "bg-secondary-light text-white cursor-pointer" : "text-white"
                                             }`
                                         }
                                         value={option.value}
@@ -92,7 +92,7 @@ const ComboBoxWrapper: React.FC<ComboBoxWrapperProps> = ({
                                                 </span>
                                                 {selected ? (
                                                     <span
-                                                        className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active ? "text-white" : "text-primary"
+                                                        className={`absolute inset-y-0 left-0 flex items-center pl-3 ${active ? "text-white" : "text-white"
                                                             }`}
                                                     >
                                                         <CheckIcon className="h-5 w-5" aria-hidden="true" />

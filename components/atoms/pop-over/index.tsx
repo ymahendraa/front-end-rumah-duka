@@ -20,12 +20,12 @@ const PopOver: React.FC<PopOverProps> = ({
         <Popover className="relative">
             {({ open }) => (
                 <>
-                    <div
+                    <Popover.Button
                         className={`ring-0 focus:ring-0 focus:outline-none
                 ${open ? 'text-white' : 'text-white/90'}`}
                     >
                         {PopOverButton}
-                    </div>
+                    </Popover.Button>
                     <Transition
                         as={Fragment}
                         enter="transition ease-out duration-200"

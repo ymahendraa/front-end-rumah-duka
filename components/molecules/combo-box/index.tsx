@@ -1,4 +1,5 @@
 import ComboBoxWrapper from '@/components/atoms/combo-box-wrapper'
+import Label from '@/components/atoms/label'
 import React from 'react'
 import { Control, Controller, FieldError, FieldErrorsImpl, FieldValues, Merge, RegisterOptions } from 'react-hook-form'
 
@@ -14,7 +15,8 @@ type ComboBoxProps = {
     control?: Control<FieldValues, any>
     rule?: Omit<RegisterOptions<FieldValues, string>, "setValueAs" | "disabled" | "valueAsNumber" | "valueAsDate"> | undefined
     placeholder?: string,
-    name?: string
+    name?: string,
+    required?: boolean
 }
 
 const ComboBox: React.FC<ComboBoxProps> = ({
@@ -26,6 +28,7 @@ const ComboBox: React.FC<ComboBoxProps> = ({
     control,
     name,
     rule,
+    ...props
 }) => {
     const config = {
         classNameInput: classNameInput ?? 'w-full h-8 border border-gray-300 rounded-md px-2 text-black text-sm focus:border-primary focus:outline-none',
@@ -34,7 +37,7 @@ const ComboBox: React.FC<ComboBoxProps> = ({
     return (
 
         <div className={config.classNameWrapper}>
-            {label && <label className="text-sm text-slate-700" htmlFor={name}>{label}</label>}
+            {label && <Label label={label} name={name} aria-required={props.required} />}
             <Controller
                 name={name ?? ''}
                 control={control}
@@ -51,7 +54,7 @@ const ComboBox: React.FC<ComboBoxProps> = ({
                 )}
             />
             {error && (
-                <p className="mt-2 text-xs text-red-500" id="email-error">
+                <p className=" text-xs text-red-500" id="email-error">
                     {error.message?.toString()}
                 </p>
             )}

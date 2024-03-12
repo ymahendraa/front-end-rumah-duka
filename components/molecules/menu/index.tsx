@@ -20,6 +20,7 @@ type MenuProps = {
     label?: string
     onClick?: () => void
     menu?: Array<Menu>
+    minimized?: boolean
 }
 
 const Menu: React.FC<MenuProps> = ({
@@ -32,6 +33,7 @@ const Menu: React.FC<MenuProps> = ({
     label,
     menu,
     onClick,
+    ...props
 }) => {
     const handleClick = (event: React.MouseEvent) => {
         if (path === '#') {
@@ -44,20 +46,22 @@ const Menu: React.FC<MenuProps> = ({
     };
     return (
         <Link href={path ?? '#'} className={classNameLink} onClick={handleClick}>
-            <div className="flex flex-row gap-x-3">
+            <div className={`flex flex-row w-full gap-x-3 ${props.minimized && 'justify-center '}`}>
                 {icon && (
                     <Icon
                         className={classNameIcon}
                         icon={ICON[icon as keyof typeof ICON]}
                     />
                 )}
-                <p
-                    className={classNameLabel}
-                >
-                    {label}
-                </p>
+                {!props.minimized && (
+                    <p
+                        className={classNameLabel}
+                    >
+                        {label}
+                    </p>
+                )}
             </div>
-            {menu && (
+            {menu && !props.minimized && (
                 <ChevronDownIcon className={classNameDropdown} />
             )}
         </Link>

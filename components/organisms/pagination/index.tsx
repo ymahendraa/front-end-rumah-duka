@@ -45,12 +45,12 @@ const Pagination: React.FC<PaginationProps> = ({
                     handleChange={handleLimitChange}
                     options={options}
                 />
-                <p className="text-slate-900 text-xs">
+                <p className="text-white text-xs">
                     Page {totalItems === 0 ? 0 : page} of {totalPages}
                 </p>
             </div>
             <div className="flex items-center gap-2">
-                <p className="text-slate-900 text-xs">Total data: {totalItems}</p>
+                <p className="text-white text-xs">Total data: {totalItems}</p>
                 <div className="join">
                     {/* button */}
                     <PaginationButton

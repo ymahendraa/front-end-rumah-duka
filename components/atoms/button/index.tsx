@@ -24,7 +24,7 @@ const Button: React.FC<ButtonProps> = ({
   const defaultConfig = {
     className:
       className ??
-      'bg-primary text-white hover:bg-primaryDark hover:border-secondary p-2 rounded-md text-sm',
+      'bg-primary text-white hover:bg-primary-dark hover:border-secondary p-2 rounded-md text-sm',
     type: type ?? 'button',
     loading: loading ?? false,
     loadingText: loadingText ?? 'Loading...',

@@ -56,8 +56,8 @@ const Modal: React.FC<ModalProps> = ({
                             leaveTo="opacity-0 scale-95"
                         >
                             {/* The actual dialog panel  */}
-                            <Dialog.Panel className={`flex flex-col gap-2 mx-auto rounded-lg bg-white p-2 ${className}`}>
-                                <Dialog.Title className="text-xl text-slate-700 font-semibold">{dialogTitle}
+                            <Dialog.Panel className={`flex flex-col gap-2 mx-auto rounded-xl bg-primary p-2 ${className}`}>
+                                <Dialog.Title className="text-md text-white font-bold text-center">{dialogTitle}
                                 </Dialog.Title>
                                 {dialogDescription && (
                                     <Dialog.Description>

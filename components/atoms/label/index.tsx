@@ -19,7 +19,7 @@ const Label: React.FC<LabelProps> = ({
     ...props
 }) => {
     return (
-        <label className={`text-sm text-slate-700 ${props['aria-required'] && 'required'}`} htmlFor={name} >{label}</label>
+        <label className={`text-sm text-white ${props['aria-required'] && 'required'}`} htmlFor={name} >{label}</label>
     )
 }
 
