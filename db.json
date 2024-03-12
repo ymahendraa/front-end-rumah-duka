@@ -819,75 +819,39 @@
       },
       "menu": [
         {
-          "name": "Home",
-          "path": "/home",
+          "name": "Dashboard",
+          "path": "/dashboard",
           "icon": "HomeIcon"
         },
         {
-          "name": "Master",
-          "icon": "CircleStack",
-          "children": [
-            {
-              "name": "Customers",
-              "path": "/master/customers"
-            }
-          ]
+          "name": "Customer",
+          "path": "/customer",
+          "icon": "UserIcon"
         },
         {
-          "name": "Transaction",
-          "icon": "ClipboardDocumentIcon",
-          "children": [
-            {
-              "name": "Transaction 1",
-              "path": "/transaction/1"
-            },
-            {
-              "name": "Transaction 2",
-              "path": "/transaction/2"
-            }
-          ]
+          "name": "Almarhum",
+          "icon": "UsersIcon",
+          "path": "/almarhum"
         },
         {
-          "name": "Authorization Management",
-          "icon": "UserGroup",
-          "children": [
-            {
-              "name": "Menu",
-              "path": "/authorization-management/menu"
-            },
-            {
-              "name": "Permissions Actions",
-              "path": "/authorization-management/permissions-actions"
-            },
-
-            {
-              "name": "User Role",
-              "path": "/authorization-management/user-role"
-            },
-            {
-              "name": "Users",
-              "path": "/authorization-management/users"
-            }
-          ]
+          "name": "Reservasi",
+          "path": "/reservasi",
+          "icon": "CalendarDaysIcon"
         },
         {
-          "name": "Documentation",
-          "path": "/documentation",
-          "icon": "BookOpenIcon"
+          "name": "Ruangan",
+          "path": "/ruangan",
+          "icon": "RoomIcon"
         },
         {
-          "name": "Report",
-          "icon": "TableCells",
-          "children": [
-            {
-              "name": "Report 1",
-              "path": "/report-1"
-            },
-            {
-              "name": "Report 2",
-              "path": "/report-2"
-            }
-          ]
+          "name": "Ruangan Kremasi",
+          "path": "/ruangan-kremasi",
+          "icon": "ArchiveBoxIcon"
+        },
+        {
+          "name": "Authorization",
+          "path": "/authorization",
+          "icon": "UserGroup"
         }
       ]
     },
@@ -917,8 +881,8 @@
       },
       "menu": [
         {
-          "name": "Home",
-          "path": "/home",
+          "name": "Dashboard",
+          "path": "/dashboard",
           "icon": "HomeIcon"
         },
         {
@@ -989,8 +953,8 @@
       },
       "menu": [
         {
-          "name": "Home",
-          "path": "/home",
+          "name": "Dashboard",
+          "path": "/dashboard",
           "icon": "HomeIcon"
         },
         {
