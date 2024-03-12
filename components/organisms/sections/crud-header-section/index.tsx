@@ -6,22 +6,23 @@ import { AdjustmentsHorizontalIcon, PlusCircleIcon } from '@heroicons/react/24/o
 import React from 'react'
 
 type CRUDHeaderSectionProps = {
-    // onClickSearch?: () => void
     onClickCreate?: () => void
     value?: string
     PopOverComponent?: React.ReactNode
     advancedSearch?: boolean,
     disableCreate?: boolean,
 } & React.InputHTMLAttributes<HTMLInputElement>
+
 /**
  * @description
  * CRUDHeaderSection component is a component that is used to create a search and create section.
-//  * @param onClickSearch onClickSearch for search button
- * @param onClickCreate onClickCreate for create button
+ * @param onClickCreate function to handle create button
  * @param value value for input text
- * @param PopOverComponent PopOverComponent for pop over panel
- * @param props props for search and create section 
- * @returns SearchCreateSection component 
+ * @param PopOverComponent PopOverComponent for input text
+ * @param advancedSearch advancedSearch for input text
+ * @param disableCreate disableCreate for input text
+ * @param props props for input text
+ * @returns CRUDHeaderSection component
  * 
  * @example
  * <CRUDHeaderSection
@@ -31,12 +32,14 @@ type CRUDHeaderSectionProps = {
  * PopOverComponent={<div>PopOverComponent</div>}
  * />
  */
+
 const CRUDHeaderSection: React.FC<CRUDHeaderSectionProps> = ({
     // onClickSearch,
     onClickCreate,
     value,
     PopOverComponent,
     advancedSearch = true,
+    disableCreate = false,
     ...props
 }) => {
     const config = {
@@ -56,12 +59,12 @@ const CRUDHeaderSection: React.FC<CRUDHeaderSectionProps> = ({
                     advancedSearch && PopOverComponent && (
                         <PopOver
                             PopOverButton={
-                                <Button
-                                    className='h-[30px] flex items-center bg-primary rounded-lg text-sm p-2 hover:bg-primaryDark'
-                                    type='button'
-                                    icon={<AdjustmentsHorizontalIcon className='w-5 h-5' />}
+                                <Section
+                                    className='h-[30px] flex items-center bg-secondary rounded-lg text-sm p-2 hover:bg-secondary-dark'
                                     onClick={() => { }}
-                                />
+                                >
+                                    <AdjustmentsHorizontalIcon className='w-5 h-5' />
+                                </Section>
                             }
                             PopOverPanel={
                                 PopOverComponent
@@ -71,9 +74,9 @@ const CRUDHeaderSection: React.FC<CRUDHeaderSectionProps> = ({
                 }
             </Section>
             {
-                props.disableCreate ? null : (
+                disableCreate ? null : (
                     <Button
-                        className='flex items-center bg-primary rounded-lg text-sm p-2 hover:bg-primaryDark'
+                        className='flex items-center bg-secondary rounded-lg text-sm p-2 hover:bg-secondary-dark'
                         type='button'
                         icon={<PlusCircleIcon className='w-5 h-5' />}
                         onClick={onClickCreate}
