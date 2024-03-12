@@ -5,28 +5,30 @@ import InputText from '@/components/atoms/input/input-text';
 import Button from '@/components/atoms/button';
 import ComboBox from '@/components/molecules/combo-box';
 import InputIcon from '@/components/molecules/input-icon';
-import { ICON } from '@/utils/icon';
 import InputTextArea from '@/components/atoms/input/input-text-area';
 import LoadingKalla from '@/components/atoms/loading';
-import InputCheckbox from '@/components/atoms/input/input-checkbox';
-import Label from '@/components/atoms/label';
 import Section from '@/components/atoms/section';
+import Label from '@/components/atoms/label';
+import InputCheckbox from '@/components/atoms/input/input-checkbox';
 
 // hooks import
+import useTransformObject from '@/hooks/useTransformObject';
 import { SubmitHandler, useForm } from 'react-hook-form'
-import useSubmit from '@/hooks/useSubmit';
 import useFetcher from '@/hooks/useFetcher';
 import useSWR from 'swr';
-import useTransformObject from '@/hooks/useTransformObject';
 import { useSession } from 'next-auth/react';
 
 // utils import
 import { AUTHORIZATION_ACCESS } from '@/utils/dummy';
-import useGroupPermissions from '@/hooks/useGroupPermissions';
+import { ICON } from '@/utils/icon';
+import CheckboxWithChildren from '@/components/molecules/checkbox-with-children';
 import { TODO } from '@/types/todo';
+import useGroupPermissions from '@/hooks/useGroupPermissions';
 
-
-type CreateProps = {
+type EditProps = {
+    submitHandler: (data: any) => void
+    id: string | undefined | number
+    isLoading: boolean
     setOpen: (open: boolean) => void
     mutate: () => void
     url: string
@@ -34,47 +36,69 @@ type CreateProps = {
 
 /**
  * @description
- * Create : component for creating new menu
+ * Edit : component for editing new menu
  * @param setOpen setOpen function for modal
  * @param mutate mutate function for data
  * @param url url for fetching data
- * @returns Create component for creating new menu
+ * @returns Edit component for editing new menu
  * 
  * @example
- * <Create
+ * <Edit
  * setOpen={setOpen}
  * mutate={mutate}
  * url='customer'
  * />
  */
-const Create: React.FC<CreateProps> = ({
+const Edit: React.FC<EditProps> = ({
+    submitHandler,
+    id,
+    isLoading,
     setOpen,
     mutate,
     url
 }) => {
     // define session
-    const { data: session } = useSession()
+    const { data: session } = useSession();
+
+    // define fetcher
+    const fetcher = useFetcher(session);
+
+    // get selected row data with SWR
+    const { data: selectedData, error: errorSelectedData, isLoading: isLoadingData, isValidating } = useSWR(
+        `${url}/${id}`,
+        fetcher,
+    )
 
     // get form data
     const {
         register,
         handleSubmit,
-        control,
-        reset,
         formState: { errors },
+        reset,
     } = useForm();
 
-    // get submit handler
-    const { submitHandler, isLoading } = useSubmit()
+    // reset form when data is fetched
+    useEffect(() => {
+        if (selectedData) {
+            reset({
+                name: selectedData?.name,
+                description: selectedData?.description,
+                permissions: selectedData?.permissions?.map((item: any) => item.name), // CAUTION: change this to item.id if already you real API
+                // actions: ['create', 'read', 'update', 'delete']
+                // permissions: selectedData?.actions.map((item: any) => item.id.toString())
+            })
+        }
+
+    }, [selectedData, reset]);
 
     // submit handler
     const onSubmit: SubmitHandler<any> = async (data: any) => {
         try {
-            console.log(data)
-            await submitHandler({
-                url: url,
+            // console.log(data)
+            submitHandler({
+                url: `${url}/${id}`,
                 config: {
-                    method: 'POST',
+                    method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json'
                     },
@@ -93,9 +117,6 @@ const Create: React.FC<CreateProps> = ({
         reset();
     }, [setOpen]);
 
-    // define fetcher
-    const fetcher = useFetcher(session);
-
     // get list of permissions
     const { data: dataPermissions, isLoading: isLoadingPermissions, error: isErrorPermissions } = useSWR(
         'authorization/permissions/all',
@@ -105,16 +126,15 @@ const Create: React.FC<CreateProps> = ({
     // transform dataPermissions
     const transformedPermission = useGroupPermissions(dataPermissions || [])
 
-
-    if (isLoadingPermissions) {
+    if (isLoadingData || isValidating || !selectedData || isLoadingPermissions) {
         return (
-            <section data-testid="loading-component" className='flex justify-center'>
+            <section data-testid="loading-component" className='w-full flex items-center justify-center'>
                 <LoadingKalla width={30} height={30} />
             </section>
         )
     }
 
-    if (isErrorPermissions) {
+    if (errorSelectedData || isErrorPermissions) {
         return (
             <section data-testid="error-component">
                 <p>Error</p>
@@ -189,7 +209,7 @@ const Create: React.FC<CreateProps> = ({
             >
                 <Button
                     type='submit'
-                    className='bg-primary hover:bg-primaryDark rounded-md text-white w-full h-8 mt-2 text-sm'
+                    className='bg-primary hover:bg-primary-dark rounded-md text-white w-full h-8 mt-2 text-sm'
                 >
                     {isLoading ? 'loading' : 'Save'}
                 </Button>
@@ -198,4 +218,4 @@ const Create: React.FC<CreateProps> = ({
     )
 }
 
-export default Create
+export default Edit

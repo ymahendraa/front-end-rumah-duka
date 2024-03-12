@@ -5,27 +5,26 @@ import InputText from '@/components/atoms/input/input-text';
 import Button from '@/components/atoms/button';
 import ComboBox from '@/components/molecules/combo-box';
 import InputIcon from '@/components/molecules/input-icon';
+import { ICON } from '@/utils/icon';
 import InputTextArea from '@/components/atoms/input/input-text-area';
 import LoadingKalla from '@/components/atoms/loading';
-import Section from '@/components/atoms/section';
-import Label from '@/components/atoms/label';
 import InputCheckbox from '@/components/atoms/input/input-checkbox';
+import Label from '@/components/atoms/label';
+import Section from '@/components/atoms/section';
 
 // hooks import
-import useTransformObject from '@/hooks/useTransformObject';
 import { SubmitHandler, useForm } from 'react-hook-form'
+import useSubmit from '@/hooks/useSubmit';
 import useFetcher from '@/hooks/useFetcher';
 import useSWR from 'swr';
+import useTransformObject from '@/hooks/useTransformObject';
 import { useSession } from 'next-auth/react';
 
 // utils import
 import { AUTHORIZATION_ACCESS } from '@/utils/dummy';
-import { ICON } from '@/utils/icon';
 
-type EditProps = {
-    submitHandler: (data: any) => void
-    id: string | undefined | number
-    isLoading: boolean
+
+type CreateProps = {
     setOpen: (open: boolean) => void
     mutate: () => void
     url: string
@@ -33,79 +32,55 @@ type EditProps = {
 
 /**
  * @description
- * Edit : component for editing new menu
+ * Create : component for creating new menu
  * @param setOpen setOpen function for modal
  * @param mutate mutate function for data
  * @param url url for fetching data
- * @returns Edit component for editing new menu
+ * @returns Create component for creating new menu
  * 
  * @example
- * <Edit
+ * <Create
  * setOpen={setOpen}
  * mutate={mutate}
  * url='customer'
  * />
  */
-const Edit: React.FC<EditProps> = ({
-    submitHandler,
-    id,
-    isLoading,
+const Create: React.FC<CreateProps> = ({
     setOpen,
     mutate,
     url
 }) => {
     // define session
-    const { data: session } = useSession();
-    // define fetcher
-    const fetcher = useFetcher(session);
-    // get selected row data with SWR
-    const { data: selectedData, error: errorSelectedData, isLoading: isLoadingData, isValidating } = useSWR(
-        `${url}/${id}`,
-        fetcher,
-    )
+    const { data: session } = useSession()
 
     // get form data
     const {
         register,
         handleSubmit,
         control,
-        formState: { errors },
         reset,
-        getValues,
+        formState: { errors },
     } = useForm();
 
-    // reset form when data is fetched
-    useEffect(() => {
-        if (data) {
-            reset({
-                name: selectedData?.name,
-                group: selectedData?.group,
-                position: selectedData?.position,
-                icon: selectedData?.icon,
-                description: selectedData?.description,
-                // actions: ['create', 'read', 'update', 'delete']
-                actions: selectedData?.actions.map((item: any) => item.id.toString())
-            })
-        }
-
-    }, [selectedData, reset]);
+    // get submit handler
+    const { submitHandler, isLoading } = useSubmit()
 
     // submit handler
     const onSubmit: SubmitHandler<any> = async (data: any) => {
         try {
             console.log(data)
-            // submitHandler({
-            //     url: `${url}/${id}`,
-            //     config: {
-            //         method: 'PATCH',
-            //         headers: {
-            //             'Content-Type': 'application/json'
-            //         },
-            //         body: JSON.stringify(data),
-            //     },
-            //     setOpen,
-            //     mutate,
-            // })
+            await submitHandler({
+                url: url,
+                config: {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data),
+                },
+                setOpen,
+                mutate,
+            })
         } catch (error) {
             console.log(error)
         }
@@ -116,25 +91,26 @@ const Edit: React.FC<EditProps> = ({
         reset();
     }, [setOpen]);
 
-
+    // define fetcher
+    const fetcher = useFetcher(session);
     // get group menu
     // Pass the fetcher to useSWR
     const { data, error, isLoading: isLoadingGroupMenu } = useSWR(
-        url,
+        'authorization/group-menu',
         fetcher
     );
 
     const transformedData = useTransformObject(data ?? [])
 
-    if (isLoadingGroupMenu || isLoadingData || isValidating || !selectedData) {
+    if (isLoadingGroupMenu) {
         return (
-            <section data-testid="loading-component" className='w-full flex items-center justify-center'>
+            <section data-testid="loading-component" className='flex justify-center'>
                 <LoadingKalla width={30} height={30} />
             </section>
         )
     }
 
-    if (error || errorSelectedData) {
+    if (error) {
         return (
             <section data-testid="error-component">
                 <p>Error</p>
@@ -148,43 +124,24 @@ const Edit: React.FC<EditProps> = ({
                 type='text'
                 label='Name'
                 name='name'
-                value={selectedData?.name}
-                // placeholder='Enter name'
-                // aria-required={true}
-                // rule={{
-                //     required: {
-                //         value: true,
-                //         message: 'Name is required'
-                //     },
-                // }}
-                // error={errors.name}
-                disabled
+                aria-required={true}
+                placeholder='Enter name'
+                register={register}
+                rule={{
+                    required: {
+                        value: true,
+                        message: 'Name is required'
+                    },
+                }}
+                error={errors.name}
             />
 
-            <InputText
-                type='text'
-                label='Group Name'
-                name='group'
-                value={selectedData?.group?.name}
-                // register={register}
-                // aria-required={true}
-                // placeholder='Enter name'
-                // rule={{
-                //     required: {
-                //         value: true,
-                //         message: 'Name is required'
-                //     },
-                // }}
-                // error={errors.name}
-                disabled
-            />
-
-            {/* <ComboBox
+            <ComboBox
                 label='Group name'
                 name='group'
                 options={transformedData}
                 control={control}
-            /> */}
+            />
 
             <InputText
                 type='number'
@@ -205,15 +162,15 @@ const Edit: React.FC<EditProps> = ({
             <InputIcon
                 label='Choose icon'
                 name='icon'
+                aria-required={true}
                 control={control}
-                // aria-required={true}
-                // rule={{
-                //     required: {
-                //         value: true,
-                //         message: 'Icon is required'
-                //     },
-                // }}
-                // error={errors.icon}
+                rule={{
+                    required: {
+                        value: true,
+                        message: 'Icon is required'
+                    },
+                }}
+                error={errors.icon}
                 icons={ICON}
             />
 
@@ -246,12 +203,13 @@ const Edit: React.FC<EditProps> = ({
                                 <InputCheckbox
                                     label={item.name}
                                     name="actions"
-                                    value={item.id}
+                                    value={item.value}
                                     register={register}
                                 />
                             </Section>
                         ))
                     }
+
                 </Section>
             </Section> */}
 
@@ -260,7 +218,7 @@ const Edit: React.FC<EditProps> = ({
             >
                 <Button
                     type='submit'
-                    className='bg-primary hover:bg-primaryDark rounded-md text-white w-full h-8 mt-2 text-sm'
+                    className='bg-primary hover:bg-primary-dark rounded-md text-white w-full h-8 mt-2 text-sm'
                 >
                     {isLoading ? 'loading' : 'Save'}
                 </Button>
@@ -269,4 +227,4 @@ const Edit: React.FC<EditProps> = ({
     )
 }
 
-export default Edit
+export default Create
