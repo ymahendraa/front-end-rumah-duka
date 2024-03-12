@@ -1,3 +1,4 @@
+import Section from '@/components/atoms/section'
 import Menu from '@/components/molecules/menu'
 import type { MenuType } from '@/utils/menuArray'
 import React from 'react'
@@ -8,6 +9,7 @@ type MenuListProps = {
     toggleActive?: (item: MenuType) => void
     isItemActive: (path: MenuType) => boolean
     setter: React.Dispatch<React.SetStateAction<boolean>>
+    minimized?: boolean
 }
 
 /**
@@ -27,7 +29,8 @@ const MenuList: React.FC<MenuListProps> = ({
     activeRoute,
     toggleActive,
     isItemActive,
-    setter
+    setter,
+    minimized
 }) => {
     return (
         <ul className='flex flex-col gap-1'>
@@ -38,19 +41,13 @@ const MenuList: React.FC<MenuListProps> = ({
                         label={item.name}
                         path={item.path}
                         menu={item.children}
-                        classNameLink={`flex flex-row justify-between gap-x-2 p-2 rounded-md  transition-colors cursor-pointer ${item?.path === activeRoute
-                            ? 'bg-primary '
-                            : 'bg-white hover:bg-primaryLight'
+                        classNameLink={`flex flex-row justify-between gap-x-2 px-4 py-3 rounded-2xl  transition-colors cursor-pointer ${item?.path === activeRoute
+                            ? 'bg-secondary'
+                            : 'bg-primary hover:bg-secondary '
                             }`}
-                        classNameLabel={`text-sm font-medium ${item?.path === activeRoute
-                            ? 'text-white'
-                            : 'text-slate-800'
-                            } `}
-                        classNameIcon={`w-5 h-5  ${item?.path === activeRoute
-                            ? 'text-white'
-                            : 'text-slate-800'
-                            } `}
-                        classNameDropdown={`h-5 w-5 transition-transform text-slate-800  ${item?.path === activeRoute || isItemActive(item)
+                        classNameLabel={`text-sm font-medium ${item?.path === activeRoute} text-white`}
+                        classNameIcon={`w-5 h-5  ${item?.path === activeRoute} text-white `}
+                        classNameDropdown={`h-5 w-5 transition-transform text-white  ${item?.path === activeRoute || isItemActive(item)
                             ? 'rotate-180'
                             : ''
                             } `}
@@ -60,6 +57,7 @@ const MenuList: React.FC<MenuListProps> = ({
                                 : setter?.(false)
                             // toggleActive?.(item)
                         }
+                        minimized={minimized}
                     />
                     <div
                         className={`transition-max-height overflow-hidden ${isItemActive(item) || item?.path === activeRoute
@@ -67,14 +65,17 @@ const MenuList: React.FC<MenuListProps> = ({
                             : 'max-h-0 duration-500'
                             }`}
                     >
-                        {item.children && (
-                            <MenuList
-                                setter={setter}
-                                items={item.children}
-                                activeRoute={activeRoute}
-                                toggleActive={toggleActive}
-                                isItemActive={isItemActive}
-                            />
+
+                        {item.children && !minimized && (
+                            <Section className='ml-8'>
+                                <MenuList
+                                    setter={setter}
+                                    items={item.children}
+                                    activeRoute={activeRoute}
+                                    toggleActive={toggleActive}
+                                    isItemActive={isItemActive}
+                                />
+                            </Section>
                         )}
                     </div>
                 </React.Fragment>
