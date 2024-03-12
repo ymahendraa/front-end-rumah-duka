@@ -4,14 +4,14 @@ import { getSession, signIn } from 'next-auth/react'
 import { AuthorizationContext } from '@/context/AuthorizationContext/context'
 
 // hooks import
-import { useContext, useRef } from 'react'
+import { useRef } from 'react'
 import { useRouter } from 'next/navigation'
 
 // components import
 import Image from 'next/image'
 import Swal from 'sweetalert2'
 import InputText from '@/components/atoms/input/input-text'
-import axios from '@/lib/axios'
+import Button from '@/components/atoms/button'
 
 
 type Props = {
@@ -45,27 +45,22 @@ const LoginComponent: React.FC<Props> = ({ error, callbackUrl }) => {
     if (!res?.error) {
       const session = await getSession()
       if (session) {
-        // redirect to callbackUrl or home
-        router.push(callbackUrl ?? 'http://localhost:3000/home')
+        // redirect to callbackUrl or dashboard
+        router.push(callbackUrl ?? `${process.env.NEXT_PUBLIC_URL}/dashboard`)
       }
     }
   }
 
   return (
-    <div className="flex flex-col lg:flex-row min-h-screen items-center justify-around bg-primary lg:bg-white py-12 px-4 sm:px-6 lg:px-8">
-      <Image
-        src="/printing.svg"
-        alt="printing"
-        width={100}
-        height={100}
-        className="hidden lg:inline md:w-4/6"
-      />
-      <div className="flex flex-col h-[500px] bg-white pt-10 px-4 shadow-xl rounded-xl items-center">
-        <Image src="/logo.png" alt="Logo" width={40} height={50} />
-        <div className="max-w-xs w-full space-y-8 ">
-          <div>
-            <h2 className="mt-6 text-center text-2xl md:text-3xl font-extrabold text-gray-900">
-              Sign in to your account
+    <div className="flex flex-col lg:flex-row min-h-screen items-center justify-around bg-base py-12 px-4 sm:px-6 lg:px-8">
+      <div className="flex flex-col md:w-2/5 h-[450px] bg-primary pt-10 px-4 shadow-xl rounded-xl items-center">
+        <div className="max-w-sm w-full space-y-8 ">
+          <div className='flex flex-col gap-y-10'>
+            <h1 className="text-center text-xl font-bold text-white">
+              Yayasan Daya Besar Rumah Duka
+            </h1>
+            <h2 className="text-center text-2xl font-bold text-white">
+              Log In
             </h2>
           </div>
           {!!error && (
@@ -74,7 +69,7 @@ const LoginComponent: React.FC<Props> = ({ error, callbackUrl }) => {
             </p>
           )}
           <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-            <div className="rounded-md shadow-sm -space-y-px">
+            <div className="flex flex-col gap-y-4">
               <div>
                 <InputText
                   data-testid="username"
@@ -82,8 +77,8 @@ const LoginComponent: React.FC<Props> = ({ error, callbackUrl }) => {
                   name="username"
                   type="text"
                   required
-                  classNameInput="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-slate-800 rounded-t-md focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm bg-white"
-                  placeholder="Username"
+                  classNameInput="rounded-xl relative block w-full px-3 py-4 placeholder-gray-500 text-white bg-base focus:outline-none focus:ring-white focus:border-white focus:border focus:z-10 text-sm"
+                  placeholder="Masukkan username"
                   onChange={(e) => (username.current = e.target.value)}
                 />
               </div>
@@ -92,39 +87,26 @@ const LoginComponent: React.FC<Props> = ({ error, callbackUrl }) => {
                   data-testid="password"
                   id="password"
                   name="password"
-                  type="password"
+                  // type="password"
+                  isPassword
                   autoComplete="current-password"
                   required
-                  classNameInput="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500  text-slate-800 rounded-b-md focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm bg-white"
-                  placeholder="Password"
+                  classNameInput="rounded-xl relative block w-full px-3 py-4 placeholder-gray-500 text-white bg-base focus:outline-none focus:ring-white focus:border-white focus:border focus:z-10 text-sm"
+                  classNameWrapper='relative flex'
+                  placeholder="Masukkan password"
                   onChange={(e) => (password.current = e.target.value)}
                 />
               </div>
             </div>
 
             <div>
-              <button
+              <Button
                 data-testid="login-button"
                 type="submit"
-                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-primaryDark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+                className="relative w-full flex justify-center py-4 px-3 border border-transparent text-sm font-medium rounded-xl text-white bg-secondary hover:bg-secondary-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
               >
-                <span className="absolute left-0 inset-y-0 flex items-center pl-3">
-                  <svg
-                    className="h-5 w-5 text-primaryLight hover:text-primaryDark"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm0-2a6 6 0 100-12 6 6 0 000 12zm-1-5a1 1 0 011-1h2a1 1 0 110 2h-2a1 1 0 01-1-1zm0-3a1 1 0 011-1h2a1 1 0 110 2h-2a1 1 0 01-1-1z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </span>
-                Sign in
-              </button>
+                Login
+              </Button>
             </div>
           </form>
         </div>
