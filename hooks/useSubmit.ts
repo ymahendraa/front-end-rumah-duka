@@ -3,6 +3,7 @@ import { useState } from "react";
 import Swal from "sweetalert2";
 import { useSession } from "next-auth/react";
 import useFetcher from "./useFetcher";
+import { useRouter } from "next/navigation";
 
 type SubmitHandlerProps = {
   config: any;
@@ -28,6 +29,9 @@ const useSubmit = () => {
   const { data: session } = useSession();
   const fetcher = useFetcher(session);
 
+  // router instance
+  const router = useRouter();
+
   /**
    * @description
    * submitHandler : function for handling post/patch/delete data
@@ -48,13 +52,18 @@ const useSubmit = () => {
     try {
       const response = await fetcher(url, config);
       // show success Swal
+      // if ok is clicked, router.back() will be executed
       Swal.fire({
         icon: "success",
         title: "Success",
-        confirmButtonColor: "#D9A878",
+        confirmButtonColor: "#3B93F7",
         text: `Data has been ${
           config?.method == "DELETE" ? "deleted" : "saved"
         }`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          router.back();
+        }
       });
       mutate && mutate();
       return response;

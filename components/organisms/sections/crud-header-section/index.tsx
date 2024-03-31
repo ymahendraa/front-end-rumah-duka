@@ -11,6 +11,7 @@ type CRUDHeaderSectionProps = {
     PopOverComponent?: React.ReactNode
     advancedSearch?: boolean,
     disableCreate?: boolean,
+    disableSearch?: boolean
 } & React.InputHTMLAttributes<HTMLInputElement>
 
 /**
@@ -21,6 +22,7 @@ type CRUDHeaderSectionProps = {
  * @param PopOverComponent PopOverComponent for input text
  * @param advancedSearch advancedSearch for input text
  * @param disableCreate disableCreate for input text
+ * @param disableSearch disableSearch for input text
  * @param props props for input text
  * @returns CRUDHeaderSection component
  * 
@@ -40,6 +42,7 @@ const CRUDHeaderSection: React.FC<CRUDHeaderSectionProps> = ({
     PopOverComponent,
     advancedSearch = true,
     disableCreate = false,
+    disableSearch = false,
     ...props
 }) => {
     const config = {
@@ -48,13 +51,15 @@ const CRUDHeaderSection: React.FC<CRUDHeaderSectionProps> = ({
     return (
         <Section className='flex justify-between h-[30px]'>
             <Section className='w-1/3 flex justify-between gap-2'>
-                <InputText
-                    classNameInput={config.classNameInput}
-                    classNameWrapper='w-full flex flex-col gap-y-1'
-                    placeholder='Search'
-                    value={value}
-                    {...props}
-                />
+                {!disableSearch && (
+                    <InputText
+                        classNameInput={config.classNameInput}
+                        classNameWrapper='w-full flex flex-col gap-y-1'
+                        placeholder='Search'
+                        value={value}
+                        {...props}
+                    />
+                )}
                 {
                     advancedSearch && PopOverComponent && (
                         <PopOver
@@ -76,7 +81,7 @@ const CRUDHeaderSection: React.FC<CRUDHeaderSectionProps> = ({
             {
                 disableCreate ? null : (
                     <Button
-                        className='flex items-center bg-secondary rounded-lg text-sm p-2 hover:bg-secondary-dark'
+                        className='flex items-center bg-secondary rounded-lg text-sm p-2 hover:bg-secondary-dark cursor-pointer'
                         type='button'
                         icon={<PlusCircleIcon className='w-5 h-5' />}
                         onClick={onClickCreate}

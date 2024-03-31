@@ -39,7 +39,7 @@ const InputTextArea: React.FC<InputTextProps> = ({
     ...props
 }) => {
     const config = {
-        classNameInput: classNameInput ?? 'w-full min-h-28 border border-gray-300 rounded-md p-2 text-black text-sm focus:border-primary focus:outline-none',
+        classNameInput: classNameInput ?? 'w-full min-h-28 bg-base focus:border focus:border-gray-300 rounded-md p-2 text-white text-sm focus:border-primary focus:outline-none',
         classNameWrapper: classNameWrapper ?? 'flex flex-col gap-y-1'
     }
     return (

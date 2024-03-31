@@ -82,11 +82,13 @@ export default withAuth(
 
 export const config = {
   matcher: [
+    "/dashboard",
     "/customer/:path*",
     "/almarhum/:path*",
+    "/reservasi/:path*",
     "/report/:path*",
     "/ruangan/:path*",
     "/ruangan-kremasi/:path*",
-    "/authorization-management/:path*",
+    "/authorization/:path*",
   ],
 };

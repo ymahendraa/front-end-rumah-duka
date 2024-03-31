@@ -7,15 +7,26 @@ import Button from '@/components/atoms/button';
 import FileInput from '@/components/molecules/file-input';
 import Section from '@/components/atoms/section';
 import ComboBox from '@/components/molecules/combo-box';
+import InputDatepicker from '@/components/atoms/input/input-datepicker';
 
 // hooks import
 import { SubmitHandler, useForm } from 'react-hook-form'
 import useSubmit from '@/hooks/useSubmit';
 import { useRouter } from 'next/navigation';
+import useSWR from 'swr';
+import useFetcher from '@/hooks/useFetcher';
+import { useSession } from 'next-auth/react';
+
+// utils import
+import { fileToBase64 } from '@/utils/convertToBase64';
+import { SendCustomer } from '../types/Customer';
+import useTransformObject from '@/hooks/useTransformObject';
+
 
 /**
  * @description
  * Create : component for creating new customer
+ * @todo adjust the status
  *
  * @returns Create component for creating new customer
  */
@@ -27,7 +38,36 @@ const Create: React.FC = () => {
         handleSubmit,
         formState: { errors },
         control
-    } = useForm();
+    } = useForm<SendCustomer>(
+        {
+            defaultValues: {
+                nik: '',
+                nama_lengkap_pemohon: '',
+                hub_almarhum: '',
+                jenis_pekerjaan: '',
+                nama_lengkap_almarhum: '',
+                umur: '',
+                alamat: '',
+                riwayat_pekerjaan: '',
+                alamat_almarhum: '',
+                diagnosa: '',
+                tgl_waktu_meninggal: '',
+                tempat_meninggal: '',
+                document: undefined,
+                no_room: '',
+                no_kremasi: '',
+                // screenshot: undefined,
+                // status: '',
+                reservation_date: ''
+            }
+        }
+    );
+
+    // define session
+    const { data: session } = useSession()
+
+    // define fetcher
+    const fetcher = useFetcher(session);
 
     // define router
     const router = useRouter()
@@ -35,11 +75,12 @@ const Create: React.FC = () => {
     // get submit handler
     const { submitHandler, isLoading } = useSubmit()
 
-    // define submit handler
-
     // submit handler
     const onSubmit: SubmitHandler<any> = async (data: any) => {
         try {
+            if (data.document) {
+                data.document = await fileToBase64(data.document);
+            }
             console.log(data)
             // await submitHandler({
             //     url: 'customer',
@@ -58,6 +99,28 @@ const Create: React.FC = () => {
         }
 
     }
+
+    // get list of room
+    const { data: dataRoom, isLoading: loadingRoom, error: errorRoom } = useSWR(
+        session ? `ruangan?page=1&limit=1000` : null,
+        fetcher
+    )
+
+    // transform room data
+    const transformedRoom = useTransformObject(dataRoom || [], 'id', 'no_ruangan')
+
+    // get list of ruangan_kremasi
+    const { data: dataKremasi, isLoading: loadingKremasi, error: errorKremasi } = useSWR(
+        session ? `ruangan-kremasi?page=1&limit=1000` : null,
+        fetcher
+    )
+
+    // transform ruangan_kremasi data
+    const transformedKremasi = useTransformObject(dataKremasi || [], 'id', 'no_ruangan')
+
+    if (loadingRoom || loadingKremasi || !dataKremasi || !dataRoom) return <div>Loading...</div>
+
+    if (errorKremasi || errorRoom) return <div>Error...</div>
 
     return (
         <form className='flex flex-col gap-8 w-full' onSubmit={handleSubmit(onSubmit)}>
@@ -83,7 +146,7 @@ const Create: React.FC = () => {
                     type='text'
                     aria-required
                     label='Nama Lengkap (Sesuai KTP)'
-                    name='name'
+                    name='nama_lengkap_pemohon'
                     placeholder='Cth:  Alwy Raihan maks(40)'
                     register={register}
                     rule={{
@@ -96,13 +159,14 @@ const Create: React.FC = () => {
                             message: 'Nama Lengkap maksimal 40 karakter'
                         }
                     }}
-                    error={errors.name}
+                    error={errors.nama_lengkap_pemohon}
                 />
 
                 <ComboBox
                     required
+                    aria-required
                     label='Hubungan Keluarga'
-                    name='hub_jenazah'
+                    name='hub_almarhum'
                     rule={{
                         required: {
                             value: true,
@@ -110,19 +174,19 @@ const Create: React.FC = () => {
                         }
                     }}
                     options={[
-                        { value: '1', label: 'Keluarga' },
-                        { value: '2', label: 'Saudara' },
-                        { value: '3', label: 'Teman' },
+                        { value: 'Keluarga', label: 'Keluarga' },
+                        { value: 'Saudara', label: 'Saudara' },
+                        { value: 'Teman', label: 'Teman' },
                     ]}
                     control={control}
-                    error={errors.hub_jenazah}
+                    error={errors.hub_almarhum}
                 />
 
                 <InputText
                     type='text'
                     aria-required
                     label='Jenis Pekerjaan Customer'
-                    name='pekerjaan'
+                    name='jenis_pekerjaan'
                     placeholder='Cth: ASN'
                     register={register}
                     rule={{
@@ -131,63 +195,7 @@ const Create: React.FC = () => {
                             message: 'Jenis Pekerjaan wajib diisi'
                         },
                     }}
-                    error={errors.pekerjaan}
-                />
-            </Section>
-
-            {/* SECOND SECTION */}
-            <Section className='grid md:grid-cols-2 bg-primary rounded-lg px-4 pb-10 pt-4 gap-x-8 gap-y-4'>
-                <InputText
-                    type='text'
-                    aria-required
-                    label='Nama Lengkap Almarhum (Sesuai KTP)'
-                    name='name_jenazah'
-                    placeholder='Cth:  Alwy Raihan maks(40)'
-                    register={register}
-                    rule={{
-                        required: {
-                            value: true,
-                            message: 'Nama Lengkap Almarhum wajib diisi'
-                        },
-                        maxLength: {
-                            value: 40,
-                            message: 'Nama Lengkap Almarhum maksimal 40 karakter'
-                        }
-                    }}
-                    error={errors.name_jenazah}
-                />
-
-                <InputText
-                    type="number"
-                    aria-required
-
-                    label='Umur Almarhum'
-                    name='umur_jenazah'
-                    placeholder='Cth: 30'
-                    register={register}
-                    rule={{
-                        required: {
-                            value: true,
-                            message: 'Umur Almarhum wajib diisi'
-                        },
-                    }}
-                    error={errors.umur_jenazah}
-                />
-
-                <InputText
-                    type='text'
-                    aria-required
-                    label='Jenis Pekerjaan Almarhum'
-                    name='pekerjaan_almarhum'
-                    placeholder='Cth: ASN'
-                    register={register}
-                    rule={{
-                        required: {
-                            value: true,
-                            message: 'Jenis Pekerjaan Almarhum wajib diisi'
-                        },
-                    }}
-                    error={errors.pekerjaan_almarhum}
+                    error={errors.jenis_pekerjaan}
                 />
 
                 <InputText
@@ -205,6 +213,77 @@ const Create: React.FC = () => {
                     }}
                     error={errors.alamat}
                 />
+            </Section>
+
+            {/* SECOND SECTION */}
+            <Section className='grid md:grid-cols-2 bg-primary rounded-lg px-4 pb-10 pt-4 gap-x-8 gap-y-4'>
+                <InputText
+                    type='text'
+                    aria-required
+                    label='Nama Lengkap Almarhum (Sesuai KTP)'
+                    name='nama_lengkap_almarhum'
+                    placeholder='Cth:  Alwy Raihan maks(40)'
+                    register={register}
+                    rule={{
+                        required: {
+                            value: true,
+                            message: 'Nama Lengkap Almarhum wajib diisi'
+                        },
+                        maxLength: {
+                            value: 40,
+                            message: 'Nama Lengkap Almarhum maksimal 40 karakter'
+                        }
+                    }}
+                    error={errors.nama_lengkap_almarhum}
+                />
+
+                <InputText
+                    type="number"
+                    aria-required
+                    label='Umur Almarhum'
+                    name='umur'
+                    placeholder='Cth: 30'
+                    register={register}
+                    rule={{
+                        required: {
+                            value: true,
+                            message: 'Umur Almarhum wajib diisi'
+                        },
+                    }}
+                    error={errors.umur}
+                />
+
+                <InputText
+                    type='text'
+                    aria-required
+                    label='Jenis Pekerjaan Almarhum'
+                    name='riwayat_pekerjaan'
+                    placeholder='Cth: ASN'
+                    register={register}
+                    rule={{
+                        required: {
+                            value: true,
+                            message: 'Jenis Pekerjaan Almarhum wajib diisi'
+                        },
+                    }}
+                    error={errors.riwayat_pekerjaan}
+                />
+
+                <InputText
+                    type='text'
+                    aria-required
+                    label='Alamat Lengkap'
+                    name='alamat_almarhum'
+                    placeholder='Cth: Jl. Raya Cilangkap No. 10'
+                    register={register}
+                    rule={{
+                        required: {
+                            value: true,
+                            message: 'Alamat Lengkap wajib diisi'
+                        },
+                    }}
+                    error={errors.alamat_almarhum}
+                />
 
                 <InputText
                     type='text'
@@ -220,6 +299,20 @@ const Create: React.FC = () => {
                         },
                     }}
                     error={errors.diagnosa}
+                />
+
+                <InputDatepicker
+                    aria-required
+                    label='Tanggal Meninggal'
+                    name='tgl_waktu_meninggal'
+                    register={register}
+                    error={errors.tgl_waktu_meninggal}
+                    rule={{
+                        required: {
+                            value: true,
+                            message: 'Tanggal Meninggal wajib diisi'
+                        },
+                    }}
                 />
 
                 <InputText
@@ -239,19 +332,19 @@ const Create: React.FC = () => {
                 />
 
                 <FileInput
-                    aria-required
+                    // aria-required
                     type="file"
                     label='Upload File Bukti Kematian'
-                    name='surat_kematian'
-                    rule={{
-                        required: {
-                            value: true,
-                            message: 'File Bukti Kematian wajib diisi'
-                        },
-                    }}
+                    name='document'
+                    // rule={{
+                    //     required: {
+                    //         value: true,
+                    //         message: 'File Bukti Kematian wajib diisi'
+                    //     },
+                    // }}
                     control={control}
-                    id='surat_kematian'
-                    error={errors.surat_kematian}
+                    id='almarhum.file'
+                // error={errors.document}
                 />
             </Section>
 
@@ -261,7 +354,7 @@ const Create: React.FC = () => {
                 <ComboBox
                     required
                     label='No. Ruangan'
-                    name='ruangan'
+                    name='no_room'
                     rule={
                         {
                             required: {
@@ -270,19 +363,15 @@ const Create: React.FC = () => {
                             },
                         }
                     }
-                    options={[
-                        { value: '1', label: '1' },
-                        { value: '2', label: '2' },
-                        { value: '3', label: '3' },
-                    ]}
+                    options={transformedRoom}
                     control={control}
-                    error={errors.ruangan}
+                    error={errors.no_room}
                 />
 
                 <ComboBox
                     required
                     label='Ruangan Kremasi'
-                    name='ruangan_kremasi'
+                    name='no_kremasi'
                     rule={
                         {
                             required: {
@@ -291,13 +380,9 @@ const Create: React.FC = () => {
                             },
                         }
                     }
-                    options={[
-                        { value: '1', label: '1' },
-                        { value: '2', label: '2' },
-                        { value: '3', label: '3' },
-                    ]}
+                    options={transformedKremasi}
                     control={control}
-                    error={errors.ruangan_kremasi}
+                    error={errors.no_kremasi}
                 />
 
             </Section>
@@ -310,15 +395,16 @@ const Create: React.FC = () => {
                     type='submit'
                     className='bg-secondary hover:bg-secondary-dark rounded-lg text-white w-32 p-3 mt-2 text-sm'
                 >
-                    {isLoading ? 'loading' : 'Simpan'}
+                    {isLoading ? 'Loading...' : 'Simpan'}
                 </Button>
                 <Button
                     // type='submit'
                     type='button'
                     className='bg-red-500 hover:bg-red-600 rounded-lg text-white w-32 p-3 mt-2 text-sm'
                     onClick={() => router.back()}
+                    disabled={isLoading}
                 >
-                    {isLoading ? 'loading' : 'Kembali'}
+                    {isLoading ? 'Loading...' : 'Kembali'}
                 </Button>
             </Section>
         </form>

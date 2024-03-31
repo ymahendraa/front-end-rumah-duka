@@ -2,11 +2,12 @@ import React, { useState } from 'react'
 import { FieldError, FieldErrorsImpl, Merge, UseFormRegister } from 'react-hook-form'
 import Label from '../../label'
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
+import { NestedFieldError } from '@/types/nested-error'
 
 type InputTextProps = {
   classNameInput?: string
   classNameWrapper?: string
-  error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
+  error?: NestedFieldError | undefined
   label?: string
   rule?: any
   isPassword?: boolean
@@ -46,7 +47,7 @@ const InputText: React.FC<InputTextProps> = ({
   const toggleShowPassword = () => setShowPassword(!showPassword);
 
   const config = {
-    classNameInput: classNameInput ?? 'w-full bg-base h-12 border border-gray-300 rounded-xl px-2 text-white text-sm focus:border-primary focus:outline-none',
+    classNameInput: classNameInput ?? 'w-full bg-base h-12 rounded-xl px-2 text-white text-sm focus:border focus:border-gray-300 focus:outline-none disabled:bg-gray-500',
     classNameWrapper: classNameWrapper ?? 'flex flex-col gap-y-1'
   }
   return (

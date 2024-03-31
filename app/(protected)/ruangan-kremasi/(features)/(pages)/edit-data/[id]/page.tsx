@@ -1,10 +1,10 @@
 import React from 'react'
 import Edit from '../../../components/Edit'
 
-const EditPage = () => {
+const EditPage = ({ params }: { params: { id: string } }) => {
     return (
         <main>
-            <Edit />
+            <Edit id={params.id} />
         </main>
     )
 }

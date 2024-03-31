@@ -5,21 +5,21 @@ import Image from 'next/image'
 
 // utils import
 import { createColumnHelper } from '@tanstack/react-table'
-import type { Customer } from '@/types/customer'
-import dayjs from 'dayjs'
 import 'dayjs/locale/id'
+import { RuanganKremasi } from '../types/RuanganKremasi'
 import { checkPermissions } from '@/utils/checkPermissions'
 
 // hooks import
 import { useMemo, useState } from 'react'
 import useModalState from '@/hooks/useModalState'
 import { useRouter } from 'next/navigation'
+import { formatToRupiah } from '@/utils/formatToRupiah'
 
 export type SelectedRowType = {
     name: string
     id: string
 }
-const columnHelper = createColumnHelper<Customer>()
+const columnHelper = createColumnHelper<RuanganKremasi>()
 
 /**
  * 
@@ -55,22 +55,31 @@ const useColumns = (permissions: string[]) => {
                 cell: ({ row }) => row.index + 1,
                 size: 10,
             }),
-            columnHelper.accessor((row) => row.first_name, {
+            columnHelper.accessor((row) => row.no_ruangan, {
                 id: 'nomor_ruangan',
                 header: () => 'Nomor Ruangan',
                 cell: (info) => info.getValue(),
                 size: 150,
             }),
-            columnHelper.accessor((row) => row.last_name, {
+            columnHelper.accessor((row) => row.jadwal, {
                 id: 'jadwal',
                 header: () => 'Jadwal',
                 cell: (info) => info.getValue(),
                 size: 250,
             }),
-            columnHelper.accessor((row) => row.email, {
+            columnHelper.accessor((row) => row.category_room, {
+                id: 'kategori',
+                header: () => 'Kategori',
+                cell: (info) => info.getValue(),
+                size: 250,
+            }),
+            columnHelper.accessor((row) => row.harga, {
                 id: 'harga',
                 header: () => 'Harga',
-                cell: (info) => info.getValue(),
+                cell: (info) => {
+                    const value = info.getValue()
+                    return formatToRupiah(value)
+                },
                 size: 50,
             }),
             columnHelper.accessor((row) => row, {
@@ -81,22 +90,22 @@ const useColumns = (permissions: string[]) => {
                     // You can place your action buttons here
                     const row = info.getValue()
                     return (
-                        <div className="flex flex-row gap-x-2">app/(protected)/ruangan/(features) app/(protected)/ruangan/page.tsx
-                            {checkPermissions(['master.customers.update'], permissions) && (
+                        <div className="flex flex-row gap-x-2">
+                            {checkPermissions(['master.kremation-room.update'], permissions) && (
                                 <Button
                                     onClick={() => {
-                                        router.push(`/customer/edit-data/${row.id}`)
+                                        router.push(`/ruangan-kremasi/edit-data/${row.id}`)
                                     }}
                                     className='flex items-center justify-center bg-green-500 hover:bg-green-600 w-6 h-6 rounded-md transition-colors duration-300 ease-in-out'
                                 >
                                     <PencilSquareIcon className="w-4 h-4" />
                                 </Button>
                             )}
-                            {checkPermissions(['master.customers.delete'], permissions) && (
+                            {checkPermissions(['master.kremation-room.delete'], permissions) && (
                                 <Button
                                     onClick={() => {
                                         setSelectedRow({
-                                            name: row.first_name + ' ' + row.last_name,
+                                            name: row.no_ruangan,
                                             id: row.id,
                                         })
                                         setOpenDelete(true)

@@ -1,3 +1,4 @@
+'use client';
 import { Fragment, useState } from "react";
 import { Combobox, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
@@ -13,6 +14,7 @@ type ComboBoxWrapperProps = {
         label: string;
     }[];
     error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
+    inputDark?: boolean
 }
 
 const ComboBoxWrapper: React.FC<ComboBoxWrapperProps> = ({
@@ -20,7 +22,8 @@ const ComboBoxWrapper: React.FC<ComboBoxWrapperProps> = ({
     onChange,
     onBlur,
     options,
-    error
+    error,
+    inputDark = true,
 }) => {
     const [query, setQuery] = useState("");
 
@@ -43,10 +46,10 @@ const ComboBoxWrapper: React.FC<ComboBoxWrapperProps> = ({
                     {label}
                 </Combobox.Label> */}
                 <div className="relative">
-                    <div className={`relative w-full border border-gray-300 cursor-default overflow-hidden rounded-xl bg-base text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm  ${error ? 'border-red-500' : ''}`}>
+                    <div className={`relative w-full cursor-default overflow-hidden rounded-xl text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm  ${error ? 'border-red-500' : ''} ${inputDark ? 'bg-base' : 'bg-white'}`}>
                         <Combobox.Button className="w-full inset-y-0 right-0 flex items-center pr-2">
                             <Combobox.Input
-                                className={`w-full bg-base h-12 border-none py-2 pl-2 pr-10 text-sm leading-5 text-white focus:ring-0 focus:outline-none `}
+                                className={`w-full h-12 border-none py-2 pl-2 pr-10 text-sm leading-5 text-white focus:ring-0 focus:outline-none ${inputDark ? 'bg-base' : 'bg-white'} `}
                                 onChange={(event) => setQuery(event.target.value)}
                                 displayValue={(optionValue: string | number) =>
                                     getNameFromValue(optionValue)
@@ -67,7 +70,7 @@ const ComboBoxWrapper: React.FC<ComboBoxWrapperProps> = ({
                         leaveTo="opacity-0"
                         afterLeave={() => setQuery("")}
                     >
-                        <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-primary py-1 text-white shadow-lg ring-1 ring-secondary ring-opacity-5 focus:outline-none sm:text-sm">
+                        <Combobox.Options className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-primary py-1 text-white shadow-lg ring-1 ring-secondary ring-opacity-5 focus:outline-none sm:text-sm">
                             {filteredOptions.length === 0 && query !== "" ? (
                                 <div className="relative cursor-default select-none py-2 px-4 text-gray-700">
                                     Nothing found.

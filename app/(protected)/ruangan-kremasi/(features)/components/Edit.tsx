@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 // components import
 import InputText from '@/components/atoms/input/input-text';
@@ -7,53 +7,109 @@ import Button from '@/components/atoms/button';
 import FileInput from '@/components/molecules/file-input';
 import Section from '@/components/atoms/section';
 import ComboBox from '@/components/molecules/combo-box';
+import LoadingKalla from '@/components/atoms/loading';
 
 // hooks import
 import { SubmitHandler, useForm } from 'react-hook-form'
 import useSubmit from '@/hooks/useSubmit';
-import InputDatepicker from '@/components/atoms/input/input-datepicker';
+import { useRouter } from 'next/navigation';
+import useFetcher from '@/hooks/useFetcher';
+import { useSession } from 'next-auth/react';
+import useTransformObject from '@/hooks/useTransformObject';
+import useSWR from 'swr';
+
+// utils import
+import { ROOM_CATEGORY } from '@/utils/const/room-category';
+import { RuanganKremasi } from '../types/RuanganKremasi';
+import Loading from '@/components/atoms/loader/loading';
+
+type EditProps = {
+    id: string
+}
 
 /**
  * @description
  * Edit : component for edit existing customer
- * 
+ *
  * @returns Edit component for edit existing customer
  */
-const Edit: React.FC = () => {
+const Edit: React.FC<EditProps> = ({
+    id
+}) => {
+    // define session
+    const { data: session } = useSession()
 
     // get form data
     const {
         register,
         handleSubmit,
         formState: { errors },
-        control
-    } = useForm();
+        control,
+        reset
+    } = useForm<RuanganKremasi>();
+
+    // define router
+    const router = useRouter()
 
     // get submit handler
     const { submitHandler, isLoading } = useSubmit()
-
-    // define submit handler
 
     // submit handler
     const onSubmit: SubmitHandler<any> = async (data: any) => {
         try {
             console.log(data)
-            // await submitHandler({
-            //     url: 'customer',
-            //     config: {
-            //         method: 'POST',
-            //         headers: {
-            //             'Content-Type': 'application/json'
-            //         },
-            //         body: JSON.stringify(data),
-            //     },
-            //     setOpen: () => { },
-            //     mutate: () => { },
-            // })
+            await submitHandler({
+                url: `ruangan-kremasi/${id}`,
+                config: {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data),
+                },
+                setOpen: () => { },
+                mutate: router.back,
+            })
         } catch (error) {
             console.log(error)
         }
+    }
 
+    // define fetcher
+    const fetcher = useFetcher(session);
+
+    // get list current ruangan
+    const { data, isLoading: loadingData, error } = useSWR(
+        `ruangan-kremasi/${id}`,
+        fetcher
+    )
+
+    // reset form when data is fetched
+    useEffect(() => {
+        if (data) {
+            reset({
+                no_ruangan: data?.no_ruangan,
+                harga: data?.harga,
+                jadwal: data?.jadwal,
+                category_room: data?.category_room,
+            })
+        }
+    }, [data, reset]);
+
+    if (loadingData || !data) {
+        return (
+            <section data-testid="loading-component" className='flex justify-center'>
+                <LoadingKalla width={30} height={30} />
+            </section>
+        )
+    }
+
+    if (error) {
+        return (
+            <section data-testid="error-component">
+                <p>Error</p>
+            </section>
+        )
     }
 
     return (
@@ -61,304 +117,69 @@ const Edit: React.FC = () => {
             {/* FIRST SECTION */}
             <Section className='grid md:grid-cols-2 bg-primary rounded-lg px-4 pb-10 pt-4 gap-x-8 gap-y-4'>
                 <InputText
-                    type='text'
                     aria-required
-                    label='NIK'
-                    name='nik'
-                    placeholder='Cth: 3174xxxxxxxxxxx8889'
+                    label='Nomor Ruangan'
+                    name='no_ruangan'
+                    placeholder='Cth: 001'
                     register={register}
-                    // rule={{
-                    //     required: {
-                    //         value: true,
-                    //         message: 'NIK wajib diisi'
-                    //     },
-                    // }}
-                    error={errors.nik}
+                    rule={{
+                        required: {
+                            value: true,
+                            message: 'Nomor Ruangan wajib diisi'
+                        }
+                    }}
+                    error={errors.no_ruangan}
                 />
 
-                <InputText
-                    type='text'
-                    aria-required
-                    label='Nama Lengkap (Sesuai KTP)'
-                    name='name'
-                    placeholder='Cth:  Alwy Raihan maks(40)'
-                    register={register}
-                    // rule={{
-                    //     required: {
-                    //         value: true,
-                    //         message: 'Nama Lengkap wajib diisi'
-                    //     },
-                    //     maxLength: {
-                    //         value: 40,
-                    //         message: 'Nama Lengkap maksimal 40 karakter'
-                    //     }
-                    // }}
-                    error={errors.name}
-                />
 
                 <ComboBox
                     required
-                    label='Hubungan Keluarga'
-                    name='hub_jenazah'
-                    // rule={{
-                    //     required: {
-                    //         value: true,
-                    //         message: 'Hubungan Keluarga wajib diisi'
-                    //     }
-                    // }}
-                    options={[
-                        { value: '1', label: 'Keluarga' },
-                        { value: '2', label: 'Saudara' },
-                        { value: '3', label: 'Teman' },
-                    ]}
+                    label='Kategori'
+                    name='category_room'
+                    rule={{
+                        required: {
+                            value: true,
+                            message: 'Kategori wajib diisi'
+                        }
+                    }}
+                    options={ROOM_CATEGORY}
                     control={control}
-                    error={errors.hub_jenazah}
+                    error={errors.category_room}
                 />
 
                 <InputText
-                    type='text'
                     aria-required
-                    label='Jenis Pekerjaan Customer'
-                    name='pekerjaan'
-                    placeholder='Cth: ASN'
+                    type="time"
+                    label='Jadwal'
+                    name='jadwal'
+                    placeholder='Cth:08.00'
                     register={register}
-                    // rule={{
-                    //     required: {
-                    //         value: true,
-                    //         message: 'Jenis Pekerjaan wajib diisi'
-                    //     },
-                    // }}
-                    error={errors.pekerjaan}
-                />
-            </Section>
-
-            {/* SECOND SECTION */}
-            <Section className='grid md:grid-cols-2 bg-primary rounded-lg px-4 pb-10 pt-4 gap-x-8 gap-y-4'>
-                <InputText
-                    type='text'
-                    aria-required
-                    label='Nama Lengkap Almarhum (Sesuai KTP)'
-                    name='name_jenazah'
-                    placeholder='Cth:  Alwy Raihan maks(40)'
-                    register={register}
-                    // rule={{
-                    //     required: {
-                    //         value: true,
-                    //         message: 'Nama Lengkap Almarhum wajib diisi'
-                    //     },
-                    //     maxLength: {
-                    //         value: 40,
-                    //         message: 'Nama Lengkap Almarhum maksimal 40 karakter'
-                    //     }
-                    // }}
-                    error={errors.name_jenazah}
+                    rule={{
+                        required: {
+                            value: true,
+                            message: 'Jadwal wajib diisi'
+                        }
+                    }}
+                    error={errors.jadwal}
                 />
 
                 <InputText
-                    type="number"
+                    type='number'
                     aria-required
-
-                    label='Umur Almarhum'
-                    name='umur_jenazah'
-                    placeholder='Cth: 30'
+                    label='Harga'
+                    name='harga'
+                    placeholder='Cth: 1000000'
                     register={register}
-                    // rule={{
-                    //     required: {
-                    //         value: true,
-                    //         message: 'Umur Almarhum wajib diisi'
-                    //     },
-                    // }}
-                    error={errors.umur_jenazah}
-                />
-
-                <InputText
-                    type='text'
-                    aria-required
-                    label='Jenis Pekerjaan Almarhum'
-                    name='pekerjaan_almarhum'
-                    placeholder='Cth: ASN'
-                    register={register}
-                    // rule={{
-                    //     required: {
-                    //         value: true,
-                    //         message: 'Jenis Pekerjaan Almarhum wajib diisi'
-                    //     },
-                    // }}
-                    error={errors.pekerjaan_almarhum}
-                />
-
-                <InputText
-                    type='text'
-                    aria-required
-                    label='Alamat Lengkap'
-                    name='alamat'
-                    placeholder='Cth: Jl. Raya Cilangkap No. 10'
-                    register={register}
-                    // rule={{
-                    //     required: {
-                    //         value: true,
-                    //         message: 'Alamat Lengkap wajib diisi'
-                    //     },
-                    // }}
-                    error={errors.alamat}
-                />
-
-                <InputText
-                    type='text'
-                    aria-required
-                    label="Diagnosa"
-                    name="diagnosa"
-                    placeholder="Cth: Covid-19"
-                    register={register}
-                    // rule={{
-                    //     required: {
-                    //         value: true,
-                    //         message: 'Diagnosa wajib diisi'
-                    //     },
-                    // }}
-                    error={errors.diagnosa}
-                />
-
-                <InputText
-                    type="text"
-                    aria-required
-                    label="Tempat Meninggal"
-                    name="tempat_meninggal"
-                    placeholder="Cth: RSUD Cilangkap"
-                    register={register}
-                    // rule={{
-                    //     required: {
-                    //         value: true,
-                    //         message: 'Tempat Meninggal wajib diisi'
-                    //     },
-                    // }}
-                    error={errors.tempat_meninggal}
-                />
-
-                <FileInput
-                    aria-required
-                    label='Upload File Bukti Kematian'
-                    type='file'
-                    name='surat_kematian'
-                    // rule={{
-                    //     required: {
-                    //         value: true,
-                    //         message: 'File Bukti Kematian wajib diisi'
-                    //     },
-                    // }}
-                    control={control}
-                    id='surat_kematian'
-                    error={errors.surat_kematian}
-                />
-            </Section>
-
-            {/* THIRD SECTION */}
-            <Section className='grid md:grid-cols-2 bg-primary rounded-lg px-4 pb-10 pt-4 gap-x-8 gap-y-4'>
-
-                <ComboBox
-                    required
-                    label='No. Ruangan'
-                    name='ruangan'
-                    // rule={
-                    //     {
-                    //         required: {
-                    //             value: true,
-                    //             message: 'No. Ruangan wajib diisi'
-                    //         },
-                    //     }
-                    // }
-                    options={[
-                        { value: '1', label: '1' },
-                        { value: '2', label: '2' },
-                        { value: '3', label: '3' },
-                    ]}
-                    control={control}
-                    error={errors.ruangan}
-                />
-
-                <ComboBox
-                    required
-                    label='Ruangan Kremasi'
-                    name='ruangan_kremasi'
-                    // rule={
-                    //     {
-                    //         required: {
-                    //             value: true,
-                    //             message: 'Ruangan Kremasi wajib diisi'
-                    //         },
-                    //     }
-                    // }
-                    options={[
-                        { value: '1', label: '1' },
-                        { value: '2', label: '2' },
-                        { value: '3', label: '3' },
-                    ]}
-                    control={control}
-                    error={errors.ruangan_kremasi}
+                    rule={{
+                        required: {
+                            value: true,
+                            message: 'Harga wajib diisi'
+                        }
+                    }}
+                    error={errors.harga}
                 />
 
             </Section>
-
-            {/* FOURTH SECTION */}
-            <Section className='grid md:grid-cols-2 bg-primary rounded-lg px-4 pb-10 pt-4 gap-x-8 gap-y-4'>
-
-                <ComboBox
-                    required
-                    label='Status Transaksi'
-                    name='status_transaksi'
-                    // rule={
-                    //     {
-                    //         required: {
-                    //             value: true,
-                    //             message: 'Status transaksi wajib diisi'
-                    //         },
-                    //     }
-                    // }
-                    options={[
-                        { value: '1', label: 'Lunas' },
-                        { value: '2', label: 'Belum Lunas' },
-                    ]}
-                    control={control}
-                    error={errors.status_transaksi}
-                />
-
-                <InputDatepicker
-                    label='Tanggal Reservasi'
-                    register={register}
-                    aria-required
-                    classNameWrapper='w-full'
-                    name='tanggal_reservasi'
-                    // rule={{
-                    //     required: {
-                    //         value: true,
-                    //         message: 'Tanggal Reservasi wajib diisi'
-                    //     },
-                    // }}
-                    error={errors.tanggal_reservasi}
-                />
-
-                <FileInput
-                    aria-required
-                    label='Upload File Bukti Transaksi'
-                    type='image'
-                    name='bukti_transaksi'
-                    // rule={{
-                    //     required: {
-                    //         value: true,
-                    //         message: 'File Bukti Transaksi wajib diisi'
-                    //     },
-                    // }}
-                    control={control}
-                    id='bukti_transaksi'
-                    error={errors.bukti_transaksi}
-                />
-
-                <Section className='flex items-center md:mt-2'>
-                    <p className='text-xs md:text-sm text-white'>Note: Jika Gambar yang di masukan diubah maka status transaksi akan menjadi pending.</p>
-                </Section>
-
-            </Section>
-
 
             <Section
                 data-testid='save-button'
@@ -367,14 +188,18 @@ const Edit: React.FC = () => {
                 <Button
                     type='submit'
                     className='bg-secondary hover:bg-secondary-dark rounded-lg text-white w-32 p-3 mt-2 text-sm'
+                    disabled={isLoading}
                 >
-                    {isLoading ? 'loading' : 'Simpan'}
+                    {isLoading ? 'Loading...' : 'Simpan'}
                 </Button>
                 <Button
-                    type='submit'
+                    // type='submit'
+                    type='button'
                     className='bg-red-500 hover:bg-red-600 rounded-lg text-white w-32 p-3 mt-2 text-sm'
+                    onClick={() => router.back()}
+                    disabled={isLoading}
                 >
-                    {isLoading ? 'loading' : 'Kembali'}
+                    {isLoading ? 'Loading...' : 'Kembali'}
                 </Button>
             </Section>
         </form>

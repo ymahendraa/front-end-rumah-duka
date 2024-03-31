@@ -83,14 +83,14 @@ const DocumentationPage = () => {
                 </Section>
                 <Section className='flex flex-col gap-2'>
                   <p className='text-sm'>Secondary</p>
-                  <Button className='bg-secondary text-white hover:bg-secondaryDark p-2 rounded-md text-sm'>
+                  <Button className='bg-secondary text-white hover:bg-secondary-dark p-2 rounded-md text-sm'>
                     Button
                   </Button>
                 </Section>
                 <Section className='flex flex-col gap-2'>
                   <p className='text-sm'>Iconed</p>
                   <Button
-                    className='w-[40px] flex items-center bg-primary rounded-lg text-sm p-2 hover:bg-primaryDark'
+                    className='w-[40px] flex items-center bg-primary rounded-lg text-sm p-2 hover:bg-primary-dark'
                     type='button'
                     icon={<MagnifyingGlassCircleIcon className='w-6 h-5 text-white' />}
                   />
@@ -98,7 +98,7 @@ const DocumentationPage = () => {
                 <Section className='flex flex-col gap-2'>
                   <p className='text-sm'>Text with icon</p>
                   <Button
-                    className='flex justify-between items-center bg-primary rounded-lg text-sm p-2 hover:bg-primaryDark text-white'
+                    className='flex justify-between items-center bg-primary rounded-lg text-sm p-2 hover:bg-primary-dark text-white'
                     type='button'
                     icon={<MagnifyingGlassCircleIcon className='w-6 h-5 text-white' />}
                   >
@@ -205,7 +205,7 @@ const DocumentationPage = () => {
                 path='#'
                 classNameLink={`flex flex-row justify-between gap-x-2 p-3 rounded-md  transition-colors cursor-pointer ${true
                   ? 'bg-primary '
-                  : 'bg-white hover:bg-primaryLight'
+                  : 'bg-white hover:bg-primary-light'
                   }`}
                 classNameLabel={`text-sm font-medium ${true
                   ? 'text-white'

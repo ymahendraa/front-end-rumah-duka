@@ -4,10 +4,10 @@ import Button from '@/components/atoms/button'
 
 // utils import
 import { createColumnHelper } from '@tanstack/react-table'
-import type { Customer } from '@/types/customer'
 import dayjs from 'dayjs'
 import 'dayjs/locale/id'
 import { checkPermissions } from '@/utils/checkPermissions'
+import { ReceivedCustomer } from '../types/Customer'
 
 // hooks import
 import { useMemo, useState } from 'react'
@@ -18,7 +18,7 @@ export type SelectedRowType = {
     name: string
     id: string
 }
-const columnHelper = createColumnHelper<Customer>()
+const columnHelper = createColumnHelper<ReceivedCustomer>()
 
 /**
  * 
@@ -54,31 +54,31 @@ const useColumns = (permissions: string[]) => {
                 cell: ({ row }) => row.index + 1,
                 size: 10,
             }),
-            columnHelper.accessor((row) => row, {
+            columnHelper.accessor((row) => row.id_customer, {
                 id: 'id',
-                header: () => 'ID',
-                cell: ({ row }) => row.id,
-                size: 10,
+                header: () => 'ID Customer',
+                cell: (info) => info.getValue(),
+                size: 100,
             }),
-            columnHelper.accessor((row) => row.first_name, {
+            columnHelper.accessor((row) => row.nik, {
                 id: 'nik',
                 header: () => 'NIK',
                 cell: (info) => info.getValue(),
                 size: 150,
             }),
-            columnHelper.accessor((row) => row.last_name, {
+            columnHelper.accessor((row) => row.name, {
                 id: 'nama',
                 header: () => 'Nama Lengkap',
                 cell: (info) => info.getValue(),
-                size: 250,
+                size: 150,
             }),
-            columnHelper.accessor((row) => row.email, {
+            columnHelper.accessor((row) => row.jenis_pekerjaan, {
                 id: 'jenis_pekerjaan',
                 header: () => 'Pekerjaan',
                 cell: (info) => info.getValue(),
                 size: 50,
             }),
-            columnHelper.accessor((row) => row.join_date, {
+            columnHelper.accessor((row) => row.hub_jenazah, {
                 id: 'hubungan',
                 header: () => 'Hubungan Dengan Almarhum',
                 cell: (info) => dayjs(info.getValue()).format('DD MMM YYYY'),
@@ -96,7 +96,7 @@ const useColumns = (permissions: string[]) => {
                             {checkPermissions(['master.customers.update'], permissions) && (
                                 <Button
                                     onClick={() => {
-                                        router.push(`/customer/edit-data/${row.id}`)
+                                        router.push(`/customer/edit-data/${row.id_customer}`)
                                     }}
                                     className='flex items-center justify-center bg-green-500 hover:bg-green-600 w-6 h-6 rounded-md transition-colors duration-300 ease-in-out'
                                 >
@@ -107,8 +107,8 @@ const useColumns = (permissions: string[]) => {
                                 <Button
                                     onClick={() => {
                                         setSelectedRow({
-                                            name: row.first_name + ' ' + row.last_name,
-                                            id: row.id,
+                                            name: row.name,
+                                            id: row.id_customer,
                                         })
                                         setOpenDelete(true)
                                     }}

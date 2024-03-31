@@ -16,7 +16,7 @@ const RadioButton: React.FC<RadioButtonProps> = ({
     ...props
 }) => {
     const config = {
-        classNameLabel: props.classNameLabel || 'text-sm text-slate-800'
+        classNameLabel: props.classNameLabel || 'text-sm text-white'
     }
     return (
         <Section className='flex gap-1'>

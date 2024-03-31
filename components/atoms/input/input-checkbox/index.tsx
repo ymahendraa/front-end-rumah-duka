@@ -39,7 +39,7 @@ const InputCheckbox: React.FC<InputCheckboxProps> = ({
     ...props
 }) => {
     const config = {
-        className: className ?? 'accent-primary border border-gray-300 focus:border-primary focus:outline-none hover:cursor-pointer p-2 w-4 h-4',
+        className: className ?? 'accent-secondary border border-gray-300 focus:border-primary focus:outline-none hover:cursor-pointer p-2 w-4 h-4',
     }
     return (
         <div className='flex items-center gap-x-1'>

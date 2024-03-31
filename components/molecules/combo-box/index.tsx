@@ -12,7 +12,7 @@ type ComboBoxProps = {
         label: string;
     }[];
     error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
-    control?: Control<FieldValues, any>
+    control?: any
     rule?: Omit<RegisterOptions<FieldValues, string>, "setValueAs" | "disabled" | "valueAsNumber" | "valueAsDate"> | undefined
     placeholder?: string,
     name?: string,

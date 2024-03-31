@@ -12,8 +12,8 @@ const NotFound = () => {
     router.back() // This will navigate to the previous page in the browser history
   }
   return (
-    <section className="bg-white flex flex-col items-center justify-center w-full h-screen gap-10">
-      <h1 className="text-black text-3xl font-bold">Page Not Found</h1>
+    <section className="bg-gray-500 flex flex-col items-center justify-center w-full h-screen gap-10">
+      <h1 className="text-white text-3xl font-bold">Page Not Found</h1>
       <Image
         src={Img}
         alt="not-found"
@@ -22,7 +22,7 @@ const NotFound = () => {
         className="w-[200px] lg:w-[400px]"
       />
       <button
-        className="bg-green-600 hover:bg-green-700 text-white text-2xl py-3 px-10 rounded-full font-medium"
+        className="bg-secondary hover:bg-secondary-dark text-white text-2xl py-3 px-10 rounded-full font-medium"
         onClick={handleGoBack}
       >
         Go Back

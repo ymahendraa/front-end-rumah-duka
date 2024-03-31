@@ -2,7 +2,7 @@
 import React, { useCallback, useContext } from 'react'
 
 // components import
-import Loading from '../loading'
+import Loading from '../../../components/atoms/loader/loading'
 import Pagination from '@/components/organisms/pagination'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
 import { DataTableBase } from '@/components/organisms/table/data-table'
@@ -94,7 +94,7 @@ const RuanganKremasiPage = () => {
         page,
         limit,
         filter: debouncedSearch,
-        url: 'master/customers',
+        url: 'ruangan-kremasi',
         // accessToken,
     })
 
@@ -112,47 +112,13 @@ const RuanganKremasiPage = () => {
                 data-testid='create-button'
             >
                 <CRUDHeaderSection
-                    onClickCreate={() => router.push('customer/tambah-data')}
+                    onClickCreate={() => router.push('ruangan-kremasi/tambah-data')}
                     value={q}
                     onChange={(e) => {
                         router.push(pathname + '?' + createQueryString('q', e.target.value))
                     }}
-                    disableCreate={!checkPermissions(['master.customers.create'], permissions)}
-                    PopOverComponent={
-                        <Section className='w-full flex flex-col gap-2 text-slate-500 text-sm' >
-                            <p>Advanced Filter</p>
-                            <Section className='flex flex-wrap gap-2 justify-between'>
-                                <InputDatepicker
-                                    label='Join Date From'
-                                    value={joinDateFrom}
-                                    classNameWrapper='w-full'
-                                    onChange={(e) => setJoinDateFrom(e.target.value)}
-                                />
-                                <InputDatepicker
-                                    label='Join Date To'
-                                    classNameWrapper='w-full'
-                                    value={joinDateTo}
-                                    onChange={(e) => setJoinDateTo(e.target.value)}
-                                />
-                                <InputText
-                                    label='Query search'
-                                    classNameWrapper='w-full'
-                                    value={querySearch}
-                                    placeholder='Search by Name or Email'
-                                    onChange={(e) => setQuerySearch(e.target.value)}
-                                />
-                            </Section>
-                            <Button
-                                className='bg-primary text-white rounded-md p-1 hover:bg-primary-dark text-sm'
-                                type='button'
-                                onClick={() => {
-                                    router.push(pathname + '?' + createQueryString('join-date-from', joinDateFrom) + '&' + createQueryString('join-date-to', joinDateTo) + '&' + createQueryString('q', querySearch))
-                                }}
-                            >
-                                Search
-                            </Button>
-                        </Section>
-                    }
+                    disableCreate={!checkPermissions(['master.kremation-room.create'], permissions)}
+
                 />
             </Section>
             <Section
@@ -196,7 +162,7 @@ const RuanganKremasiPage = () => {
                         setOpen={setOpenDelete}
                         isLoading={isLoadingSubmit}
                         deleteHandler={() => submitHandler({
-                            url: `master/customers/${selectedRow?.id}`,
+                            url: `ruangan-kremasi/${selectedRow?.id}`,
                             config: {
                                 method: 'DELETE',
                             },

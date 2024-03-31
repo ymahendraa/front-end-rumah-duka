@@ -5,7 +5,7 @@ import Image from 'next/image'
 
 // utils import
 import { createColumnHelper } from '@tanstack/react-table'
-import type { Customer } from '@/types/customer'
+import { Reservasi } from '../types/Reservasi'
 import dayjs from 'dayjs'
 import 'dayjs/locale/id'
 import { checkPermissions } from '@/utils/checkPermissions'
@@ -19,7 +19,7 @@ export type SelectedRowType = {
     name: string
     id: string
 }
-const columnHelper = createColumnHelper<Customer>()
+const columnHelper = createColumnHelper<Reservasi>()
 
 /**
  * 

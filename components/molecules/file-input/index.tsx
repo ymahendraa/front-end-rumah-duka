@@ -5,7 +5,7 @@ import Image from 'next/image'
 
 type FileInputProps = {
     error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
-    control: Control<FieldValues, any>
+    control: any
     rule?: Omit<RegisterOptions<FieldValues, string>, "setValueAs" | "disabled" | "valueAsNumber" | "valueAsDate"> | undefined
     label: string,
     id: string,
@@ -23,19 +23,25 @@ const FileInput: React.FC<FileInputProps> = ({
 }) => {
     const inputRef = React.useRef<HTMLInputElement>(null);
     const getContent = (value: File) => {
+        const URL_IMAGE = value instanceof File ? URL.createObjectURL(value) : value;
         if (!value) {
             return <p className='text-gray-400'>{placeholder}</p>
         }
         if (props.type === 'image') {
             return value ?
                 <img
-                    src={URL.createObjectURL(value)}
+                    src={URL_IMAGE}
                     alt={value.name}
                     width={400}
                     height={400}
                 />
                 :
                 <p className='text-gray-400'>{placeholder}</p>
+        }
+
+        // check if value is string
+        if (typeof value === 'string') {
+            return <p className='text-gray-400'>{value}</p>
         }
         return <p className='text-gray-400'>{value?.name}</p>
     }

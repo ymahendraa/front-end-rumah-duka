@@ -72,7 +72,7 @@ const SidebarModule: React.FC<SidebarProps> = ({ show, setter }) => {
         // await fetch(`/api/redis/${id}`, {
         //     method: 'DELETE'
         // })
-        signOut()
+        signOut({ callbackUrl: '/login' })
     }
 
     /**
@@ -130,7 +130,7 @@ const SidebarModule: React.FC<SidebarProps> = ({ show, setter }) => {
                             <LoadingKalla width={20} height={20} />
                         </Section>
                     ) : ( */}
-                    <Section className="h-[500px] overflow-y-auto scrollbar-hide">
+                    <Section className="h-[600px] overflow-y-auto scrollbar-hide">
                         <MenuList
                             minimized={minimized}
                             setter={setter}

@@ -4,10 +4,10 @@ import Button from '@/components/atoms/button'
 
 // utils import
 import { createColumnHelper } from '@tanstack/react-table'
-import type { Customer } from '@/types/customer'
 import dayjs from 'dayjs'
 import 'dayjs/locale/id'
 import { checkPermissions } from '@/utils/checkPermissions'
+import { Almarhum } from '../types/Almarhum'
 
 // hooks import
 import { useMemo, useState } from 'react'
@@ -18,7 +18,7 @@ export type SelectedRowType = {
     name: string
     id: string
 }
-const columnHelper = createColumnHelper<Customer>()
+const columnHelper = createColumnHelper<Almarhum>()
 
 /**
  * 
@@ -54,45 +54,45 @@ const useColumns = (permissions: string[]) => {
                 cell: ({ row }) => row.index + 1,
                 size: 10,
             }),
-            columnHelper.accessor((row) => row, {
-                id: 'id',
-                header: () => 'ID',
-                cell: ({ row }) => row.id,
-                size: 10,
-            }),
-            columnHelper.accessor((row) => row.first_name, {
+            // columnHelper.accessor((row) => row.pemohon_id, {
+            //     id: 'id',
+            //     header: () => 'ID',
+            //     cell: ({ row }) => row.id,
+            //     size: 10,
+            // }),
+            columnHelper.accessor((row) => row.nama_lengkap, {
                 id: 'nama',
                 header: () => 'Nama Lengkap',
                 cell: (info) => info.getValue(),
                 size: 150,
             }),
-            columnHelper.accessor((row) => row.last_name, {
+            columnHelper.accessor((row) => row.umur, {
                 id: 'umur',
                 header: () => 'Umur',
                 cell: (info) => info.getValue(),
                 size: 250,
             }),
-            columnHelper.accessor((row) => row.email, {
+            columnHelper.accessor((row) => row.pekerjaan, {
                 id: 'jenis_pekerjaan',
                 header: () => 'Pekerjaan',
                 cell: (info) => info.getValue(),
                 size: 50,
             }),
-            columnHelper.accessor((row) => row.join_date, {
+            columnHelper.accessor((row) => row.alamat, {
                 id: 'alamat',
                 header: () => 'Alamat',
-                cell: (info) => dayjs(info.getValue()).format('DD MMM YYYY'),
+                cell: (info) => info.getValue(),
                 size: 250,
             }),
-            columnHelper.accessor((row) => row.join_date, {
+            columnHelper.accessor((row) => row.tempat_meninggal, {
                 id: 'tempat_meninggal',
                 header: () => 'Tempat Meninggal',
-                cell: (info) => dayjs(info.getValue()).format('DD MMM YYYY'),
+                cell: (info) => info.getValue(),
                 size: 250,
             }),
-            columnHelper.accessor((row) => row.join_date, {
-                id: 'diagosa',
-                header: () => 'Diagosa',
+            columnHelper.accessor((row) => row.diagnosa, {
+                id: 'diagnosa',
+                header: () => 'Diagnosa',
                 cell: (info) => dayjs(info.getValue()).format('DD MMM YYYY'),
                 size: 250,
             }),
@@ -119,7 +119,7 @@ const useColumns = (permissions: string[]) => {
                                 <Button
                                     onClick={() => {
                                         setSelectedRow({
-                                            name: row.first_name + ' ' + row.last_name,
+                                            name: row.nama_lengkap,
                                             id: row.id,
                                         })
                                         setOpenDelete(true)

@@ -41,7 +41,7 @@ const InputFileWrapper = React.forwardRef<HTMLInputElement, InputFileWrapperProp
     };
 
     const config = {
-        classNameInput: classNameInput ?? 'w-full flex items-center bg-base min-h-12 border border-gray-300 rounded-xl p-2 box-border text-white text-sm cursor-pointer hover:bg-gray-700 transition-color duration-300 ease-in-out',
+        classNameInput: classNameInput ?? 'w-full flex items-center bg-base min-h-12 focus:border focus:border-gray-300 rounded-xl p-2 box-border text-white text-sm cursor-pointer hover:bg-gray-700 transition-color duration-300 ease-in-out',
         classNameWrapper: classNameWrapper ?? 'flex flex-col gap-y-1'
     }
     const isContentImage = (props.inputContent as ReactElement).type === 'img';

@@ -2,18 +2,13 @@
 import React, { useCallback, useContext } from 'react'
 
 // components import
-import Loading from '../loading'
+import Loading from '../../../components/atoms/loader/loading'
 import Pagination from '@/components/organisms/pagination'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
 import { DataTableBase } from '@/components/organisms/table/data-table'
 import Modal from '@/components/atoms/modal'
-import Create from './(features)/components/Create'
-import Edit from './(features)/components/Edit'
 import DeleteModalContent from '@/components/molecules/delete-modal-content'
 import Section from '@/components/atoms/section'
-import InputDatepicker from '@/components/atoms/input/input-datepicker'
-import Button from '@/components/atoms/button'
-import InputText from '@/components/atoms/input/input-text'
 
 // hooks import
 import useColumns from './(features)/hooks/useColumns'
@@ -78,11 +73,6 @@ const CustomerPage = () => {
     // define filter params
     const q: string = searchParams.get('q') ?? ''
 
-    // define filter state
-    const [joinDateFrom, setJoinDateFrom] = React.useState(searchParams.get('join-date-from') ?? '')
-    const [joinDateTo, setJoinDateTo] = React.useState(searchParams.get('join-date-to') ?? '')
-    const [querySearch, setQuerySearch] = React.useState(searchParams.get('q') ?? '')
-
     // define debounced filter state
     const debouncedSearch = useDebounce(searchParams.toString(), 500)
 
@@ -103,7 +93,7 @@ const CustomerPage = () => {
         page,
         limit,
         filter: debouncedSearch,
-        url: 'master/customers',
+        url: 'customer',
         // accessToken,
     })
 
@@ -127,41 +117,41 @@ const CustomerPage = () => {
                         router.push(pathname + '?' + createQueryString('q', e.target.value))
                     }}
                     disableCreate={!checkPermissions(['master.customers.create'], permissions)}
-                    PopOverComponent={
-                        <Section className='w-full flex flex-col gap-2 text-slate-500 text-sm' >
-                            <p>Advanced Filter</p>
-                            <Section className='flex flex-wrap gap-2 justify-between'>
-                                <InputDatepicker
-                                    label='Join Date From'
-                                    value={joinDateFrom}
-                                    classNameWrapper='w-full'
-                                    onChange={(e) => setJoinDateFrom(e.target.value)}
-                                />
-                                <InputDatepicker
-                                    label='Join Date To'
-                                    classNameWrapper='w-full'
-                                    value={joinDateTo}
-                                    onChange={(e) => setJoinDateTo(e.target.value)}
-                                />
-                                <InputText
-                                    label='Query search'
-                                    classNameWrapper='w-full'
-                                    value={querySearch}
-                                    placeholder='Search by Name or Email'
-                                    onChange={(e) => setQuerySearch(e.target.value)}
-                                />
-                            </Section>
-                            <Button
-                                className='bg-primary text-white rounded-md p-1 hover:bg-primary-dark text-sm'
-                                type='button'
-                                onClick={() => {
-                                    router.push(pathname + '?' + createQueryString('join-date-from', joinDateFrom) + '&' + createQueryString('join-date-to', joinDateTo) + '&' + createQueryString('q', querySearch))
-                                }}
-                            >
-                                Search
-                            </Button>
-                        </Section>
-                    }
+                // PopOverComponent={
+                //     <Section className='w-full flex flex-col gap-2 text-slate-500 text-sm' >
+                //         <p>Advanced Filter</p>
+                //         <Section className='flex flex-wrap gap-2 justify-between'>
+                //             <InputDatepicker
+                //                 label='Join Date From'
+                //                 value={joinDateFrom}
+                //                 classNameWrapper='w-full'
+                //                 onChange={(e) => setJoinDateFrom(e.target.value)}
+                //             />
+                //             <InputDatepicker
+                //                 label='Join Date To'
+                //                 classNameWrapper='w-full'
+                //                 value={joinDateTo}
+                //                 onChange={(e) => setJoinDateTo(e.target.value)}
+                //             />
+                //             <InputText
+                //                 label='Query search'
+                //                 classNameWrapper='w-full'
+                //                 value={querySearch}
+                //                 placeholder='Search by Name or Email'
+                //                 onChange={(e) => setQuerySearch(e.target.value)}
+                //             />
+                //         </Section>
+                //         <Button
+                //             className='bg-primary text-white rounded-md p-1 hover:bg-primary-dark text-sm'
+                //             type='button'
+                //             onClick={() => {
+                //                 router.push(pathname + '?' + createQueryString('join-date-from', joinDateFrom) + '&' + createQueryString('join-date-to', joinDateTo) + '&' + createQueryString('q', querySearch))
+                //             }}
+                //         >
+                //             Search
+                //         </Button>
+                //     </Section>
+                // }
                 />
             </Section>
             <Section

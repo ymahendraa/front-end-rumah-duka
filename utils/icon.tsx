@@ -62,5 +62,6 @@ export const ICON = {
   RoomIcon: <img src='/room.svg' alt="room" className="w-5 h-5" />,
   ArchiveBoxIcon: <ArchiveBoxIcon className="w-5 h-5" />,
   UserPlusIcon: <UserPlusIcon className="w-5 h-5" />,
-  UsersIcon: <UsersIcon className="w-5 h-5" />
+  UsersIcon: <UsersIcon className="w-5 h-5" />,
+  StuffIcon: <img src='/stuff_logo.svg' alt="stuff" className="w-5 h-5" />,
 }

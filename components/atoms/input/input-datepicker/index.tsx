@@ -39,7 +39,7 @@ const InputDatepicker: React.FC<InputDatepickerProps> = ({
     ...props
 }) => {
     const config = {
-        classNameInput: classNameInput ?? 'w-full bg-base h-12 border border-gray-300 rounded-xl px-2 text-white text-sm focus:border-primary focus:outline-none',
+        classNameInput: classNameInput ?? 'w-full bg-base h-12 rounded-xl px-2 text-white text-sm focus:border focus:border-gray-300 focus:outline-none',
         classNameWrapper: classNameWrapper ?? 'flex flex-col gap-y-1'
     }
     return (

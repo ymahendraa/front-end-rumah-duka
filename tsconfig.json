@@ -30,7 +30,8 @@
     "middleware.ts",
     "app/api/auth/[...nextauth].js",
     "jest.config.js",
-    "app/(public)/login/component/Login.test.text"
+    "app/(public)/login/component/Login.test.text",
+    "utils/const/JADWAL.js"
   ],
   "exclude": ["node_modules"]
 }

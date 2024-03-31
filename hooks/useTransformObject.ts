@@ -1,6 +1,10 @@
 import { useMemo } from "react";
 
-const useTransformObject = (object: Record<string, any>[]) => {
+const useTransformObject = (
+  object: Record<string, any>[],
+  value: string = "id",
+  label: string = "name"
+) => {
   return useMemo(() => {
     // if (!object) {
     //   return null;
@@ -8,8 +12,8 @@ const useTransformObject = (object: Record<string, any>[]) => {
 
     return object.map((item) => {
       return {
-        value: item.id,
-        label: item.name,
+        value: item[value],
+        label: item[label],
       };
     });
   }, [object]);

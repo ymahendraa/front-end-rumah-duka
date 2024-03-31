@@ -2,7 +2,7 @@
 import React, { useCallback, useContext } from 'react'
 
 // components import
-import Loading from '../loading'
+import Loading from '../../../components/atoms/loader/loading'
 import Pagination from '@/components/organisms/pagination'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
 import { DataTableBase } from '@/components/organisms/table/data-table'
@@ -94,7 +94,7 @@ const AlmarhumPage = () => {
         page,
         limit,
         filter: debouncedSearch,
-        url: 'master/customers',
+        url: 'almarhum',
         // accessToken,
     })
 

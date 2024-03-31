@@ -2,11 +2,10 @@ type User = {
   id: string;
   username: string;
   email: string;
-  phone: string;
-  first_name: string;
-  last_name: string;
+  phone?: string;
+  name: string;
   password: string;
-  status: boolean;
+  status?: boolean;
   role: {
     id: string;
     name: string;

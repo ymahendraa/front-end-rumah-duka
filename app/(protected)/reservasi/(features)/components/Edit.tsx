@@ -12,6 +12,7 @@ import ComboBox from '@/components/molecules/combo-box';
 import { SubmitHandler, useForm } from 'react-hook-form'
 import useSubmit from '@/hooks/useSubmit';
 import InputDatepicker from '@/components/atoms/input/input-datepicker';
+import Loading from '@/components/atoms/loader/loading';
 
 /**
  * @description
@@ -367,14 +368,16 @@ const Edit: React.FC = () => {
                 <Button
                     type='submit'
                     className='bg-secondary hover:bg-secondary-dark rounded-lg text-white w-32 p-3 mt-2 text-sm'
+                    disabled={isLoading}
                 >
-                    {isLoading ? 'loading' : 'Simpan'}
+                    {isLoading ? 'Loading...' : 'Simpan'}
                 </Button>
                 <Button
                     type='submit'
                     className='bg-red-500 hover:bg-red-600 rounded-lg text-white w-32 p-3 mt-2 text-sm'
+                    disabled={isLoading}
                 >
-                    {isLoading ? 'loading' : 'Kembali'}
+                    {isLoading ? 'Loading...' : 'Kembali'}
                 </Button>
             </Section>
         </form>
