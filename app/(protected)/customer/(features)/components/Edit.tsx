@@ -61,14 +61,15 @@ const Edit = ({ id }: { id: string }) => {
         if (selectedData) {
             reset({
                 nik: selectedData.nik,
-                nama_lengkap_pemohon: selectedData.name,
+                nama_lengkap_pemohon: selectedData.nama_lengkap_pemohon,
                 hub_almarhum: selectedData.hub_almarhum,
                 jenis_pekerjaan: selectedData.pekerjaan,
                 alamat: selectedData.alamat,
-                nama_lengkap_almarhum: selectedData.nama_lengkap,
+                nama_lengkap_almarhum: selectedData.nama_lengkap_almarhum,
                 umur: selectedData.umur,
                 riwayat_pekerjaan: selectedData.riwayat_pekerjaan,
                 alamat_almarhum: selectedData.alamat_almarhum,
+                jenis_kelamin: selectedData.jenis_kelamin,
                 diagnosa: selectedData.diagnosa,
                 tgl_waktu_meninggal: trimDate(selectedData.tgl_waktu_meninggal),
                 tempat_meninggal: selectedData.tempat_meninggal,
@@ -359,6 +360,26 @@ const Edit = ({ id }: { id: string }) => {
                         },
                     }}
                     error={errors.tempat_meninggal}
+                />
+
+                <ComboBox
+                    required
+                    label='Jenis Kelamin'
+                    name='jenis_kelamin'
+                    rule={
+                        {
+                            required: {
+                                value: true,
+                                message: 'Jenis Kelamin wajib diisi'
+                            },
+                        }
+                    }
+                    options={[
+                        { value: 'Pria', label: 'Pria' },
+                        { value: 'Wanita', label: 'Wanita' }
+                    ]}
+                    control={control}
+                    error={errors.jenis_kelamin}
                 />
 
                 <FileInput

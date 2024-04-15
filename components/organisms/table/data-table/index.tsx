@@ -86,7 +86,7 @@ export const DataTableBase: React.FC<DataTableBaseProps> = ({
                     ))}
                 </thead>
                 <tbody className={config.styleTableBody}>
-                    {table.getRowModel().rows.map((row, rowIndex) => (
+                    {table.getRowModel().rows.map((row) => (
                         <tr
                             key={row.id}
                             className={`hover:bg-[rgba(255,255,255,0.1)]`}

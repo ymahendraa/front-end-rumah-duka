@@ -4,7 +4,7 @@ import React from 'react'
 // components import
 import InputText from '@/components/atoms/input/input-text';
 import Button from '@/components/atoms/button';
-import FileInput from '@/components/molecules/file-input';
+// import FileInput from '@/components/molecules/file-input';
 import Section from '@/components/atoms/section';
 import ComboBox from '@/components/molecules/combo-box';
 import InputDatepicker from '@/components/atoms/input/input-datepicker';
@@ -18,7 +18,7 @@ import useFetcher from '@/hooks/useFetcher';
 import { useSession } from 'next-auth/react';
 
 // utils import
-import { fileToBase64 } from '@/utils/convertToBase64';
+// import { fileToBase64 } from '@/utils/convertToBase64';
 import { SendCustomer } from '../types/Customer';
 import useTransformObject from '@/hooks/useTransformObject';
 import Loading from '@/components/atoms/loader/loading';
@@ -54,12 +54,13 @@ const Create: React.FC = () => {
                 diagnosa: '',
                 tgl_waktu_meninggal: '',
                 tempat_meninggal: '',
-                document: undefined,
+                jenis_kelamin: 'Pria',
+                // document: undefined,
                 no_room: '',
                 no_kremasi: '',
                 // screenshot: undefined,
                 // status: '',
-                reservation_date: ''
+                // reservation_date: ''
             }
         }
     );
@@ -79,22 +80,22 @@ const Create: React.FC = () => {
     // submit handler
     const onSubmit: SubmitHandler<any> = async (data: any) => {
         try {
-            if (data.document) {
-                data.document = await fileToBase64(data.document);
-            }
-            console.log(data)
-            // await submitHandler({
-            //     url: 'customer',
-            //     config: {
-            //         method: 'POST',
-            //         headers: {
-            //             'Content-Type': 'application/json'
-            //         },
-            //         body: JSON.stringify(data),
-            //     },
-            //     setOpen: () => { },
-            //     mutate: () => { },
-            // })
+            // if (data.document) {
+            //     data.document = await fileToBase64(data.document);
+            // }
+            // console.log(JSON.stringify(data))
+            await submitHandler({
+                url: 'customer',
+                config: {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data),
+                },
+                setOpen: () => { },
+                mutate: () => { },
+            })
         } catch (error) {
             console.log(error)
         }
@@ -108,7 +109,7 @@ const Create: React.FC = () => {
     )
 
     // transform room data
-    const transformedRoom = useTransformObject(dataRoom?.data ?? [], 'id', 'no_ruangan')
+    const transformedRoom = useTransformObject(dataRoom?.data ?? [], 'id', 'id')
 
     // get list of ruangan_kremasi
     const { data: dataKremasi, isLoading: loadingKremasi, error: errorKremasi } = useSWR(
@@ -117,7 +118,7 @@ const Create: React.FC = () => {
     )
 
     // transform ruangan_kremasi data
-    const transformedKremasi = useTransformObject(dataKremasi?.data ?? [], 'id', 'no_ruangan')
+    const transformedKremasi = useTransformObject(dataKremasi?.data ?? [], 'id', 'id')
 
     if (loadingRoom || loadingKremasi || !dataKremasi || !dataRoom) return <div>
         <Loading />
@@ -180,6 +181,7 @@ const Create: React.FC = () => {
                         { value: 'Keluarga', label: 'Keluarga' },
                         { value: 'Saudara', label: 'Saudara' },
                         { value: 'Teman', label: 'Teman' },
+                        { value: 'Father', label: 'Father' },
                     ]}
                     control={control}
                     error={errors.hub_almarhum}
@@ -334,7 +336,26 @@ const Create: React.FC = () => {
                     error={errors.tempat_meninggal}
                 />
 
-                <FileInput
+                <ComboBox
+                    required
+                    label='Jenis Kelamin'
+                    name='jenis_kelamin'
+                    rule={
+                        {
+                            required: {
+                                value: true,
+                                message: 'Jenis Kelamin wajib diisi'
+                            },
+                        }
+                    }
+                    options={[
+                        { value: 'Pria', label: 'Pria' },
+                        { value: 'Wanita', label: 'Wanita' }
+                    ]}
+                    control={control}
+                    error={errors.jenis_kelamin}
+                />
+                {/* <FileInput
                     // aria-required
                     type="file"
                     label='Upload File Bukti Kematian'
@@ -348,7 +369,7 @@ const Create: React.FC = () => {
                     control={control}
                     id='almarhum.file'
                 // error={errors.document}
-                />
+                /> */}
             </Section>
 
             {/* THIRD SECTION */}
@@ -407,7 +428,7 @@ const Create: React.FC = () => {
                     onClick={() => router.back()}
                     disabled={isLoading}
                 >
-                    {isLoading ? 'Loading...' : 'Kembali'}
+                    Kembali
                 </Button>
             </Section>
         </form>

@@ -47,12 +47,12 @@ export async function POST(req: NextRequest) {
   }
   // if token exists, verify it
   else {
-    const SECRET_KEY = process.env.VERY_SECRET_KEY ?? "yourSecretKey";
-    try {
-      jwt.verify(token, SECRET_KEY);
-    } catch (err) {
-      return NextResponse.json({ error: "Invalid token" }, { status: 401 });
-    }
+    // const SECRET_KEY = process.env.VERY_SECRET_KEY ?? "yourSecretKey";
+    // try {
+    //   jwt.verify(token, SECRET_KEY);
+    // } catch (err) {
+    //   return NextResponse.json({ error: "Invalid token" }, { status: 401 });
+    // }
 
     // PREPARE IMAGEKIT UPLOAD
     //Get current date to create a folder with the name of the current month
@@ -65,38 +65,42 @@ export async function POST(req: NextRequest) {
     const folderPath = `${year}-${month}`;
     await mkdir(folderPath, { recursive: true });
 
-    // create file name for file
+    // create file name for document
     const fileName = `${year}-${month}-${day}_BUKTI_KEMATIAN`;
 
     // get file from body
-    const file = body.almarhum.file;
+    // const file = body.document;
 
     // upload file to imagekit
-    let fileId = "";
-    try {
-      const upload = await imageKit.upload({
-        file: file,
-        fileName: fileName,
-        folder: folderPath,
-      });
-      fileId = upload.fileId;
-      // assign file in body to fileId
-      body.almarhum.file = fileId;
-    } catch (err) {
-      return NextResponse.json(
-        { error: "Failed to upload file" },
-        { status: 400 }
-      );
-    }
+    // let fileId = "";
+    // try {
+    //   const upload = await imageKit.upload({
+    //     file: file,
+    //     fileName: fileName,
+    //     folder: folderPath,
+    //   });
+    //   fileId = upload.fileId;
+    //   // assign file in body to fileId
+    //   body.document = fileId;
+    // } catch (err) {
+    //   return NextResponse.json(
+    //     { error: "Failed to upload file" },
+    //     { status: 400 }
+    //   );
+    // }
 
     // fetch data from json server
-    const response = await fetch(`http://localhost:3001/customers`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_REAL_URL}/customer`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(body),
+      }
+    );
     const data = await response.json();
     return NextResponse.json(data);
   }

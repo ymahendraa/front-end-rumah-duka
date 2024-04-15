@@ -3,9 +3,9 @@ import React, { useEffect } from 'react'
 // components import
 import InputText from '@/components/atoms/input/input-text';
 import Button from '@/components/atoms/button';
-import ComboBox from '@/components/molecules/combo-box';
-import InputIcon from '@/components/molecules/input-icon';
-import { ICON } from '@/utils/icon';
+// import ComboBox from '@/components/molecules/combo-box';
+// import InputIcon from '@/components/molecules/input-icon';
+// import { ICON } from '@/utils/icon';
 import InputTextArea from '@/components/atoms/input/input-text-area';
 import InputCheckbox from '@/components/atoms/input/input-checkbox';
 import Label from '@/components/atoms/label';
@@ -47,8 +47,8 @@ type CreateProps = {
  */
 const Create: React.FC<CreateProps> = ({
     setOpen,
-    mutate,
-    url
+    // mutate,
+    // url
 }) => {
     // define session
     const { data: session } = useSession()
@@ -57,7 +57,7 @@ const Create: React.FC<CreateProps> = ({
     const {
         register,
         handleSubmit,
-        control,
+        // control,
         reset,
         formState: { errors },
     } = useForm();

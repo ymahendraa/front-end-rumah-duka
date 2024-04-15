@@ -4,18 +4,15 @@ import React, { useEffect } from 'react'
 // components import
 import InputText from '@/components/atoms/input/input-text';
 import Button from '@/components/atoms/button';
-import FileInput from '@/components/molecules/file-input';
 import Section from '@/components/atoms/section';
-import ComboBox from '@/components/molecules/combo-box';
 
 // hooks import
 import { useForm } from 'react-hook-form'
-import InputDatepicker from '@/components/atoms/input/input-datepicker';
-import Loading from '@/components/atoms/loader/loading';
 import { useSession } from 'next-auth/react';
 import useFetcher from '@/hooks/useFetcher';
 import useSWR from 'swr';
 import { Almarhum } from '../types/Almarhum';
+import Loading from '@/components/atoms/loader/loading';
 
 /**
  * @description
@@ -36,8 +33,6 @@ const Detail: React.FC<DetailProps> = ({
     const {
         register,
         // handleSubmit,
-        formState: { errors },
-        control,
         reset
     } = useForm<Almarhum>();
 
@@ -95,6 +90,10 @@ const Detail: React.FC<DetailProps> = ({
             })
         }
     }, [data, reset]);
+
+    if (loadingData) return <div><Loading /></div>
+
+    if (error) return <div>Error...</div>
 
     return (
         <form className='flex flex-col gap-8 w-full'>

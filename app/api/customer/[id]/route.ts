@@ -143,6 +143,7 @@ export async function PATCH(
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(body),
       }
@@ -166,17 +167,20 @@ export async function DELETE(
   }
   // if token exists, verify it
   else {
-    const SECRET_KEY = process.env.VERY_SECRET_KEY ?? "yourSecretKey";
-    try {
-      jwt.verify(token, SECRET_KEY);
-    } catch (err) {
-      return NextResponse.json({ error: "Invalid token" }, { status: 401 });
-    }
+    // const SECRET_KEY = process.env.VERY_SECRET_KEY ?? "yourSecretKey";
+    // try {
+    //   jwt.verify(token, SECRET_KEY);
+    // } catch (err) {
+    //   return NextResponse.json({ error: "Invalid token" }, { status: 401 });
+    // }
     // fetch data from json server
-    const response = await fetch(`http://localhost:3001/customers/${id}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_REAL_URL}/${id}`, {
       method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
-    const data = await response.json();
+    const data = await response.text();
     return NextResponse.json(data);
   }
 }

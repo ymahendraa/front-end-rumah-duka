@@ -180,7 +180,7 @@ const Edit: React.FC<EditProps> = ({
                     onClick={() => router.back()}
                     disabled={isLoading}
                 >
-                    {isLoading ? 'Loading...' : 'Kembali'}
+                    Kembali
                 </Button>
             </Section>
         </form>

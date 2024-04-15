@@ -1,7 +1,7 @@
 import ComboBoxWrapper from '@/components/atoms/combo-box-wrapper'
 import Label from '@/components/atoms/label'
 import React from 'react'
-import { Control, Controller, FieldError, FieldErrorsImpl, FieldValues, Merge, RegisterOptions } from 'react-hook-form'
+import { Controller, FieldError, FieldErrorsImpl, FieldValues, Merge, RegisterOptions } from 'react-hook-form'
 
 type ComboBoxProps = {
     classNameInput?: string

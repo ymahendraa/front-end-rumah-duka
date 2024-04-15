@@ -103,7 +103,7 @@ const SidebarModule: React.FC<SidebarProps> = ({ show, setter }) => {
     const appendClass = show ? ' ml-0' : 'ml-[-300px] lg:ml-0'
 
     // logo size
-    const logoSize = minimized ? 20 : 30
+    // const logoSize = minimized ? 20 : 30
 
     // sign out button class
     const signOutButtonClass = {

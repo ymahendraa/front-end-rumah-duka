@@ -1,7 +1,6 @@
 import React from 'react'
 import InputFileWrapper from '@/components/atoms/input/input-file-wrapper'
-import { Control, Controller, FieldError, FieldErrorsImpl, FieldValues, Merge, RegisterOptions } from 'react-hook-form'
-import Image from 'next/image'
+import { Controller, FieldError, FieldErrorsImpl, FieldValues, Merge, RegisterOptions } from 'react-hook-form'
 
 type FileInputProps = {
     error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined

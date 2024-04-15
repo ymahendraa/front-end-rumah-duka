@@ -135,7 +135,7 @@ const useColumns = (permissions: string[]) => {
                 size: 10, // Adjust the size as needed
             }),
         ],
-        [permissions],
+        [permissions, router, setOpenDelete],
     )
 
     return {

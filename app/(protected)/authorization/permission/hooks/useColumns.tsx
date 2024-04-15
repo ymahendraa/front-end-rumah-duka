@@ -1,13 +1,13 @@
 // components import
-import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline'
+// import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline'
 
 // utils import
 import { createColumnHelper } from '@tanstack/react-table'
 import type { Permission } from '@/types/authorization'
 
 // hooks import
-import { useMemo, useState } from 'react'
-import useModalState from '@/hooks/useModalState'
+import { useMemo } from 'react'
+// import useModalState from '@/hooks/useModalState'
 
 export type SelectedRowType = {
     name?: string
@@ -38,8 +38,8 @@ const columnHelper = createColumnHelper<Permission>()
  *  } = useColumns()
  */
 const useColumns = () => {
-    const [selectedRow, setSelectedRow] = useState<null | SelectedRowType>(null)
-    const { openEdit, setOpenEdit, openDelete, setOpenDelete } = useModalState()
+    // const [selectedRow, setSelectedRow] = useState<null | SelectedRowType>(null)
+    // const { openEdit, setOpenEdit, openDelete, setOpenDelete } = useModalState()
 
     const columns = useMemo(
         () => [

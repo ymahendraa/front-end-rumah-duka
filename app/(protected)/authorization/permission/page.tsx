@@ -4,19 +4,19 @@
 import Section from '@/components/atoms/section'
 import CRUDHeaderSection from '@/components/organisms/sections/crud-header-section'
 import { DataTableBase } from '@/components/organisms/table/data-table'
-import Pagination from '@/components/organisms/pagination'
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
+// import Pagination from '@/components/organisms/pagination'
+// import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
 import Loading from '../../../../components/atoms/loader/loading'
 import useSearchQuery from '@/hooks/useSearchQuery'
 
 // hooks import
 import { usePaginationState } from '@/hooks/usePaginationState'
 import React, { useEffect } from 'react'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import useColumns from './hooks/useColumns'
 import useDebounce from '@/hooks/useDebounce'
 import { useGetDataWithPagination } from '@/hooks/useGetDataWithPagination'
-import formatCurrentPath from '@/utils/formatCurrentPath'
+// import formatCurrentPath from '@/utils/formatCurrentPath'
 
 /**
  * 
@@ -35,8 +35,8 @@ const PermissionsPage = () => {
     const {
         page,
         limit,
-        setLimit,
-        setPage,
+        // setLimit,
+        // setPage,
     } = usePaginationState()
 
     // get columns data
@@ -45,7 +45,7 @@ const PermissionsPage = () => {
     } = useColumns()
 
     // call useSearchQuery
-    const { inputValue, setInputValue, createQueryString, searchParams } = useSearchQuery();
+    const { inputValue, setInputValue, createQueryString } = useSearchQuery();
 
     // debounce the search input value
     const debouncedSearch = useDebounce(inputValue, 500);

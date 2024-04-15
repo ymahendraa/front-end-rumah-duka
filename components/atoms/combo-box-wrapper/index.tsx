@@ -30,8 +30,13 @@ const ComboBoxWrapper: React.FC<ComboBoxWrapperProps> = ({
     const filteredOptions =
         query === ""
             ? options
-            : options.filter((option) => {
-                return option.label.toLowerCase().includes(query.toLowerCase());
+            : options?.filter((option) => {
+                // if option.label is not a string then convert it to string
+                let label = option.label;
+                if (typeof option.label !== "string" && option.label !== undefined) {
+                    label = label?.toString();
+                }
+                return label?.toLowerCase()?.includes(query.toLowerCase());
             });
 
     const getNameFromValue = (value: string | number) => {
@@ -50,7 +55,7 @@ const ComboBoxWrapper: React.FC<ComboBoxWrapperProps> = ({
                         <Combobox.Button className="w-full inset-y-0 right-0 flex items-center pr-2">
                             <Combobox.Input
                                 className={`w-full h-12 border-none py-2 pl-2 pr-10 text-sm leading-5 text-white focus:ring-0 focus:outline-none ${inputDark ? 'bg-base' : 'bg-white'} `}
-                                onChange={(event) => setQuery(event.target.value)}
+                                onChange={(event) => setQuery(event.target.value.toString())}
                                 displayValue={(optionValue: string | number) =>
                                     getNameFromValue(optionValue)
                                 }

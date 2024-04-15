@@ -33,7 +33,7 @@ export type SendCustomer = {
   hub_almarhum: string;
   nama_lengkap_almarhum: string;
   umur: string;
-  jenis_kelamin: "Laki-laki" | "Perempuan";
+  jenis_kelamin: "Pria" | "Wanita";
   riwayat_pekerjaan: string;
   alamat_almarhum: string;
   tgl_waktu_meninggal: string;

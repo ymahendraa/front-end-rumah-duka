@@ -1,5 +1,5 @@
 'use client'
-import React, { useCallback, useContext, useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 
 // components import
 import Loading from '../../../components/atoms/loader/loading'
@@ -9,15 +9,15 @@ import { DataTableBase } from '@/components/organisms/table/data-table'
 import Modal from '@/components/atoms/modal'
 import DeleteModalContent from '@/components/molecules/delete-modal-content'
 import Section from '@/components/atoms/section'
-import InputDatepicker from '@/components/atoms/input/input-datepicker'
-import Button from '@/components/atoms/button'
-import InputText from '@/components/atoms/input/input-text'
+// import InputDatepicker from '@/components/atoms/input/input-datepicker'
+// import Button from '@/components/atoms/button'
+// import InputText from '@/components/atoms/input/input-text'
 
 // hooks import
 import useColumns from './(features)/hooks/useColumns'
 import { useGetDataWithPagination } from '@/hooks/useGetDataWithPagination'
 import { usePaginationState } from '@/hooks/usePaginationState'
-import { usePathname, useSearchParams, useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import useDebounce from '@/hooks/useDebounce'
 import useSubmit from '@/hooks/useSubmit'
 
@@ -25,7 +25,7 @@ import useSubmit from '@/hooks/useSubmit'
 import CRUDHeaderSection from '@/components/organisms/sections/crud-header-section'
 import { AuthorizationContext } from '@/context/AuthorizationContext/context'
 import { TODO } from '@/types/todo'
-import { checkPermissions } from '@/utils/checkPermissions'
+// import { checkPermissions } from '@/utils/checkPermissions'
 import useSearchQuery from '@/hooks/useSearchQuery'
 
 /**
@@ -65,7 +65,7 @@ const AlmarhumPage = () => {
     const { submitHandler, isLoading: isLoadingSubmit } = useSubmit()
 
     // call useSearchQuery
-    const { inputValue, setInputValue, createQueryString, searchParams } = useSearchQuery();
+    const { inputValue, setInputValue, createQueryString } = useSearchQuery();
 
     // debounce the search input value
     const debouncedSearch = useDebounce(inputValue, 500);
@@ -76,7 +76,7 @@ const AlmarhumPage = () => {
     }, [debouncedSearch, createQueryString, path, router]);
 
     // define filter params
-    const q: string = searchParams.get('q') ?? ''
+    // const q: string = searchParams.get('q') ?? ''
 
     // get data from api
     const { data, isLoading, mutate } = useGetDataWithPagination({
