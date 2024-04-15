@@ -7,7 +7,6 @@ import Button from '@/components/atoms/button';
 import FileInput from '@/components/molecules/file-input';
 import Section from '@/components/atoms/section';
 import ComboBox from '@/components/molecules/combo-box';
-import LoadingKalla from '@/components/atoms/loading';
 
 // hooks import
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -69,34 +68,6 @@ const Create: React.FC = () => {
 
     }
 
-    // define fetcher
-    // const fetcher = useFetcher(session);
-
-    // // get list of ruangan
-    // const { data: dataRuangan, isLoading: isLoadingRuangan, error: erroRuangan } = useSWR(
-    //     'ruangan?page=1&limit=100',
-    //     fetcher
-    // )
-
-    // transform dataRuangan 
-    // const transformedRuangan = useTransformObject(dataRuangan || [], 'id', 'no_ruangan')
-
-    // if (isLoadingRuangan || !dataRuangan) {
-    //     return (
-    //         <section data-testid="loading-component" className='flex justify-center'>
-    //             <LoadingKalla width={30} height={30} />
-    //         </section>
-    //     )
-    // }
-
-    // if (erroRuangan) {
-    //     return (
-    //         <section data-testid="error-component">
-    //             <p>Error</p>
-    //         </section>
-    //     )
-    // }
-
     return (
         <form className='flex flex-col gap-8 w-full' onSubmit={handleSubmit(onSubmit)}>
             {/* FIRST SECTION */}
@@ -104,7 +75,7 @@ const Create: React.FC = () => {
                 <InputText
                     aria-required
                     label='Nomor Ruangan'
-                    name='no_ruangan'
+                    name='id'
                     placeholder='Cth: 001'
                     register={register}
                     rule={{
@@ -113,11 +84,11 @@ const Create: React.FC = () => {
                             message: 'Nomor Ruangan wajib diisi'
                         }
                     }}
-                    error={errors.no_ruangan}
+                    error={errors.id}
                 />
 
 
-                <ComboBox
+                {/* <ComboBox
                     required
                     label='Kategori'
                     name='category_room'
@@ -130,7 +101,7 @@ const Create: React.FC = () => {
                     options={ROOM_CATEGORY}
                     control={control}
                     error={errors.category_room}
-                />
+                /> */}
 
                 <InputText
                     aria-required

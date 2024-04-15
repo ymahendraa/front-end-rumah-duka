@@ -38,7 +38,7 @@ export function useGetDataWithPagination({
   // Pass the fetcher to useSWR
   const { data, error, isLoading, mutate } = useSWR(
     session
-      ? `${url}?page=${page}&limit=${limit}${filter && `&${filter}`}`
+      ? `${url}?page=${page}&limit=${limit}${filter && `&q=${filter}`}`
       : null,
     fetcher
   );

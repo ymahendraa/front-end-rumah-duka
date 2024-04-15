@@ -127,7 +127,6 @@ const SidebarModule: React.FC<SidebarProps> = ({ show, setter }) => {
                     {/* MENU */}
                     {/* {status === 'loading' ? (
                         <Section className='w-full h-96 flex items-center justify-center'>
-                            <LoadingKalla width={20} height={20} />
                         </Section>
                     ) : ( */}
                     <Section className="h-[600px] overflow-y-auto scrollbar-hide">

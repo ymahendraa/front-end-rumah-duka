@@ -53,7 +53,6 @@ const Create: React.FC = () => {
         handleSubmit,
         formState: { errors },
         control,
-        getValues,
         setValue,
         watch
     } = useForm();
@@ -74,9 +73,9 @@ const Create: React.FC = () => {
     // get columns
     const {
         columns,
-        selectedRow,
-        openDelete,
-        setOpenDelete
+        // selectedRow,
+        // openDelete,
+        // setOpenDelete
     } = useColumns(
         editHandler,
         deleteHandler,

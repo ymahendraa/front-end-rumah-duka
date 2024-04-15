@@ -45,6 +45,9 @@ const useFetcher = (session: TODO) => {
           data: options?.body,
         }),
       });
+      if (res?.status == 204) {
+        return res;
+      }
       // if (res.status >= 200 && res.status < 300) {
       return res.data; // Parse JSON from the response
       // }

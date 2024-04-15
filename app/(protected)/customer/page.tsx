@@ -1,5 +1,5 @@
 'use client'
-import React, { useCallback, useContext } from 'react'
+import React, { useCallback, useContext, useEffect } from 'react'
 
 // components import
 import Loading from '../../../components/atoms/loader/loading'
@@ -24,6 +24,7 @@ import CRUDHeaderSection from '@/components/organisms/sections/crud-header-secti
 import { AuthorizationContext } from '@/context/AuthorizationContext/context'
 import { TODO } from '@/types/todo'
 import { checkPermissions } from '@/utils/checkPermissions'
+import useSearchQuery from '@/hooks/useSearchQuery'
 
 /**
  * 
@@ -34,12 +35,6 @@ import { checkPermissions } from '@/utils/checkPermissions'
 const CustomerPage = () => {
     const authData: TODO = useContext(AuthorizationContext) // get auth data from context
     const permissions = authData?.group?.permissions // get permissions from auth data
-
-    // define search params
-    const searchParams = useSearchParams()
-
-    // define pathname
-    const pathname = usePathname()
 
     // define router
     const router = useRouter()
@@ -60,33 +55,23 @@ const CustomerPage = () => {
         setOpenDelete,
     } = useColumns(permissions)
 
-    // get modal state
-    const {
-        open,
-        setOpen,
-    } = useModalState()
-
     // define submit handler
     // get submit handler
     const { submitHandler, isLoading: isLoadingSubmit } = useSubmit()
 
-    // define filter params
-    const q: string = searchParams.get('q') ?? ''
+    // get the current route path
+    const path = usePathname()
 
-    // define debounced filter state
-    const debouncedSearch = useDebounce(searchParams.toString(), 500)
+    // call useSearchQuery
+    const { inputValue, setInputValue, createQueryString, searchParams } = useSearchQuery();
 
-    // Get a new searchParams string by merging the current
-    // searchParams with a provided key/value pair
-    const createQueryString = useCallback(
-        (name: string, value: string) => {
-            const params = new URLSearchParams(searchParams.toString())
-            params.set(name, value)
+    // debounce the search input value
+    const debouncedSearch = useDebounce(inputValue, 500);
 
-            return params.toString()
-        },
-        [searchParams]
-    )
+    // update the URL when the debounced input value changes
+    useEffect(() => {
+        router.push(path + '?' + createQueryString('q', debouncedSearch));
+    }, [debouncedSearch, createQueryString, path, router]);
 
     // get data from api
     const { data, isLoading, mutate } = useGetDataWithPagination({
@@ -112,46 +97,9 @@ const CustomerPage = () => {
             >
                 <CRUDHeaderSection
                     onClickCreate={() => router.push('customer/tambah-data')}
-                    value={q}
-                    onChange={(e) => {
-                        router.push(pathname + '?' + createQueryString('q', e.target.value))
-                    }}
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
                     disableCreate={!checkPermissions(['master.customers.create'], permissions)}
-                // PopOverComponent={
-                //     <Section className='w-full flex flex-col gap-2 text-slate-500 text-sm' >
-                //         <p>Advanced Filter</p>
-                //         <Section className='flex flex-wrap gap-2 justify-between'>
-                //             <InputDatepicker
-                //                 label='Join Date From'
-                //                 value={joinDateFrom}
-                //                 classNameWrapper='w-full'
-                //                 onChange={(e) => setJoinDateFrom(e.target.value)}
-                //             />
-                //             <InputDatepicker
-                //                 label='Join Date To'
-                //                 classNameWrapper='w-full'
-                //                 value={joinDateTo}
-                //                 onChange={(e) => setJoinDateTo(e.target.value)}
-                //             />
-                //             <InputText
-                //                 label='Query search'
-                //                 classNameWrapper='w-full'
-                //                 value={querySearch}
-                //                 placeholder='Search by Name or Email'
-                //                 onChange={(e) => setQuerySearch(e.target.value)}
-                //             />
-                //         </Section>
-                //         <Button
-                //             className='bg-primary text-white rounded-md p-1 hover:bg-primary-dark text-sm'
-                //             type='button'
-                //             onClick={() => {
-                //                 router.push(pathname + '?' + createQueryString('join-date-from', joinDateFrom) + '&' + createQueryString('join-date-to', joinDateTo) + '&' + createQueryString('q', querySearch))
-                //             }}
-                //         >
-                //             Search
-                //         </Button>
-                //     </Section>
-                // }
                 />
             </Section>
             <Section
@@ -160,14 +108,13 @@ const CustomerPage = () => {
             >
                 <DataTableBase
                     columns={columns}
-                    data={Array.isArray(data) ? data : []}
+                    data={data?.data ?? []}
                 />
                 <Pagination
                     page={page}
                     limit={limit}
-                    totalPages={5}
-                    // totalPages={data?.meta?.totalPages}
-                    totalItems={50}
+                    totalPages={data?.meta?.totalPages}
+                    totalItems={data?.meta?.totalItems}
                     options={[
                         { value: 10, label: '10' },
                         { value: 20, label: '20' },
@@ -177,7 +124,7 @@ const CustomerPage = () => {
                     labelNext={<ChevronRightIcon className='w-5 h-5' />}
                     labelPrev={<ChevronLeftIcon className='w-5 h-5' />}
                     disabledPrev={page === 1}
-                    disabledNext={page === 5}
+                    disabledNext={page === data?.meta?.totalPages}
                     // disabledNext={page === data?.meta?.totalPages}
                     setLimit={setLimit}
                     handlePageChange={setPage}

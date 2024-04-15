@@ -3,7 +3,7 @@ type User = {
   username: string;
   email: string;
   phone?: string;
-  name: string;
+  nama_admin: string;
   password: string;
   status?: boolean;
   role: {

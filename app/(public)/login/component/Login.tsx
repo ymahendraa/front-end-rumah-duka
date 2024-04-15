@@ -46,7 +46,8 @@ const LoginComponent: React.FC<Props> = ({ error, callbackUrl }) => {
       const session = await getSession()
       if (session) {
         // redirect to callbackUrl or dashboard
-        router.push(callbackUrl ?? `${process.env.NEXT_PUBLIC_URL}/dashboard`)
+        router.push(callbackUrl ?? `/dashboard`)
+        // router.push(callbackUrl ?? `${process.env.NEXT_PUBLIC_URL}/dashboard`)
       }
     }
   }

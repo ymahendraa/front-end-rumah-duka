@@ -21,6 +21,7 @@ import { useSession } from 'next-auth/react';
 import { fileToBase64 } from '@/utils/convertToBase64';
 import { SendCustomer } from '../types/Customer';
 import useTransformObject from '@/hooks/useTransformObject';
+import Loading from '@/components/atoms/loader/loading';
 
 
 /**
@@ -107,7 +108,7 @@ const Create: React.FC = () => {
     )
 
     // transform room data
-    const transformedRoom = useTransformObject(dataRoom || [], 'id', 'no_ruangan')
+    const transformedRoom = useTransformObject(dataRoom?.data ?? [], 'id', 'no_ruangan')
 
     // get list of ruangan_kremasi
     const { data: dataKremasi, isLoading: loadingKremasi, error: errorKremasi } = useSWR(
@@ -116,9 +117,11 @@ const Create: React.FC = () => {
     )
 
     // transform ruangan_kremasi data
-    const transformedKremasi = useTransformObject(dataKremasi || [], 'id', 'no_ruangan')
+    const transformedKremasi = useTransformObject(dataKremasi?.data ?? [], 'id', 'no_ruangan')
 
-    if (loadingRoom || loadingKremasi || !dataKremasi || !dataRoom) return <div>Loading...</div>
+    if (loadingRoom || loadingKremasi || !dataKremasi || !dataRoom) return <div>
+        <Loading />
+    </div>
 
     if (errorKremasi || errorRoom) return <div>Error...</div>
 

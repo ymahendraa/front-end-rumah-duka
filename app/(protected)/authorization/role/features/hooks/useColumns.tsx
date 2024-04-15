@@ -52,27 +52,21 @@ const useColumns = (permissions: string[]) => {
                 cell: ({ row }) => row.index + 1,
                 size: 10,
             }),
-            columnHelper.accessor((row) => row.name, {
+            columnHelper.accessor((row) => row.role_name, {
                 id: 'name',
                 header: () => 'Name',
                 cell: (info) => info.getValue(),
                 size: 50,
             }),
-            columnHelper.accessor((row) => row.description, {
-                id: 'description',
-                header: () => 'Description',
-                cell: (info) => info.getValue(),
-                size: 50,
-            }),
-            columnHelper.accessor((row) => row.permissions, {
-                id: 'permissions',
-                header: () => 'Total permissions',
-                cell: (info) => {
-                    const permissions = info.getValue() ?? []
-                    return permissions.length
-                },
-                size: 50,
-            }),
+            // columnHelper.accessor((row) => row.permissions, {
+            //     id: 'permissions',
+            //     header: () => 'Total permissions',
+            //     cell: (info) => {
+            //         const permissions = info.getValue() ?? []
+            //         return permissions.length
+            //     },
+            //     size: 50,
+            // }),
             columnHelper.accessor((row) => row, {
                 id: 'actions',
                 header: () => 'Actions',
@@ -101,7 +95,7 @@ const useColumns = (permissions: string[]) => {
                                 <Button
                                     onClick={() => {
                                         setSelectedRow({
-                                            name: row.name,
+                                            name: row.role_name,
                                             id: row.id,
                                         })
                                         setOpenDelete(true)

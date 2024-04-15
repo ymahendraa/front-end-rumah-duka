@@ -1,9 +1,9 @@
 export type ReceivedCustomer = {
-  id_customer: string;
+  id: string;
   nik: string;
   name: string;
-  hub_jenazah: string;
-  jenis_pekerjaan: string;
+  hub_almarhum: string;
+  pekerjaan: string;
   almarhum: {
     nama_almarhum: string;
     umur_almarhum: string;

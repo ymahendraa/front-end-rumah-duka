@@ -2,7 +2,7 @@
   "customers": [
     {
       "id": 1,
-      "alamat": "Jl. Melati No. 10, Jatipulo",
+      "alamat": "123 Main Street",
       "almarhum": {
         "id_almarhum": 1,
         "nama_lengkap": "John Doe",
@@ -15,10 +15,10 @@
         "diagnosa": "Heart Attack",
         "document": "65ffe67488c257da3377dd46"
       },
-      "hub_almarhum": "Keluarga",
+      "hub_almarhum": "Father",
       "id_customer": 1,
       "name": "Nugraha Purnama Aji",
-      "nik": "3173070706980003",
+      "nik": "1234567890",
       "pekerjaan": "Engineer",
       "reservasi": {
         "id_reservasi": 1,
@@ -28,6 +28,80 @@
         "kremasi_id": 1,
         "status": "Pending",
         "screenshot": "6602e6e488c257da336ba0f5"
+      },
+      "nama_lengkap_pemohon": "Aku Aku",
+      "jenis_pekerjaan": "Engineer",
+      "nama_lengkap_almarhum": "Aku Aku",
+      "umur": 52,
+      "riwayat_pekerjaan": "Engineer",
+      "alamat_almarhum": "123 Main Street",
+      "diagnosa": "Jantung",
+      "tgl_waktu_meninggal": "2024-03-10",
+      "tempat_meninggal": "Rumah Sakit",
+      "document": "661a579c88c257da3328be29",
+      "documentDetail": {
+        "type": "file",
+        "name": "2024-03-24_k11t79_F9MLAFN8T",
+        "createdAt": "2024-03-24T08:38:11.914Z",
+        "updatedAt": "2024-03-24T08:38:12.799Z",
+        "fileId": "65ffe67488c257da3377dd46",
+        "tags": null,
+        "AITags": null,
+        "versionInfo": {
+          "id": "65ffe67488c257da3377dd46",
+          "name": "Version 1"
+        },
+        "embeddedMetadata": {
+          "ModifyDate": "2024:02:08 06:05:42-08:00",
+          "XMPToolkit": "3.1-701",
+          "Creator": "MUHAMMAD YUSRIL MAHENDRA @ HOLDING"
+        },
+        "customCoordinates": null,
+        "customMetadata": {},
+        "isPrivateFile": false,
+        "url": "https://ik.imagekit.io/mll6zmdd0/2024-03/2024-03-24_k11t79_F9MLAFN8T",
+        "thumbnail": "https://ik.imagekit.io/demo/img/static-file-1.png",
+        "fileType": "non-image",
+        "filePath": "/2024-03/2024-03-24_k11t79_F9MLAFN8T",
+        "size": 117605,
+        "hasAlpha": true,
+        "mime": "application/pdf"
+      },
+      "no_room": 301,
+      "no_kremasi": 102,
+      "screenshot": "661a57a188c257da3328c8ba",
+      "status": "Pending",
+      "reservation_date": "2024-03-21",
+      "screenshotDetail": {
+        "type": "file",
+        "name": "2024-03-26_fcdrbr_BUKTI_TF_ILJu7NUdE",
+        "createdAt": "2024-03-26T15:16:52.056Z",
+        "updatedAt": "2024-03-26T15:16:52.832Z",
+        "fileId": "6602e6e488c257da336ba0f5",
+        "tags": null,
+        "AITags": null,
+        "versionInfo": {
+          "id": "6602e6e488c257da336ba0f5",
+          "name": "Version 1"
+        },
+        "embeddedMetadata": {
+          "XResolution": 72,
+          "YResolution": 72,
+          "DateCreated": "2024-03-26T15:16:52.830Z",
+          "DateTimeCreated": "2024-03-26T15:16:52.831Z"
+        },
+        "customCoordinates": null,
+        "customMetadata": {},
+        "isPrivateFile": false,
+        "url": "https://ik.imagekit.io/mll6zmdd0/2024-03/2024-03-26_fcdrbr_BUKTI_TF_ILJu7NUdE",
+        "thumbnail": "https://ik.imagekit.io/mll6zmdd0/tr:n-ik_ml_thumbnail/2024-03/2024-03-26_fcdrbr_BUKTI_TF_ILJu7NUdE",
+        "fileType": "image",
+        "filePath": "/2024-03/2024-03-26_fcdrbr_BUKTI_TF_ILJu7NUdE",
+        "height": 6016,
+        "width": 4016,
+        "size": 726199,
+        "hasAlpha": false,
+        "mime": "image/jpeg"
       }
     }
   ],
@@ -513,68 +587,16 @@
       "description": "admin role",
       "permissions": [
         {
-          "id": 1,
+          "id": "master.customers.create",
           "name": "master.customers.create"
         },
         {
-          "id": 2,
+          "id": "master.customers.update",
           "name": "master.customers.update"
         },
         {
-          "id": 3,
+          "id": "master.customers.delete",
           "name": "master.customers.delete"
-        },
-        {
-          "id": 4,
-          "name": "master.customers.read"
-        },
-        {
-          "id": 5,
-          "name": "transaction.transaction1.read"
-        },
-        {
-          "id": 6,
-          "name": "transaction.transaction1.update"
-        },
-        {
-          "id": 7,
-          "name": "transaction.transaction1.delete"
-        },
-        {
-          "id": 8,
-          "name": "transaction.transaction1.update"
-        },
-        {
-          "id": 9,
-          "name": "transaction.transaction2.create"
-        },
-        {
-          "id": 10,
-          "name": "transaction.transaction2.read"
-        },
-        {
-          "id": 11,
-          "name": "transaction.transaction2.update"
-        },
-        {
-          "id": 12,
-          "name": "transaction.transaction2.delete"
-        },
-        {
-          "id": 13,
-          "name": "report.report1.create"
-        },
-        {
-          "id": 14,
-          "name": "report.report1.read"
-        },
-        {
-          "id": 15,
-          "name": "report.report1.update"
-        },
-        {
-          "id": 16,
-          "name": "report.report1.delete"
         }
       ]
     },

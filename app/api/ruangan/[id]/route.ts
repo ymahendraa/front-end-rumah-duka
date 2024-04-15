@@ -15,14 +15,16 @@ export async function GET(
   }
   // if token exists, verify it
   else {
-    const SECRET_KEY = process.env.VERY_SECRET_KEY ?? "yourSecretKey";
-    try {
-      jwt.verify(token, SECRET_KEY);
-    } catch (err) {
-      return NextResponse.json({ error: "Invalid token" }, { status: 401 });
-    }
     // fetch data from json server
-    const response = await fetch(`http://localhost:3001/ruangan/${id}`);
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_REAL_URL}/rooms/${id}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     const data = await response.json();
     // return NextResponse.json(data);
     return NextResponse.json(data);
@@ -45,20 +47,18 @@ export async function PATCH(
   }
   // if token exists, verify it
   else {
-    const SECRET_KEY = process.env.VERY_SECRET_KEY ?? "yourSecretKey";
-    try {
-      jwt.verify(token, SECRET_KEY);
-    } catch (err) {
-      return NextResponse.json({ error: "Invalid token" }, { status: 401 });
-    }
     // fetch data from json server
-    const response = await fetch(`http://localhost:3001/ruangan/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_REAL_URL}/rooms/${id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(body),
+      }
+    );
     const data = await response.json();
     return NextResponse.json(data);
   }
@@ -78,17 +78,17 @@ export async function DELETE(
   }
   // if token exists, verify it
   else {
-    const SECRET_KEY = process.env.VERY_SECRET_KEY ?? "yourSecretKey";
-    try {
-      jwt.verify(token, SECRET_KEY);
-    } catch (err) {
-      return NextResponse.json({ error: "Invalid token" }, { status: 401 });
-    }
     // fetch data from json server
-    const response = await fetch(`http://localhost:3001/ruangan/${id}`, {
-      method: "DELETE",
-    });
-    const data = await response.json();
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_REAL_URL}/rooms/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const data = await response.text();
     return NextResponse.json(data);
   }
 }

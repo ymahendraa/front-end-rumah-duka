@@ -1,10 +1,9 @@
 // components import
-import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline'
+import { EyeIcon, TrashIcon } from '@heroicons/react/24/outline'
 import Button from '@/components/atoms/button'
 
 // utils import
 import { createColumnHelper } from '@tanstack/react-table'
-import dayjs from 'dayjs'
 import 'dayjs/locale/id'
 import { checkPermissions } from '@/utils/checkPermissions'
 import { Almarhum } from '../types/Almarhum'
@@ -93,7 +92,7 @@ const useColumns = (permissions: string[]) => {
             columnHelper.accessor((row) => row.diagnosa, {
                 id: 'diagnosa',
                 header: () => 'Diagnosa',
-                cell: (info) => dayjs(info.getValue()).format('DD MMM YYYY'),
+                cell: (info) => info.getValue(),
                 size: 250,
             }),
             columnHelper.accessor((row) => row, {
@@ -103,24 +102,25 @@ const useColumns = (permissions: string[]) => {
                 cell: (info) => {
                     // You can place your action buttons here
                     const row = info.getValue()
+                    console.log(row)
                     return (
                         <div className="flex flex-row gap-x-2">
-                            {checkPermissions(['master.customers.update'], permissions) && (
-                                <Button
-                                    onClick={() => {
-                                        router.push(`/customer/edit-data/${row.id}`)
-                                    }}
-                                    className='flex items-center justify-center bg-green-500 hover:bg-green-600 w-6 h-6 rounded-md transition-colors duration-300 ease-in-out'
-                                >
-                                    <PencilSquareIcon className="w-4 h-4" />
-                                </Button>
-                            )}
-                            {checkPermissions(['master.customers.delete'], permissions) && (
+                            {/* {checkPermissions(['master.almarhum.update'], permissions) && ( */}
+                            <Button
+                                onClick={() => {
+                                    router.push(`/almarhum/${row.id_almarhum}`)
+                                }}
+                                className='flex items-center justify-center bg-yellow-500 hover:bg-yellow-600 w-6 h-6 rounded-md transition-colors duration-300 ease-in-out'
+                            >
+                                <EyeIcon className="w-4 h-4" />
+                            </Button>
+                            {/* )} */}
+                            {checkPermissions(['master.almarhum.delete'], permissions) && (
                                 <Button
                                     onClick={() => {
                                         setSelectedRow({
                                             name: row.nama_lengkap,
-                                            id: row.id,
+                                            id: row.id_almarhum,
                                         })
                                         setOpenDelete(true)
                                     }}

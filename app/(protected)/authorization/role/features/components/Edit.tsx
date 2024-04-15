@@ -6,7 +6,6 @@ import Button from '@/components/atoms/button';
 import ComboBox from '@/components/molecules/combo-box';
 import InputIcon from '@/components/molecules/input-icon';
 import InputTextArea from '@/components/atoms/input/input-text-area';
-import LoadingKalla from '@/components/atoms/loading';
 import Section from '@/components/atoms/section';
 import Label from '@/components/atoms/label';
 import InputCheckbox from '@/components/atoms/input/input-checkbox';
@@ -83,8 +82,8 @@ const Edit: React.FC<EditProps> = ({
         if (selectedData) {
             reset({
                 name: selectedData?.name,
-                description: selectedData?.description,
-                permissions: selectedData?.permissions?.map((item: any) => item.name), // CAUTION: change this to item.id if already you real API
+                // description: selectedData?.description,
+                permissions: selectedData?.group?.permissions?.map((item: any) => item.name), // CAUTION: change this to item.id if already you real API
                 // actions: ['create', 'read', 'update', 'delete']
                 // permissions: selectedData?.actions.map((item: any) => item.id.toString())
             })
@@ -95,19 +94,19 @@ const Edit: React.FC<EditProps> = ({
     // submit handler
     const onSubmit: SubmitHandler<any> = async (data: any) => {
         try {
-            // console.log(data)
-            submitHandler({
-                url: `${url}/${id}`,
-                config: {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data),
-                },
-                setOpen,
-                mutate,
-            })
+            console.log(JSON.stringify(data))
+            // submitHandler({
+            //     url: `${url}/${id}`,
+            //     config: {
+            //         method: 'PATCH',
+            //         headers: {
+            //             'Content-Type': 'application/json'
+            //         },
+            //         body: JSON.stringify(data),
+            //     },
+            //     setOpen,
+            //     mutate,
+            // })
         } catch (error) {
             console.log(error)
         }
@@ -120,18 +119,16 @@ const Edit: React.FC<EditProps> = ({
 
     // get list of permissions
     const { data: dataPermissions, isLoading: isLoadingPermissions, error: isErrorPermissions } = useSWR(
-        'authorization/permissions/all',
+        session ? 'authorization/permissions' : null,
         fetcher
     )
 
     // transform dataPermissions
-    const transformedPermission = useGroupPermissions(dataPermissions || [])
+    const transformedPermission = useGroupPermissions(dataPermissions?.data ?? [])
 
     if (isLoadingData || isValidating || !selectedData || isLoadingPermissions) {
         return (
-            <section data-testid="loading-component" className='w-full flex items-center justify-center'>
-                <LoadingKalla width={30} height={30} />
-            </section>
+            <Loading />
         )
     }
 
@@ -161,7 +158,7 @@ const Edit: React.FC<EditProps> = ({
                 error={errors.name}
             />
 
-            <InputTextArea
+            {/* <InputTextArea
                 label='Deskripsi'
                 name='description'
                 placeholder='Masukkan deskripsi'
@@ -173,7 +170,7 @@ const Edit: React.FC<EditProps> = ({
                     },
                 }}
                 error={errors.description}
-            />
+            /> */}
 
             <Section
             >

@@ -1,5 +1,5 @@
 'use client'
-import React, { useCallback, useContext } from 'react'
+import React, { useCallback, useContext, useEffect } from 'react'
 
 // components import
 import Loading from '../../../components/atoms/loader/loading'
@@ -26,6 +26,7 @@ import CRUDHeaderSection from '@/components/organisms/sections/crud-header-secti
 import { AuthorizationContext } from '@/context/AuthorizationContext/context'
 import { TODO } from '@/types/todo'
 import { checkPermissions } from '@/utils/checkPermissions'
+import useSearchQuery from '@/hooks/useSearchQuery'
 
 /**
  * 
@@ -37,11 +38,8 @@ const DataBarangPage = () => {
     const authData: TODO = useContext(AuthorizationContext) // get auth data from context
     const permissions = authData?.group?.permissions // get permissions from auth data
 
-    // define search params
-    const searchParams = useSearchParams()
-
     // define pathname
-    const pathname = usePathname()
+    const path = usePathname()
 
     // define router
     const router = useRouter()
@@ -66,24 +64,16 @@ const DataBarangPage = () => {
     // get submit handler
     const { submitHandler, isLoading: isLoadingSubmit } = useSubmit()
 
-    // define filter params
-    const q: string = searchParams.get('q') ?? ''
+    // call useSearchQuery
+    const { inputValue, setInputValue, createQueryString, searchParams } = useSearchQuery();
 
-    // define debounced filter state
-    const debouncedSearch = useDebounce(searchParams.toString(), 500)
+    // debounce the search input value
+    const debouncedSearch = useDebounce(inputValue, 500);
 
-    // Get a new searchParams string by merging the current
-    // searchParams with a provided key/value pair
-    const createQueryString = useCallback(
-        (name: string, value: string) => {
-            const params = new URLSearchParams(searchParams.toString())
-            params.set(name, value)
-
-            return params.toString()
-        },
-        [searchParams]
-    )
-
+    // update the URL when the debounced input value changes
+    useEffect(() => {
+        router.push(path + '?' + createQueryString('q', debouncedSearch));
+    }, [debouncedSearch, createQueryString, path, router]);
     // get data from api
     const { data, isLoading, mutate } = useGetDataWithPagination({
         page,
@@ -108,10 +98,8 @@ const DataBarangPage = () => {
             >
                 <CRUDHeaderSection
                     onClickCreate={() => router.push('data-barang/tambah-data')}
-                    value={q}
-                    onChange={(e) => {
-                        router.push(pathname + '?' + createQueryString('q', e.target.value))
-                    }}
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
                     disableCreate={!checkPermissions(['master.barang.create'], permissions)}
                 />
             </Section>
@@ -121,14 +109,13 @@ const DataBarangPage = () => {
             >
                 <DataTableBase
                     columns={columns}
-                    data={Array.isArray(data) ? data : []}
+                    data={data?.data ?? []}
                 />
                 <Pagination
                     page={page}
                     limit={limit}
-                    totalPages={5}
-                    // totalPages={data?.meta?.totalPages}
-                    totalItems={50}
+                    totalPages={data?.meta?.totalPages}
+                    totalItems={data?.meta?.totalItems}
                     options={[
                         { value: 10, label: '10' },
                         { value: 20, label: '20' },
@@ -138,7 +125,7 @@ const DataBarangPage = () => {
                     labelNext={<ChevronRightIcon className='w-5 h-5' />}
                     labelPrev={<ChevronLeftIcon className='w-5 h-5' />}
                     disabledPrev={page === 1}
-                    disabledNext={page === 5}
+                    disabledNext={page === data?.meta?.totalPages}
                     // disabledNext={page === data?.meta?.totalPages}
                     setLimit={setLimit}
                     handlePageChange={setPage}

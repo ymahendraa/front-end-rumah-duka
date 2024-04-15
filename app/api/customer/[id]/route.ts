@@ -17,38 +17,38 @@ export async function GET(
   }
   // if token exists, verify it
   else {
-    const SECRET_KEY = process.env.VERY_SECRET_KEY ?? "yourSecretKey";
-    try {
-      jwt.verify(token, SECRET_KEY);
-    } catch (err) {
-      return NextResponse.json({ error: "Invalid token" }, { status: 401 });
-    }
+    // const SECRET_KEY = process.env.VERY_SECRET_KEY ?? "yourSecretKey";
+    // try {
+    //   jwt.verify(token, SECRET_KEY);
+    // } catch (err) {
+    //   return NextResponse.json({ error: "Invalid token" }, { status: 401 });
+    // }
 
     // fetch data from json server
-    const response = await fetch(`http://localhost:3001/customers/${id}`);
-    const data = await response.json();
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_REAL_URL}/customer/${id}`
+    );
+    const { data } = await response.json();
 
-    // get data.almarhum.document detail
-    const documentDetail: any = await getImageDetail(data?.almarhum?.document);
+    // get data.document detail if document exists
+    if (data?.document) {
+      const documentDetail: any = await getImageDetail(data?.document || "");
+      // add documentDetail to data.almarhum
+      data.documentDetail = documentDetail;
+      // assign document with documentDetail.name
+      data.document = documentDetail.name;
+    }
 
     // check if screenshot exists
     // if exists, get screenshot file detail
-    if (data.reservasi.screenshot) {
-      const screenshotDetail: any = await getImageDetail(
-        data?.reservasi?.screenshot
-      );
+    if (data?.screenshot) {
+      const screenshotDetail: any = await getImageDetail(data?.screenshot);
       // add screenshotDetail to data.reservasi
-      data.reservasi.screenshotDetail = screenshotDetail;
+      data.screenshotDetail = screenshotDetail;
       // assign screenshot with buktiTFDetail.thumbnail
-      data.reservasi.screenshot = screenshotDetail.thumbnail;
+      data.screenshot = screenshotDetail.thumbnail;
     }
 
-    // add documentDetail to data.almarhum
-    data.almarhum.documentDetail = documentDetail;
-    // assign document with documentDetail.name
-    data.almarhum.document = documentDetail.name;
-
-    // return NextResponse.json(data);
     return NextResponse.json(data);
   }
 }
@@ -69,12 +69,12 @@ export async function PATCH(
   }
   // if token exists, verify it
   else {
-    const SECRET_KEY = process.env.VERY_SECRET_KEY ?? "yourSecretKey";
-    try {
-      jwt.verify(token, SECRET_KEY);
-    } catch (err) {
-      return NextResponse.json({ error: "Invalid token" }, { status: 401 });
-    }
+    // const SECRET_KEY = process.env.VERY_SECRET_KEY ?? "yourSecretKey";
+    // try {
+    //   jwt.verify(token, SECRET_KEY);
+    // } catch (err) {
+    //   return NextResponse.json({ error: "Invalid token" }, { status: 401 });
+    // }
 
     //Get current date to create a folder with the name of the current month
     const currentDate = new Date();
@@ -93,8 +93,8 @@ export async function PATCH(
     const buktiTFName = `${year}-${month}-${day}_BUKTI_TF`;
 
     // get file and bukti_tf from body
-    const file = body.almarhum.document;
-    const buktiTF = body?.reservasi?.screenshot;
+    const file = body.document;
+    const buktiTF = body?.screenshot;
 
     // upload file to imagekit
     let fileId = "";
@@ -108,14 +108,12 @@ export async function PATCH(
         });
         fileId = uploadFile.fileId;
         // assign document in body to fileId
-        body.almarhum.document = fileId;
+        body.document = fileId;
 
-        // delete current file in imagekit with data?.almarhum?.documentDetail?.fileId
-        await imageKit
-          .deleteFile(body?.almarhum?.documentDetail?.fileId)
-          .catch((err) => {
-            throw console.log(err);
-          });
+        // delete current file in imagekit with data?.documentDetail?.fileId
+        await imageKit.deleteFile(body?.documentDetail?.fileId).catch((err) => {
+          throw console.log(err);
+        });
       }
       if (buktiTF) {
         const uploadBuktiTF = await imageKit.upload({
@@ -124,12 +122,12 @@ export async function PATCH(
           folder: folderPath,
         });
         bukti_tfId = uploadBuktiTF.fileId;
-        // assign screenshot in body to bukti_tfId
-        body.reservasi.screenshot = bukti_tfId;
+        // assign screenshot in body to screenshot
+        body.screenshot = bukti_tfId;
 
-        // delete current bukti_tf in imagekit with data?.reservasi?.screenshotDetail?.fileId
+        // delete current bukti_tf in imagekit with data?.screenshotDetail?.fileId
         await imageKit
-          .deleteFile(body?.reservasi?.screenshotDetail?.fileId)
+          .deleteFile(body?.screenshotDetail?.fileId)
           .catch((err) => {
             throw console.log(err);
           });
@@ -139,13 +137,16 @@ export async function PATCH(
     }
 
     // fetch data from json server
-    const response = await fetch(`http://localhost:3001/customers/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_REAL_URL}/customer/${id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      }
+    );
     const data = await response.json();
     return NextResponse.json(data);
   }

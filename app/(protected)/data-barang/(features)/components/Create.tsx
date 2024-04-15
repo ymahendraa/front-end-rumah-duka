@@ -7,7 +7,6 @@ import Button from '@/components/atoms/button';
 import FileInput from '@/components/molecules/file-input';
 import Section from '@/components/atoms/section';
 import ComboBox from '@/components/molecules/combo-box';
-import LoadingKalla from '@/components/atoms/loading';
 
 // hooks import
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -76,7 +75,7 @@ const Create: React.FC = () => {
                 <InputText
                     aria-required
                     label='Nama Barang'
-                    name='nama'
+                    name='nama_barang'
                     placeholder='Cth: Meja'
                     register={register}
                     rule={{
@@ -85,14 +84,14 @@ const Create: React.FC = () => {
                             message: 'Nama barang wajib diisi'
                         }
                     }}
-                    error={errors.nama}
+                    error={errors.nama_barang}
                 />
 
 
                 <ComboBox
                     required
                     label='Jenis Barang'
-                    name='jenis'
+                    name='jenis_barang'
                     rule={{
                         required: {
                             value: true,
@@ -100,11 +99,11 @@ const Create: React.FC = () => {
                         }
                     }}
                     options={[
-                        { label: 'In Charge', value: 'in charge' },
-                        { label: 'Free', value: 'free' }
+                        { label: 'In Charge', value: 'In Charge' },
+                        { label: 'Free', value: 'Free' }
                     ]}
                     control={control}
-                    error={errors.jenis}
+                    error={errors.jenis_barang}
                 />
 
                 <InputText

@@ -20,6 +20,8 @@ const AuthorizationProvider = React.memo(({ children }: { children: React.ReactN
     // fetcher function
     const fetcher = useFetcher(session)
 
+    // console.log('session', session)
+
     // ACTIVATE THIS CODE IF YOU HAVE REDIS
     // useSWR hook to fetch data
     // activate when use server

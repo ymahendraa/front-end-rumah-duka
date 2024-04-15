@@ -3,7 +3,6 @@ import React, { useEffect } from 'react'
 // components import
 import InputText from '@/components/atoms/input/input-text';
 import Button from '@/components/atoms/button';
-import LoadingKalla from '@/components/atoms/loading';
 
 // hooks import
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -90,9 +89,7 @@ const Edit: React.FC<EditProps> = ({
 
     if (isLoadingData || isValidating) {
         return (
-            <section data-testid="loading-edit" className='w-full flex items-center justify-center'>
-                <LoadingKalla width={30} height={30} />
-            </section>
+            <Loading />
         )
     }
 

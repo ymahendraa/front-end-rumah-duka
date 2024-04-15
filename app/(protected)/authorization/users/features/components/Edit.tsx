@@ -3,7 +3,6 @@ import React, { useEffect } from 'react'
 // components import
 import InputText from '@/components/atoms/input/input-text';
 import Button from '@/components/atoms/button';
-import LoadingKalla from '@/components/atoms/loading';
 import Section from '@/components/atoms/section';
 import Label from '@/components/atoms/label';
 import InputCheckbox from '@/components/atoms/input/input-checkbox';
@@ -127,9 +126,7 @@ const Edit: React.FC<EditProps> = ({
 
     if (isLoadingData || isValidating || !selectedData || isLoadingRoles) {
         return (
-            <section data-testid="loading-component" className='w-full flex items-center justify-center'>
-                <LoadingKalla width={30} height={30} />
-            </section>
+            <Loading />
         )
     }
 

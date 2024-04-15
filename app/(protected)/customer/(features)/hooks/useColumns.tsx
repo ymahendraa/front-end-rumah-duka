@@ -54,7 +54,7 @@ const useColumns = (permissions: string[]) => {
                 cell: ({ row }) => row.index + 1,
                 size: 10,
             }),
-            columnHelper.accessor((row) => row.id_customer, {
+            columnHelper.accessor((row) => row.id, {
                 id: 'id',
                 header: () => 'ID Customer',
                 cell: (info) => info.getValue(),
@@ -72,16 +72,16 @@ const useColumns = (permissions: string[]) => {
                 cell: (info) => info.getValue(),
                 size: 150,
             }),
-            columnHelper.accessor((row) => row.jenis_pekerjaan, {
+            columnHelper.accessor((row) => row.pekerjaan, {
                 id: 'jenis_pekerjaan',
                 header: () => 'Pekerjaan',
                 cell: (info) => info.getValue(),
                 size: 50,
             }),
-            columnHelper.accessor((row) => row.hub_jenazah, {
+            columnHelper.accessor((row) => row.hub_almarhum, {
                 id: 'hubungan',
                 header: () => 'Hubungan Dengan Almarhum',
-                cell: (info) => dayjs(info.getValue()).format('DD MMM YYYY'),
+                cell: (info) => info.getValue(),
                 size: 250,
             }),
             columnHelper.accessor((row) => row, {
@@ -96,7 +96,7 @@ const useColumns = (permissions: string[]) => {
                             {checkPermissions(['master.customers.update'], permissions) && (
                                 <Button
                                     onClick={() => {
-                                        router.push(`/customer/edit-data/${row.id_customer}`)
+                                        router.push(`/customer/edit-data/${row.id}`)
                                     }}
                                     className='flex items-center justify-center bg-green-500 hover:bg-green-600 w-6 h-6 rounded-md transition-colors duration-300 ease-in-out'
                                 >
@@ -108,7 +108,7 @@ const useColumns = (permissions: string[]) => {
                                     onClick={() => {
                                         setSelectedRow({
                                             name: row.name,
-                                            id: row.id_customer,
+                                            id: row.id,
                                         })
                                         setOpenDelete(true)
                                     }}

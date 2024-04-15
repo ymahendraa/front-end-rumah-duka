@@ -22,6 +22,7 @@ import useTransformObject from '@/hooks/useTransformObject';
 import { SendCustomer } from '../types/Customer';
 import { fileToBase64 } from '@/utils/convertToBase64';
 import { trimDate } from '@/utils/trimDate';
+import Loading from '@/components/atoms/loader/loading';
 
 /**
  * @description
@@ -64,21 +65,21 @@ const Edit = ({ id }: { id: string }) => {
                 hub_almarhum: selectedData.hub_almarhum,
                 jenis_pekerjaan: selectedData.pekerjaan,
                 alamat: selectedData.alamat,
-                nama_lengkap_almarhum: selectedData.almarhum.nama_lengkap,
-                umur: selectedData.almarhum.umur,
-                riwayat_pekerjaan: selectedData.almarhum.pekerjaan,
-                alamat_almarhum: selectedData.almarhum.alamat,
-                diagnosa: selectedData.almarhum.diagnosa,
-                tgl_waktu_meninggal: trimDate(selectedData.almarhum.tgl_waktu_meninggal),
-                tempat_meninggal: selectedData.almarhum.tempat_meninggal,
-                document: selectedData.almarhum.document,
-                documentDetail: selectedData.almarhum.documentDetail,
-                no_room: selectedData.reservasi.room_id,
-                no_kremasi: selectedData.reservasi.kremasi_id,
-                screenshot: selectedData.reservasi.screenshot,
-                status: selectedData.reservasi.status,
-                reservation_date: selectedData.reservasi.reservation_date,
-                screenshotDetail: selectedData.reservasi.screenshotDetail,
+                nama_lengkap_almarhum: selectedData.nama_lengkap,
+                umur: selectedData.umur,
+                riwayat_pekerjaan: selectedData.riwayat_pekerjaan,
+                alamat_almarhum: selectedData.alamat_almarhum,
+                diagnosa: selectedData.diagnosa,
+                tgl_waktu_meninggal: trimDate(selectedData.tgl_waktu_meninggal),
+                tempat_meninggal: selectedData.tempat_meninggal,
+                document: selectedData.document,
+                documentDetail: selectedData.documentDetail,
+                no_room: selectedData.room_id,
+                no_kremasi: selectedData.kremasi_id,
+                screenshot: selectedData.screenshot,
+                status: selectedData.status,
+                reservation_date: selectedData.reservation_date,
+                screenshotDetail: selectedData.screenshotDetail,
             })
         }
 
@@ -95,20 +96,21 @@ const Edit = ({ id }: { id: string }) => {
     */
     const onSubmit: SubmitHandler<any> = async (data: any) => {
         try {
-            if (data.almarhum.file && data.almarhum.file instanceof File) {
-                data.almarhum.file = await fileToBase64(data.almarhum.file);
+            if (data.document && data.document instanceof File) {
+                data.document = await fileToBase64(data.document);
+            }
+            else {
+                // remove document from data
+                delete data.document
+            }
+            if (data.screenshot && data.screenshot instanceof File) {
+                data.screenshot = await fileToBase64(data.screenshot);
             }
             else {
                 // remove file from data
-                delete data.almarhum.file
+                delete data.screenshot
             }
-            if (data.reservasi.bukti_tf && data.reservasi.bukti_tf instanceof File) {
-                data.reservasi.bukti_tf = await fileToBase64(data.reservasi.bukti_tf);
-            }
-            else {
-                // remove file from data
-                delete data.reservasi.bukti_tf
-            }
+            // console.log('data', data)
             await submitHandler({
                 url: `customer/${id}`,
                 config: {
@@ -134,7 +136,7 @@ const Edit = ({ id }: { id: string }) => {
     )
 
     // transform room data
-    const transformedRoom = useTransformObject(dataRoom || [], 'id', 'no_ruangan')
+    const transformedRoom = useTransformObject(dataRoom?.data ?? [], 'id', 'id')
 
     // get list of ruangan_kremasi
     const { data: dataKremasi, isLoading: loadingKremasi, error: errorKremasi } = useSWR(
@@ -143,9 +145,9 @@ const Edit = ({ id }: { id: string }) => {
     )
 
     // transform ruangan_kremasi data
-    const transformedKremasi = useTransformObject(dataKremasi || [], 'id', 'no_ruangan')
+    const transformedKremasi = useTransformObject(dataKremasi?.data ?? [], 'id', 'id')
 
-    if (isLoadingData || !selectedData || loadingRoom || loadingKremasi || !dataKremasi || !dataRoom) return <div>Loading...</div>
+    if (isLoadingData || !selectedData || loadingRoom || loadingKremasi || !dataKremasi || !dataRoom) return <div><Loading /></div>
 
     if (errorSelectedData || errorKremasi || errorRoom) return <div>Error...</div>
 
@@ -204,6 +206,7 @@ const Edit = ({ id }: { id: string }) => {
                         { value: 'Keluarga', label: 'Keluarga' },
                         { value: 'Saudara', label: 'Saudara' },
                         { value: 'Teman', label: 'Teman' },
+                        { value: 'Father', label: 'Father' },
                     ]}
                     control={control}
                     error={errors.hub_almarhum}
@@ -430,8 +433,8 @@ const Edit = ({ id }: { id: string }) => {
                     //     }
                     // }
                     options={[
-                        { value: '1', label: 'Lunas' },
-                        { value: '2', label: 'Belum Lunas' },
+                        { value: 'Pending', label: 'Pending' },
+                        { value: 'Done', label: 'Done' },
                     ]}
                     control={control}
                     error={errors.status}
@@ -464,7 +467,7 @@ const Edit = ({ id }: { id: string }) => {
                     //     },
                     // }}
                     control={control}
-                    id='bukti_transaksi'
+                    id='screenshot'
                     error={errors.screenshot}
                 />
 
@@ -494,7 +497,7 @@ const Edit = ({ id }: { id: string }) => {
                     disabled={isLoading}
 
                 >
-                    {isLoading ? 'Loading...' : 'Kembali'}
+                    Kembali
                 </Button>
             </Section>
         </form>

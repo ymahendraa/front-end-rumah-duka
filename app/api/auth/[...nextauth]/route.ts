@@ -1,3 +1,4 @@
+import { BASE_URL } from "@/lib/axios";
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
@@ -20,7 +21,7 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials) {
         // Add logic here to look up the user from the credentials supplied
 
-        const res = await fetch("http://localhost:3000/api/login", {
+        const res = await fetch(`${BASE_URL}/login`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

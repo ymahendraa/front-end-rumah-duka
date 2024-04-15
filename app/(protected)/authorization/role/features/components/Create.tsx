@@ -7,7 +7,6 @@ import ComboBox from '@/components/molecules/combo-box';
 import InputIcon from '@/components/molecules/input-icon';
 import { ICON } from '@/utils/icon';
 import InputTextArea from '@/components/atoms/input/input-text-area';
-import LoadingKalla from '@/components/atoms/loading';
 import InputCheckbox from '@/components/atoms/input/input-checkbox';
 import Label from '@/components/atoms/label';
 import Section from '@/components/atoms/section';
@@ -69,19 +68,19 @@ const Create: React.FC<CreateProps> = ({
     // submit handler
     const onSubmit: SubmitHandler<any> = async (data: any) => {
         try {
-            console.log(data)
-            await submitHandler({
-                url: url,
-                config: {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data),
-                },
-                setOpen,
-                mutate,
-            })
+            console.log(JSON.stringify(data))
+            // await submitHandler({
+            //     url: url,
+            //     config: {
+            //         method: 'POST',
+            //         headers: {
+            //             'Content-Type': 'application/json'
+            //         },
+            //         body: JSON.stringify(data),
+            //     },
+            //     setOpen,
+            //     mutate,
+            // })
         } catch (error) {
             console.log(error)
         }
@@ -106,11 +105,7 @@ const Create: React.FC<CreateProps> = ({
 
 
     if (isLoadingPermissions) {
-        return (
-            <section data-testid="loading-component" className='flex justify-center'>
-                <LoadingKalla width={30} height={30} />
-            </section>
-        )
+        <div><Loading /></div>
     }
 
     if (isErrorPermissions) {

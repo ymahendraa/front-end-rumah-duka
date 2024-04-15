@@ -15,7 +15,7 @@ import Edit from './features/components/Edit'
 
 // hooks import
 import { usePaginationState } from '@/hooks/usePaginationState'
-import React, { useCallback, useContext } from 'react'
+import React, { useCallback, useContext, useEffect } from 'react'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import useColumns from './features/hooks/useColumns'
 import useModalState from '@/hooks/useModalState'
@@ -27,6 +27,7 @@ import { useGetDataWithPagination } from '@/hooks/useGetDataWithPagination'
 import { AuthorizationContext } from '@/context/AuthorizationContext/context'
 import { checkPermissions } from '@/utils/checkPermissions'
 import { TODO } from '@/types/todo'
+import useSearchQuery from '@/hooks/useSearchQuery'
 
 /**
  * 
@@ -37,11 +38,8 @@ import { TODO } from '@/types/todo'
 const RolePage = () => {
     // const formattedPath = formatCurrentPath(path)
 
-    // define search params
-    const searchParams = useSearchParams()
-
     // define pathname
-    const pathname = usePathname()
+    const path = usePathname()
 
     // define router
     const router = useRouter()
@@ -78,23 +76,16 @@ const RolePage = () => {
     // get submit handler
     const { submitHandler, isLoading: isLoadingSubmit } = useSubmit()
 
-    // define filter params
-    const q: string = searchParams.get('q') ?? ''
+    // call useSearchQuery
+    const { inputValue, setInputValue, createQueryString } = useSearchQuery();
 
-    // define debounced filter state
-    const debouncedSearch = useDebounce(searchParams.toString(), 500)
+    // debounce the search input value
+    const debouncedSearch = useDebounce(inputValue, 500);
 
-    // Get a new searchParams string by merging the current
-    // searchParams with a provided key/value pair
-    const createQueryString = useCallback(
-        (name: string, value: string) => {
-            const params = new URLSearchParams(searchParams.toString())
-            params.set(name, value)
-
-            return params.toString()
-        },
-        [searchParams]
-    )
+    // update the URL when the debounced input value changes
+    useEffect(() => {
+        router.push(path + '?' + createQueryString('q', debouncedSearch));
+    }, [debouncedSearch, createQueryString, path, router]);
 
     // get data from api
     const { data, isLoading, mutate } = useGetDataWithPagination({
@@ -119,12 +110,10 @@ const RolePage = () => {
             >
                 <CRUDHeaderSection
                     onClickCreate={() => setOpen(true)}
-                    value={q}
-                    disableSearch={true}
+                    // disableSearch={true}
                     disableCreate={!checkPermissions(['authorization.role.create'], permissions)}
-                    onChange={(e) => {
-                        router.push(pathname + '?' + createQueryString('q', e.target.value))
-                    }}
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
                     advancedSearch={false}
                 />
             </Section>
@@ -133,29 +122,29 @@ const RolePage = () => {
             >
                 <DataTableBase
                     columns={columns}
-                    data={data}
+                    data={data?.data ?? []}
+                />
+                <Pagination
+                    page={page}
+                    limit={limit}
+                    totalPages={data?.meta?.totalPages}
+                    totalItems={data?.meta?.totalItems}
+                    options={[
+                        { value: 10, label: '10' },
+                        { value: 20, label: '20' },
+                        { value: 50, label: '50' },
+                        { value: 100, label: '100' },
+                    ]}
+                    labelNext={<ChevronRightIcon className='w-5 h-5' />}
+                    labelPrev={<ChevronLeftIcon className='w-5 h-5' />}
+                    disabledPrev={page === 1}
+                    disabledNext={page === data?.meta?.totalPages}
+                    // disabledNext={page === data?.meta?.totalPages}
+                    setLimit={setLimit}
+                    handlePageChange={setPage}
                 />
             </Section>
-            <Pagination
-                page={page}
-                limit={limit}
-                totalPages={5}
-                // totalPages={data?.meta?.totalPages}
-                totalItems={50}
-                options={[
-                    { value: 10, label: '10' },
-                    { value: 20, label: '20' },
-                    { value: 50, label: '50' },
-                    { value: 100, label: '100' },
-                ]}
-                labelNext={<ChevronRightIcon className='w-5 h-5' />}
-                labelPrev={<ChevronLeftIcon className='w-5 h-5' />}
-                disabledPrev={page === 1}
-                disabledNext={page === 5}
-                // disabledNext={page === data?.meta?.totalPages}
-                setLimit={setLimit}
-                handlePageChange={setPage}
-            />
+
             {/* modal create */}
             <section data-testid='create-modal'>
                 <Modal

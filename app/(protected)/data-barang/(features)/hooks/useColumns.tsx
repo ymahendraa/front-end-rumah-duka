@@ -54,13 +54,13 @@ const useColumns = (permissions: string[]) => {
                 cell: ({ row }) => row.index + 1,
                 size: 10,
             }),
-            columnHelper.accessor((row) => row.nama, {
+            columnHelper.accessor((row) => row.nama_barang, {
                 id: 'nama',
                 header: () => 'Nama Barang',
                 cell: (info) => info.getValue(),
                 size: 150,
             }),
-            columnHelper.accessor((row) => row.jenis, {
+            columnHelper.accessor((row) => row.jenis_barang, {
                 id: 'jenis',
                 header: () => 'Jenis Barang',
                 cell: (info) => info.getValue(),
@@ -98,7 +98,7 @@ const useColumns = (permissions: string[]) => {
                                 <Button
                                     onClick={() => {
                                         setSelectedRow({
-                                            name: row.nama,
+                                            name: row.nama_barang,
                                             id: row.id,
                                         })
                                         setOpenDelete(true)

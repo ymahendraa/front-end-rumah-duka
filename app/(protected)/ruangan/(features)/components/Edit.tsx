@@ -7,7 +7,6 @@ import Button from '@/components/atoms/button';
 import FileInput from '@/components/molecules/file-input';
 import Section from '@/components/atoms/section';
 import ComboBox from '@/components/molecules/combo-box';
-import LoadingKalla from '@/components/atoms/loading';
 
 // hooks import
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -15,7 +14,6 @@ import useSubmit from '@/hooks/useSubmit';
 import { useRouter } from 'next/navigation';
 import useFetcher from '@/hooks/useFetcher';
 import { useSession } from 'next-auth/react';
-import useTransformObject from '@/hooks/useTransformObject';
 import useSWR from 'swr';
 
 // utils import
@@ -80,7 +78,7 @@ const Edit: React.FC<EditProps> = ({
 
     // get list current ruangan
     const { data, isLoading: loadingData, error } = useSWR(
-        `ruangan-kremasi/${id}`,
+        `ruangan/${id}`,
         fetcher
     )
 
@@ -88,19 +86,17 @@ const Edit: React.FC<EditProps> = ({
     useEffect(() => {
         if (data) {
             reset({
-                no_ruangan: data?.no_ruangan,
-                harga: data?.harga,
+                harga: data?.data?.harga,
                 // jadwal: data?.jadwal,
-                category_room: data?.category_room,
+                id: data?.data?.id,
+                category_room: data?.data?.category_ruangan,
             })
         }
     }, [data, reset]);
 
     if (loadingData || !data) {
         return (
-            <section data-testid="loading-component" className='flex justify-center'>
-                <LoadingKalla width={30} height={30} />
-            </section>
+            <Loading />
         )
     }
 
@@ -119,7 +115,8 @@ const Edit: React.FC<EditProps> = ({
                 <InputText
                     aria-required
                     label='Nomor Ruangan'
-                    name='no_ruangan'
+                    name='id'
+                    type='number'
                     placeholder='Cth: 001'
                     register={register}
                     rule={{
@@ -128,7 +125,7 @@ const Edit: React.FC<EditProps> = ({
                             message: 'Nomor Ruangan wajib diisi'
                         }
                     }}
-                    error={errors.no_ruangan}
+                    error={errors.id}
                 />
 
 

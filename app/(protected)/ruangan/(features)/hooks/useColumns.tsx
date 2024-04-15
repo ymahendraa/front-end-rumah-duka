@@ -54,13 +54,13 @@ const useColumns = (permissions: string[]) => {
                 cell: ({ row }) => row.index + 1,
                 size: 10,
             }),
-            columnHelper.accessor((row) => row.no_ruangan, {
+            columnHelper.accessor((row) => row.id, {
                 id: 'nomor_ruangan',
                 header: () => 'Nomor Ruangan',
                 cell: (info) => info.getValue(),
                 size: 150,
             }),
-            columnHelper.accessor((row) => row.category_room, {
+            columnHelper.accessor((row) => row.category_ruangan, {
                 id: 'kategori',
                 header: () => 'Kategori',
                 cell: (info) => info.getValue(),

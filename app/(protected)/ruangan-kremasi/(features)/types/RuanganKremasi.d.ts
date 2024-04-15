@@ -1,4 +1,4 @@
-import { Ruangan } from "@/app/(protected)/rooms/(features)/types/Ruangan";
+import { Ruangan } from "@/app/(protected)/ruangan/(features)/types/Ruangan";
 
 export type RuanganKremasi = Ruangan & {
   jadwal: string;

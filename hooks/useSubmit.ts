@@ -39,6 +39,7 @@ const useSubmit = () => {
    * @param config config for fetching data
    * @param setOpen setOpen function for open modal
    * @param mutate mutate function for mutate data after fetching
+  //  * @param callbackUrl callbackUrl for redirecting after fetching
    * @returns
    * response : response from fetching data
    */
@@ -47,7 +48,8 @@ const useSubmit = () => {
     config,
     setOpen,
     mutate,
-  }: SubmitHandlerProps): Promise<any> => {
+  }: // callbackUrl,
+  SubmitHandlerProps): Promise<any> => {
     setIsLoading(true);
     try {
       const response = await fetcher(url, config);

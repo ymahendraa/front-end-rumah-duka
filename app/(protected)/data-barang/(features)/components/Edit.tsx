@@ -7,7 +7,6 @@ import Button from '@/components/atoms/button';
 import FileInput from '@/components/molecules/file-input';
 import Section from '@/components/atoms/section';
 import ComboBox from '@/components/molecules/combo-box';
-import LoadingKalla from '@/components/atoms/loading';
 
 // hooks import
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -88,18 +87,16 @@ const Edit: React.FC<EditProps> = ({
     useEffect(() => {
         if (data) {
             reset({
-                nama: data.nama,
-                jenis: data.jenis,
-                harga: data.harga
+                nama_barang: data.data.nama_barang,
+                jenis_barang: data.data.jenis_barang,
+                harga: data.data.harga
             })
         }
     }, [data, reset]);
 
     if (loadingData || !data) {
         return (
-            <section data-testid="loading-component" className='flex justify-center'>
-                <LoadingKalla width={30} height={30} />
-            </section>
+            <Loading />
         )
     }
 
@@ -118,7 +115,7 @@ const Edit: React.FC<EditProps> = ({
                 <InputText
                     aria-required
                     label='Nama Barang'
-                    name='nama'
+                    name='nama_barang'
                     placeholder='Cth: Meja'
                     register={register}
                     rule={{
@@ -127,14 +124,14 @@ const Edit: React.FC<EditProps> = ({
                             message: 'Nama barang wajib diisi'
                         }
                     }}
-                    error={errors.nama}
+                    error={errors.nama_barang}
                 />
 
 
                 <ComboBox
                     required
                     label='Jenis Barang'
-                    name='jenis'
+                    name='jenis_barang'
                     rule={{
                         required: {
                             value: true,
@@ -142,11 +139,11 @@ const Edit: React.FC<EditProps> = ({
                         }
                     }}
                     options={[
-                        { label: 'In Charge', value: 'in charge' },
-                        { label: 'Free', value: 'free' }
+                        { label: 'In Charge', value: 'In Charge' },
+                        { label: 'Free', value: 'Free' }
                     ]}
                     control={control}
-                    error={errors.jenis}
+                    error={errors.jenis_barang}
                 />
 
                 <InputText

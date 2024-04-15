@@ -55,25 +55,25 @@ const useColumns = (permissions: string[]) => {
                 cell: ({ row }) => row.index + 1,
                 size: 10,
             }),
-            columnHelper.accessor((row) => row.first_name, {
+            columnHelper.accessor((row) => row.status, {
                 id: 'status',
-                header: () => 'Status',
+                header: () => 'Status Transaksi',
                 cell: (info) => info.getValue(),
                 size: 150,
             }),
-            columnHelper.accessor((row) => row.last_name, {
+            columnHelper.accessor((row) => row.sum_total, {
                 id: 'total',
                 header: () => 'Total Harga',
                 cell: (info) => info.getValue(),
                 size: 250,
             }),
-            columnHelper.accessor((row) => row.email, {
+            columnHelper.accessor((row) => row.nama_lengkap, {
                 id: 'nama',
                 header: () => 'Nama Customer',
                 cell: (info) => info.getValue(),
                 size: 50,
             }),
-            columnHelper.accessor((row) => row.join_date, {
+            columnHelper.accessor((row) => row.reservation_date, {
                 id: 'tanggal_reservasi',
                 header: () => 'Tanggal Reservasi',
                 cell: (info) => dayjs(info.getValue()).format('DD MMM YYYY'),
@@ -88,32 +88,32 @@ const useColumns = (permissions: string[]) => {
                     const row = info.getValue()
                     return (
                         <div className="flex flex-row gap-x-2">
-                            {checkPermissions(['master.customers.update'], permissions) && (
+                            {checkPermissions(['transaction.reservation.generate-pdf'], permissions) && (
                                 <Button
-                                    onClick={() => {
-                                        router.push(`/customer/edit-data/${row.id}`)
-                                    }}
+                                    // onClick={() => {
+                                    //     router.push(`/reservasi/edit-data/${row.id_reservasi}`)
+                                    // }}
                                     className='flex items-center justify-center bg-white hover:bg-gray-200 w-6 h-6 rounded-md transition-colors duration-300 ease-in-out'
                                 >
                                     <Image src="./pdf.svg" alt="pdf-icon" width={12} height={15} />
                                 </Button>
                             )}
-                            {checkPermissions(['master.customers.update'], permissions) && (
+                            {checkPermissions(['transaction.reservation.update'], permissions) && (
                                 <Button
                                     onClick={() => {
-                                        router.push(`/customer/edit-data/${row.id}`)
+                                        router.push(`/reservasi/edit-data/${row.id_reservasi}`)
                                     }}
                                     className='flex items-center justify-center bg-green-500 hover:bg-green-600 w-6 h-6 rounded-md transition-colors duration-300 ease-in-out'
                                 >
                                     <PencilSquareIcon className="w-4 h-4" />
                                 </Button>
                             )}
-                            {checkPermissions(['master.customers.delete'], permissions) && (
+                            {checkPermissions(['transaction.reservation.delete'], permissions) && (
                                 <Button
                                     onClick={() => {
                                         setSelectedRow({
-                                            name: row.first_name + ' ' + row.last_name,
-                                            id: row.id,
+                                            name: row.nama_lengkap,
+                                            id: String(row.id_reservasi),
                                         })
                                         setOpenDelete(true)
                                     }}

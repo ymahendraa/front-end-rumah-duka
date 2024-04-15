@@ -23,7 +23,7 @@ const DeleteModalContent: React.FC<DeleteProps> = ({
             </p>
             <Section className="flex flex-row gap-x-4 text-sm">
                 <Button
-                    className=" bg-secondary text-white hover:bg-secondary-light border-none rounded-md md:rounded-xl px-2 md:w-32 md:h-12"
+                    className=" bg-secondary text-white hover:bg-secondary-light border-none rounded-md md:rounded-xl px-2 md:w-32 md:h-10"
                     disabled={isLoading}
                     onClick={deleteHandler}
                 >
@@ -34,7 +34,7 @@ const DeleteModalContent: React.FC<DeleteProps> = ({
                     )}
                 </Button>
                 <Button
-                    className=" bg-red-600 text-white hover:bg-red-700 border-none rounded-md md:rounded-xl px-2 md:w-32 md:h-12"
+                    className=" bg-red-600 text-white hover:bg-red-700 border-none rounded-md md:rounded-xl px-2 md:w-32 md:h-10"
                     onClick={() => setOpen(false)}
                     disabled={isLoading}
                 >

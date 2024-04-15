@@ -1,5 +1,5 @@
 export type Almarhum = {
-  id: string;
+  id_almarhum: string;
   pemohon_id: string;
   nama_lengkap: string;
   umur: number;

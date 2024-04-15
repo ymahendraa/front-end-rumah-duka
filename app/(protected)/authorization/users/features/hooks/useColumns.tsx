@@ -53,11 +53,11 @@ const useColumns = (permissions: string[]) => {
             }),
             columnHelper.accessor((row) => row.username, {
                 id: 'username',
-                header: () => 'NIK',
+                header: () => 'Username',
                 cell: (info) => info.getValue(),
                 size: 10,
             }),
-            columnHelper.accessor((row) => row.name, {
+            columnHelper.accessor((row) => row.nama_admin, {
                 id: 'name',
                 header: () => 'Name',
                 cell: (info) => info.getValue(),
@@ -69,12 +69,12 @@ const useColumns = (permissions: string[]) => {
                 cell: (info) => info.getValue(),
                 size: 50,
             }),
-            columnHelper.accessor((row) => row.phone, {
-                id: 'phone',
-                header: () => 'Phone',
-                cell: (info) => info.getValue(),
-                size: 50,
-            }),
+            // columnHelper.accessor((row) => row.phone, {
+            //     id: 'phone',
+            //     header: () => 'Phone',
+            //     cell: (info) => info.getValue(),
+            //     size: 50,
+            // }),
             columnHelper.accessor((row) => row.role, {
                 id: 'role',
                 header: () => 'Roles',
@@ -120,7 +120,7 @@ const useColumns = (permissions: string[]) => {
                                 <Button
                                     onClick={() => {
                                         setSelectedRow({
-                                            name: row.name,
+                                            name: row.nama_admin,
                                             id: row.id,
                                         })
                                         setOpenDelete(true)

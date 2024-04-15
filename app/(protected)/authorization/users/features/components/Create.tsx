@@ -3,7 +3,6 @@ import React, { useEffect } from 'react'
 // components import
 import InputText from '@/components/atoms/input/input-text';
 import Button from '@/components/atoms/button';
-import LoadingKalla from '@/components/atoms/loading';
 import InputCheckbox from '@/components/atoms/input/input-checkbox';
 import Label from '@/components/atoms/label';
 import Section from '@/components/atoms/section';
@@ -105,7 +104,7 @@ const Create: React.FC<CreateProps> = ({
     if (isLoadingRoles) {
         return (
             <section data-testid="loading-component" className='flex justify-center'>
-                <LoadingKalla width={30} height={30} />
+                <p>Loading...</p>
             </section>
         )
     }

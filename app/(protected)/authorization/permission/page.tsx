@@ -50,7 +50,6 @@ const PermissionsPage = () => {
     // debounce the search input value
     const debouncedSearch = useDebounce(inputValue, 500);
 
-
     // update the URL when the debounced input value changes
     useEffect(() => {
         router.push(path + '?' + createQueryString('q', debouncedSearch));
@@ -91,29 +90,28 @@ const PermissionsPage = () => {
             >
                 <DataTableBase
                     columns={columns}
-                    data={data}
+                    data={data?.data ?? []}
                 />
+                {/* <Pagination
+                    page={page}
+                    limit={limit}
+                    totalPages={data?.meta?.totalPages}
+                    totalItems={data?.meta?.totalItems}
+                    options={[
+                        { value: 10, label: '10' },
+                        { value: 20, label: '20' },
+                        { value: 50, label: '50' },
+                        { value: 100, label: '100' },
+                    ]}
+                    labelNext={<ChevronRightIcon className='w-5 h-5' />}
+                    labelPrev={<ChevronLeftIcon className='w-5 h-5' />}
+                    disabledPrev={page === 1}
+                    disabledNext={page === data?.meta?.totalPages}
+                    // disabledNext={page === data?.meta?.totalPages}
+                    setLimit={setLimit}
+                    handlePageChange={setPage}
+                /> */}
             </Section>
-            <Pagination
-                page={page}
-                limit={limit}
-                totalPages={5}
-                // totalPages={data?.meta?.totalPages}
-                totalItems={50}
-                options={[
-                    { value: 10, label: '10' },
-                    { value: 20, label: '20' },
-                    { value: 50, label: '50' },
-                    { value: 100, label: '100' },
-                ]}
-                labelNext={<ChevronRightIcon className='w-5 h-5' />}
-                labelPrev={<ChevronLeftIcon className='w-5 h-5' />}
-                disabledPrev={page === 1}
-                disabledNext={page === 5}
-                // disabledNext={page === data?.meta?.totalPages}
-                setLimit={setLimit}
-                handlePageChange={setPage}
-            />
 
         </main>
     )

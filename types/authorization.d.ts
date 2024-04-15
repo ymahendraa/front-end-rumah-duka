@@ -20,8 +20,7 @@ type Permission = {
 
 type Role = {
   id: number | string;
-  name: string;
-  description: string;
+  role_name: string;
   permissions: Permission[];
 };
 
