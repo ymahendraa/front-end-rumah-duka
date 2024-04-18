@@ -63,7 +63,7 @@ const Create: React.FC<CreateProps> = ({
     } = useForm();
 
     // get submit handler
-    const { submitHandler, isLoading } = useSubmit()
+    const { isLoading } = useSubmit()
 
     // submit handler
     const onSubmit: SubmitHandler<any> = async (data: any) => {
@@ -89,7 +89,7 @@ const Create: React.FC<CreateProps> = ({
     // reset form when modal is closed
     useEffect(() => {
         reset();
-    }, [setOpen]);
+    }, [setOpen, reset]);
 
     // define fetcher
     const fetcher = useFetcher(session);

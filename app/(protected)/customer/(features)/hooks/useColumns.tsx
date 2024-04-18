@@ -4,8 +4,8 @@ import Button from '@/components/atoms/button'
 
 // utils import
 import { createColumnHelper } from '@tanstack/react-table'
-import dayjs from 'dayjs'
-import 'dayjs/locale/id'
+// import dayjs from 'dayjs'
+// import 'dayjs/locale/id'
 import { checkPermissions } from '@/utils/checkPermissions'
 import { ReceivedCustomer } from '../types/Customer'
 

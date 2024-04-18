@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import jwt from "jsonwebtoken";
+// import jwt from "jsonwebtoken";
 
-const SECRET_KEY = process.env.VERY_SECRET_KEY ?? "yourSecretKey";
-const REFRESH_SECRET_KEY =
-  process.env.REFRESH_VERY_SECRET_KEY ?? "yourRefreshSecretKey";
+// const SECRET_KEY = process.env.VERY_SECRET_KEY ?? "yourSecretKey";
+// const REFRESH_SECRET_KEY =
+//   process.env.REFRESH_VERY_SECRET_KEY ?? "yourRefreshSecretKey";
 const REAL_URL = process.env.NEXT_PUBLIC_REAL_URL ?? "";
 
 export async function POST(req: NextRequest) {

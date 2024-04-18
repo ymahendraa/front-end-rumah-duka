@@ -2,15 +2,15 @@
 import React from 'react'
 import Section from '@/components/atoms/section'
 import Icon from '@/components/atoms/icon'
-import { PresentationChartBarIcon } from '@heroicons/react/24/solid'
+// import { PresentationChartBarIcon } from '@heroicons/react/24/solid'
 import { ChartBarSquareIcon } from '@heroicons/react/20/solid'
 import { formatToRupiah } from '@/utils/formatToRupiah'
 import ComboBoxWrapper from '@/components/atoms/combo-box-wrapper'
 import Button from '@/components/atoms/button'
 import LineChart from '@/components/atoms/chart/line'
-import { DataTableBase } from '@/components/organisms/table/data-table'
-import Pagination from '@/components/organisms/pagination'
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
+// import { DataTableBase } from '@/components/organisms/table/data-table'
+// import Pagination from '@/components/organisms/pagination'
+// import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
 
 const Home: React.FC = () => {
 

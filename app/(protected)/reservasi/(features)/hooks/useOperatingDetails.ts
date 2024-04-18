@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { set } from "react-hook-form";
 import Swal from "sweetalert2";
 
 type AddDetail = {

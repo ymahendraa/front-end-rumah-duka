@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import jwt from "jsonwebtoken";
-import { imageKit } from "@/lib/imagekit";
-import { mkdir } from "fs/promises";
+// import jwt from "jsonwebtoken";
+// import { imageKit } from "@/lib/imagekit";
+// import { mkdir } from "fs/promises";
 
 export async function GET(req: NextRequest) {
   // get token from headers
@@ -56,17 +56,17 @@ export async function POST(req: NextRequest) {
 
     // PREPARE IMAGEKIT UPLOAD
     //Get current date to create a folder with the name of the current month
-    const currentDate = new Date();
-    const year = currentDate.getFullYear();
-    const month = (currentDate.getMonth() + 1).toString().padStart(2, "0"); // Ensure two-digit month
-    const day = currentDate.getDate().toString().padStart(2, "0"); // Ensure two-digit day
+    // const currentDate = new Date();
+    // const year = currentDate.getFullYear();
+    // const month = (currentDate.getMonth() + 1).toString().padStart(2, "0"); // Ensure two-digit month
+    // const day = currentDate.getDate().toString().padStart(2, "0"); // Ensure two-digit day
 
     // create folder name based on current year and month
-    const folderPath = `${year}-${month}`;
-    await mkdir(folderPath, { recursive: true });
+    // const folderPath = `${year}-${month}`;
+    // await mkdir(folderPath, { recursive: true });
 
     // create file name for document
-    const fileName = `${year}-${month}-${day}_BUKTI_KEMATIAN`;
+    // const fileName = `${year}-${month}-${day}_BUKTI_KEMATIAN`;
 
     // get file from body
     // const file = body.document;

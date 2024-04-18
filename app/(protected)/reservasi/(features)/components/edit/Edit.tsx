@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 
 // components import
 import InputText from '@/components/atoms/input/input-text';
@@ -8,7 +8,7 @@ import Section from '@/components/atoms/section';
 import ComboBox from '@/components/molecules/combo-box';
 
 // hooks import
-import { SubmitHandler, useForm, useFieldArray, Controller, set } from 'react-hook-form'
+import { SubmitHandler, useForm, useFieldArray } from 'react-hook-form'
 import useSubmit from '@/hooks/useSubmit';
 import { useRouter } from 'next/navigation';
 import useFetcher from '@/hooks/useFetcher';
@@ -73,7 +73,7 @@ const Edit: React.FC<EditProps> = ({
         id: idDetail,
         setId,
         addDetail,
-        detailName,
+        // detailName,
         setDetailName,
         price,
         setPrice,
@@ -98,7 +98,7 @@ const Edit: React.FC<EditProps> = ({
     const router = useRouter()
 
     // get submit handler
-    const { submitHandler, isLoading } = useSubmit()
+    const { isLoading } = useSubmit()
 
     // get columns
     const {
@@ -300,6 +300,7 @@ const Edit: React.FC<EditProps> = ({
                                     setId(e)
                                     // get detail name based on e
                                     const [id, nama_barang, jenis_barang, harga] = e.split(';')
+                                    console.log(id)
                                     setDetailName(nama_barang)
                                     setType(jenis_barang)
                                     setPrice(Number(harga))

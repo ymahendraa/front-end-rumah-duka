@@ -4,7 +4,7 @@ import React, { useEffect } from 'react'
 // components import
 import InputText from '@/components/atoms/input/input-text';
 import Button from '@/components/atoms/button';
-import FileInput from '@/components/molecules/file-input';
+// import FileInput from '@/components/molecules/file-input';
 import Section from '@/components/atoms/section';
 import ComboBox from '@/components/molecules/combo-box';
 

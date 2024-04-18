@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 // components import
-import Image from 'next/image'
+// import Image from 'next/image'
 import ModalOverlay from '@/components/atoms/modal-overlay'
 import Section from '@/components/atoms/section'
 import MenuList from '@/components/organisms/menu-list'
@@ -66,7 +66,7 @@ const SidebarModule: React.FC<SidebarProps> = ({ show, setter }) => {
      * @description signOutHandler : function to sign out
      * @returns signOutHandler function
      */
-    const signOutHandler = async (id: string) => {
+    const signOutHandler = async () => {
         // delete redis value
         // ACTIVATE THIS CODE IF YOU HAVE REDIS
         // await fetch(`/api/redis/${id}`, {
@@ -142,7 +142,7 @@ const SidebarModule: React.FC<SidebarProps> = ({ show, setter }) => {
                     {/* )} */}
                 </Section>
 
-                <Button onClick={() => signOutHandler(permissions?.id ?? '')} className={minimized ? signOutButtonClass.mini : signOutButtonClass.normal}>
+                <Button onClick={() => signOutHandler()} className={minimized ? signOutButtonClass.mini : signOutButtonClass.normal}>
                     {minimized ? <ArrowLeftCircleIcon /> :
                         <>
                             <ArrowLeftCircleIcon className='w-5 h-5 text-white' />

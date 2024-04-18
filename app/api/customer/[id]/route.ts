@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import jwt from "jsonwebtoken";
+// import jwt from "jsonwebtoken";
 import { getImageDetail, imageKit } from "@/lib/imagekit";
 import { mkdir } from "fs/promises";
 

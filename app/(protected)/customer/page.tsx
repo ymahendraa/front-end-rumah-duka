@@ -1,5 +1,5 @@
 'use client'
-import React, { useCallback, useContext, useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 
 // components import
 import Loading from '../../../components/atoms/loader/loading'
@@ -14,8 +14,8 @@ import Section from '@/components/atoms/section'
 import useColumns from './(features)/hooks/useColumns'
 import { useGetDataWithPagination } from '@/hooks/useGetDataWithPagination'
 import { usePaginationState } from '@/hooks/usePaginationState'
-import { usePathname, useSearchParams, useRouter } from 'next/navigation'
-import useModalState from '@/hooks/useModalState'
+import { usePathname, useRouter } from 'next/navigation'
+// import useModalState from '@/hooks/useModalState'
 import useDebounce from '@/hooks/useDebounce'
 import useSubmit from '@/hooks/useSubmit'
 
@@ -63,7 +63,7 @@ const CustomerPage = () => {
     const path = usePathname()
 
     // call useSearchQuery
-    const { inputValue, setInputValue, createQueryString, searchParams } = useSearchQuery();
+    const { inputValue, setInputValue, createQueryString } = useSearchQuery();
 
     // debounce the search input value
     const debouncedSearch = useDebounce(inputValue, 500);

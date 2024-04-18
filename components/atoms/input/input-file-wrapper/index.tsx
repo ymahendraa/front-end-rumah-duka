@@ -1,4 +1,4 @@
-import React, { useRef, forwardRef, ReactElement, ReactNode } from 'react';
+import React, { ReactElement, ReactNode } from 'react';
 import Label from '../../label';
 import Section from '../../section';
 import { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form';
@@ -21,6 +21,8 @@ const InputFileWrapper = React.forwardRef<HTMLInputElement, InputFileWrapperProp
     ...props
 }, ref) => {
 
+    InputFileWrapper.displayName = 'InputFileWrapper';
+
     const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
         event.preventDefault();
     };
@@ -41,7 +43,7 @@ const InputFileWrapper = React.forwardRef<HTMLInputElement, InputFileWrapperProp
     };
 
     const config = {
-        classNameInput: classNameInput ?? 'w-full flex items-center bg-base min-h-12 focus:border focus:border-gray-300 rounded-xl p-2 box-border text-white text-sm cursor-pointer hover:bg-gray-700 transition-color duration-300 ease-in-out',
+        classNameInput: classNameInput ?? 'w-full flex items-center justify-center bg-base min-h-12 focus:border focus:border-gray-300 rounded-xl p-2 box-border text-white text-sm cursor-pointer hover:bg-gray-700 transition-color duration-300 ease-in-out',
         classNameWrapper: classNameWrapper ?? 'flex flex-col gap-y-1'
     }
     const isContentImage = (props.inputContent as ReactElement).type === 'img';

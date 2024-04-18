@@ -1,6 +1,7 @@
 import React from 'react'
 import InputFileWrapper from '@/components/atoms/input/input-file-wrapper'
 import { Controller, FieldError, FieldErrorsImpl, FieldValues, Merge, RegisterOptions } from 'react-hook-form'
+import Image from 'next/image'
 
 type FileInputProps = {
     error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
@@ -28,7 +29,7 @@ const FileInput: React.FC<FileInputProps> = ({
         }
         if (props.type === 'image') {
             return value ?
-                <img
+                <Image
                     src={URL_IMAGE}
                     alt={value.name}
                     width={400}

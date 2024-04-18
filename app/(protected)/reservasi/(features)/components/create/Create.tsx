@@ -8,7 +8,7 @@ import Section from '@/components/atoms/section';
 import ComboBox from '@/components/molecules/combo-box';
 
 // hooks import
-import { SubmitHandler, useForm, useFieldArray, Controller, set } from 'react-hook-form'
+import { SubmitHandler, useForm, useFieldArray } from 'react-hook-form'
 import useSubmit from '@/hooks/useSubmit';
 import { useRouter } from 'next/navigation';
 import useFetcher from '@/hooks/useFetcher';
@@ -22,7 +22,7 @@ import useColumns from './useColumns';
 import { DataTableBase } from '@/components/organisms/table/data-table';
 import ComboBoxWrapper from '@/components/atoms/combo-box-wrapper';
 import Label from '@/components/atoms/label';
-import Loading from '@/components/atoms/loader/loading';
+// import Loading from '@/components/atoms/loader/loading';
 
 /**
  * @description
@@ -58,7 +58,7 @@ const Create: React.FC = () => {
     } = useForm();
 
     // define field array
-    const { fields, append, remove, update } = useFieldArray({
+    const { append, remove, update } = useFieldArray({
         control,
         name: 'details'
     })
@@ -68,7 +68,7 @@ const Create: React.FC = () => {
     const router = useRouter()
 
     // get submit handler
-    const { submitHandler, isLoading } = useSubmit()
+    const { isLoading } = useSubmit()
 
     // get columns
     const {

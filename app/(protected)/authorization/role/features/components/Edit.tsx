@@ -50,11 +50,11 @@ type EditProps = {
  * />
  */
 const Edit: React.FC<EditProps> = ({
-    submitHandler,
+    // submitHandler,
     id,
     isLoading,
     setOpen,
-    mutate,
+    // mutate,
     url
 }) => {
     // define session
@@ -89,7 +89,7 @@ const Edit: React.FC<EditProps> = ({
             })
         }
 
-    }, [selectedData, reset]);
+    }, [selectedData]);
 
     // submit handler
     const onSubmit: SubmitHandler<any> = async (data: any) => {

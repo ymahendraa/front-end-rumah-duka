@@ -1,6 +1,6 @@
 import Section from '@/components/atoms/section'
 import { Bars3Icon, UserCircleIcon } from '@heroicons/react/24/outline'
-import Image from 'next/image'
+// import Image from 'next/image'
 import React from 'react'
 
 type ModalSidebarProps = {

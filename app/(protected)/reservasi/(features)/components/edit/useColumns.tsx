@@ -79,7 +79,7 @@ const useColumns = (editHandler: any, deleteHandler: any, fields: any) => {
                 enableSorting: false,
                 cell: (info) => {
                     // You can place your action buttons here
-                    const row = info.getValue()
+                    // const row = info.getValue()
                     return (
                         <div className="flex flex-row gap-x-2">
                             {/* {checkPermissions(['master.customers.update'], permissions) && ( */}
@@ -119,6 +119,7 @@ const useColumns = (editHandler: any, deleteHandler: any, fields: any) => {
         openDelete,
         setOpenDelete,
         selectedRow,
+        setSelectedRow
     }
 }
 

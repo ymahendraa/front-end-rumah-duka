@@ -6,7 +6,7 @@ import axios from "./axios";
  * @param refreshToken string of refresh token
  * @returns new access token
  */
-export async function refreshAccessToken(refreshToken: string, id: string) {
+export async function refreshAccessToken(refreshToken: string) {
   try {
     // Send a request to the refresh token endpoint
     const res = await axios("/refresh", {

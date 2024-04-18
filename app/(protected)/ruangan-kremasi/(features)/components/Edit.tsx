@@ -4,9 +4,9 @@ import React, { useEffect } from 'react'
 // components import
 import InputText from '@/components/atoms/input/input-text';
 import Button from '@/components/atoms/button';
-import FileInput from '@/components/molecules/file-input';
+// import FileInput from '@/components/molecules/file-input';
 import Section from '@/components/atoms/section';
-import ComboBox from '@/components/molecules/combo-box';
+// import ComboBox from '@/components/molecules/combo-box';
 
 // hooks import
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -14,11 +14,11 @@ import useSubmit from '@/hooks/useSubmit';
 import { useRouter } from 'next/navigation';
 import useFetcher from '@/hooks/useFetcher';
 import { useSession } from 'next-auth/react';
-import useTransformObject from '@/hooks/useTransformObject';
+// import useTransformObject from '@/hooks/useTransformObject';
 import useSWR from 'swr';
 
 // utils import
-import { ROOM_CATEGORY } from '@/utils/const/room-category';
+// import { ROOM_CATEGORY } from '@/utils/const/room-category';
 import { RuanganKremasi } from '../types/RuanganKremasi';
 import Loading from '@/components/atoms/loader/loading';
 
@@ -43,7 +43,7 @@ const Edit: React.FC<EditProps> = ({
         register,
         handleSubmit,
         formState: { errors },
-        control,
+        // control,
         reset
     } = useForm<RuanganKremasi>();
 

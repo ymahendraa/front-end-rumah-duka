@@ -103,9 +103,7 @@ const Create: React.FC<CreateProps> = ({
 
     if (isLoadingRoles) {
         return (
-            <section data-testid="loading-component" className='flex justify-center'>
-                <p>Loading...</p>
-            </section>
+            <Loading />
         )
     }
 

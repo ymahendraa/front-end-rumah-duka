@@ -1,7 +1,7 @@
 // components import
 import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline'
 import Button from '@/components/atoms/button'
-import Image from 'next/image'
+// import Image from 'next/image'
 
 // utils import
 import { createColumnHelper } from '@tanstack/react-table'

@@ -4,20 +4,20 @@ import React from 'react'
 // components import
 import InputText from '@/components/atoms/input/input-text';
 import Button from '@/components/atoms/button';
-import FileInput from '@/components/molecules/file-input';
+// import FileInput from '@/components/molecules/file-input';
 import Section from '@/components/atoms/section';
-import ComboBox from '@/components/molecules/combo-box';
+// import ComboBox from '@/components/molecules/combo-box';
 
 // hooks import
 import { SubmitHandler, useForm } from 'react-hook-form'
 import useSubmit from '@/hooks/useSubmit';
 import { useRouter } from 'next/navigation';
-import useFetcher from '@/hooks/useFetcher';
-import { useSession } from 'next-auth/react';
-import useTransformObject from '@/hooks/useTransformObject';
-import useSWR from 'swr';
-import { ROOM_CATEGORY } from '@/utils/const/room-category';
-import Loading from '@/components/atoms/loader/loading';
+// import useFetcher from '@/hooks/useFetcher';
+// import { useSession } from 'next-auth/react';
+// import useTransformObject from '@/hooks/useTransformObject';
+// import useSWR from 'swr';
+// import { ROOM_CATEGORY } from '@/utils/const/room-category';
+// import Loading from '@/components/atoms/loader/loading';
 
 // utils import
 
@@ -29,7 +29,7 @@ import Loading from '@/components/atoms/loader/loading';
  */
 const Create: React.FC = () => {
     // define session
-    const { data: session } = useSession()
+    // const { data: session } = useSession()
 
 
     // get form data
@@ -37,7 +37,7 @@ const Create: React.FC = () => {
         register,
         handleSubmit,
         formState: { errors },
-        control
+        // control
     } = useForm();
 
     // define router

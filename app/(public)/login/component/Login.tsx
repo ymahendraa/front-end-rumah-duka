@@ -1,14 +1,14 @@
 'use client'
 // utils import
 import { getSession, signIn } from 'next-auth/react'
-import { AuthorizationContext } from '@/context/AuthorizationContext/context'
+// import { AuthorizationContext } from '@/context/AuthorizationContext/context'
 
 // hooks import
 import { useRef } from 'react'
 import { useRouter } from 'next/navigation'
 
 // components import
-import Image from 'next/image'
+// import Image from 'next/image'
 import Swal from 'sweetalert2'
 import InputText from '@/components/atoms/input/input-text'
 import Button from '@/components/atoms/button'

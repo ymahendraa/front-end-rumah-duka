@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import jwt from "jsonwebtoken";
+// import jwt from "jsonwebtoken";
 
 export async function GET(req: NextRequest) {
   // get token from headers
@@ -24,12 +24,12 @@ export async function GET(req: NextRequest) {
   }
   // if token exists, verify it
   else {
-    const SECRET_KEY = process.env.VERY_SECRET_KEY ?? "yourSecretKey";
-    try {
-      jwt.verify(token, SECRET_KEY);
-    } catch (err) {
-      return NextResponse.json({ error: "Invalid token" }, { status: 401 });
-    }
+    // const SECRET_KEY = process.env.VERY_SECRET_KEY ?? "yourSecretKey";
+    // try {
+    //   jwt.verify(token, SECRET_KEY);
+    // } catch (err) {
+    //   return NextResponse.json({ error: "Invalid token" }, { status: 401 });
+    // }
     // fetch data from json server
     const response = await fetch(`http://localhost:3001/user-role`);
     const data = await response.json();

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { FieldError, FieldErrorsImpl, Merge, UseFormRegister } from 'react-hook-form'
+import { UseFormRegister } from 'react-hook-form'
 import Label from '../../label'
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
 import { NestedFieldError } from '@/types/nested-error'

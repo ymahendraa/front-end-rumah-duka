@@ -1,7 +1,7 @@
 'use client'
 
 // components import
-import CheckboxWithChildren from '@/components/molecules/checkbox-with-children'
+// import CheckboxWithChildren from '@/components/molecules/checkbox-with-children'
 import Section from '@/components/atoms/section'
 import CRUDHeaderSection from '@/components/organisms/sections/crud-header-section'
 import { DataTableBase } from '@/components/organisms/table/data-table'
@@ -15,8 +15,8 @@ import Edit from './features/components/Edit'
 
 // hooks import
 import { usePaginationState } from '@/hooks/usePaginationState'
-import React, { useCallback, useContext, useEffect } from 'react'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import React, { useContext, useEffect } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
 import useColumns from './features/hooks/useColumns'
 import useModalState from '@/hooks/useModalState'
 import useSubmit from '@/hooks/useSubmit'

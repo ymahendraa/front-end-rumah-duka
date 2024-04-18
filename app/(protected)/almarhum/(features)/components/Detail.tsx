@@ -89,7 +89,7 @@ const Detail: React.FC<DetailProps> = ({
                 tgl_waktu_meninggal: data.data.tgl_waktu_meninggal,
             })
         }
-    }, [data, reset]);
+    }, [data]);
 
     if (loadingData) return <div><Loading /></div>
 

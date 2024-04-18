@@ -102,7 +102,7 @@ const useColumns = (permissions: string[]) => {
                 cell: (info) => {
                     // You can place your action buttons here
                     const row = info.getValue()
-                    console.log(row)
+                    // console.log(row)
                     return (
                         <div className="flex flex-row gap-x-2">
                             {/* {checkPermissions(['master.almarhum.update'], permissions) && ( */}

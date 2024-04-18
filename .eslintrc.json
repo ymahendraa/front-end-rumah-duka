@@ -12,6 +12,7 @@
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": ["error"],
     "import/no-unresolved": "error",
-    "import/named": "off"
+    "import/named": "off",
+    "react-hooks/exhaustive-deps": "off"
   }
 }
