@@ -20,6 +20,7 @@ export async function GET(req: NextRequest) {
     })
       .then((res) => res.json())
       .catch((err) => {
+        console.log("error", err);
         return NextResponse.json({ error: err }, { status: 500 });
       });
 
