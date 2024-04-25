@@ -14,7 +14,7 @@ import InputCheckbox from '@/components/atoms/input/input-checkbox';
 // import useTransformObject from '@/hooks/useTransformObject';
 import { SubmitHandler, useForm } from 'react-hook-form'
 import useFetcher from '@/hooks/useFetcher';
-import useSWR from 'swr';
+import useSWR, { mutate } from 'swr';
 import { useSession } from 'next-auth/react';
 
 // utils import
@@ -24,6 +24,8 @@ import { useSession } from 'next-auth/react';
 import { TODO } from '@/types/todo';
 import useGroupPermissions from '@/hooks/useGroupPermissions';
 import Loading from '@/components/atoms/loader/loading';
+import useSubmit from '@/hooks/useSubmit';
+import { useRouter } from 'next/navigation';
 
 type EditProps = {
     submitHandler: (data: any) => void
@@ -65,7 +67,7 @@ const Edit: React.FC<EditProps> = ({
 
     // get selected row data with SWR
     const { data: selectedData, error: errorSelectedData, isLoading: isLoadingData, isValidating } = useSWR(
-        `${url}/${id}`,
+        session ? `${url}/${id}` : null,
         fetcher,
     )
 
@@ -81,9 +83,9 @@ const Edit: React.FC<EditProps> = ({
     useEffect(() => {
         if (selectedData) {
             reset({
-                name: selectedData?.name,
+                role_name: selectedData?.name,
                 // description: selectedData?.description,
-                permissions: selectedData?.group?.permissions?.map((item: any) => item.name), // CAUTION: change this to item.id if already you real API
+                permissions: selectedData?.group?.permissions?.map((item: any) => item), // CAUTION: change this to item.id if already you real API
                 // actions: ['create', 'read', 'update', 'delete']
                 // permissions: selectedData?.actions.map((item: any) => item.id.toString())
             })
@@ -91,22 +93,30 @@ const Edit: React.FC<EditProps> = ({
 
     }, [selectedData]);
 
+    // get submit handler
+    const { isLoading: isLoadingSubmit, submitHandler } = useSubmit()
+
+    const router = useRouter()
+
     // submit handler
     const onSubmit: SubmitHandler<any> = async (data: any) => {
         try {
             console.log(JSON.stringify(data))
-            // submitHandler({
-            //     url: `${url}/${id}`,
-            //     config: {
-            //         method: 'PATCH',
-            //         headers: {
-            //             'Content-Type': 'application/json'
-            //         },
-            //         body: JSON.stringify(data),
-            //     },
-            //     setOpen,
-            //     mutate,
-            // })
+            submitHandler({
+                url: `${url}/${id}`,
+                config: {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data),
+                },
+                setOpen,
+                mutate: () => {
+                    router.refresh()
+                },
+            })
+            // refresh router
         } catch (error) {
             console.log(error)
         }
@@ -117,7 +127,7 @@ const Edit: React.FC<EditProps> = ({
         reset();
     }, [setOpen]);
 
-    // get list of permissions
+    // get list of role
     const { data: dataPermissions, isLoading: isLoadingPermissions, error: isErrorPermissions } = useSWR(
         session ? 'authorization/permissions' : null,
         fetcher
@@ -126,7 +136,7 @@ const Edit: React.FC<EditProps> = ({
     // transform dataPermissions
     const transformedPermission = useGroupPermissions(dataPermissions?.data ?? [])
 
-    if (isLoadingData || isValidating || !selectedData || isLoadingPermissions) {
+    if (isLoading || isLoadingData || isValidating || !selectedData || isLoadingPermissions) {
         return (
             <Loading />
         )
@@ -145,7 +155,7 @@ const Edit: React.FC<EditProps> = ({
             <InputText
                 type='text'
                 label='Nama'
-                name='name'
+                name='role_name'
                 register={register}
                 placeholder='Masukkan nama'
                 aria-required={true}
@@ -155,7 +165,7 @@ const Edit: React.FC<EditProps> = ({
                         message: 'Nama wajib diisi'
                     },
                 }}
-                error={errors.name}
+                error={errors.role_name}
             />
 
             {/* <InputTextArea
@@ -190,7 +200,7 @@ const Edit: React.FC<EditProps> = ({
                                     <InputCheckbox
                                         key={index}
                                         name='permissions'
-                                        value={child.name}
+                                        value={child.id}
                                         label={child.name}
                                         register={register}
                                     />
@@ -208,9 +218,9 @@ const Edit: React.FC<EditProps> = ({
                 <Button
                     type='submit'
                     className='bg-secondary hover:bg-secondary-dark rounded-md text-white w-full h-8 mt-2 text-sm'
-                    disabled={isLoading}
+                    disabled={isLoadingSubmit}
                 >
-                    {isLoading ? 'Loading...' : 'Simpan'}
+                    {isLoadingSubmit ? 'Loading...' : 'Simpan'}
                 </Button>
             </section>
         </form>

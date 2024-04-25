@@ -17,7 +17,7 @@ export async function GET(
   else {
     // fetch data from json server
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_REAL_URL}/rooms/${id}`,
+      `${process.env.NEXT_PUBLIC_REAL_URL}/admin/${id}`,
       {
         method: "GET",
         headers: {
@@ -25,7 +25,7 @@ export async function GET(
         },
       }
     );
-    const data = await response.json();
+    const { data } = await response.json();
     // return NextResponse.json(data);
     return NextResponse.json(data);
   }

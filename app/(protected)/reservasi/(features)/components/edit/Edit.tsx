@@ -56,7 +56,7 @@ const Edit: React.FC<EditProps> = ({
         handleSubmit,
         formState: { errors },
         control,
-        setValue,
+        // setValue,
         watch,
         reset
     } = useForm();
@@ -98,7 +98,7 @@ const Edit: React.FC<EditProps> = ({
     const router = useRouter()
 
     // get submit handler
-    const { isLoading } = useSubmit()
+    const { isLoading, submitHandler } = useSubmit()
 
     // get columns
     const {
@@ -115,19 +115,19 @@ const Edit: React.FC<EditProps> = ({
     // submit handler
     const onSubmit: SubmitHandler<any> = async (data: any) => {
         try {
-            console.log(data)
-            // await submitHandler({
-            //     url: 'customer',
-            //     config: {
-            //         method: 'POST',
-            //         headers: {
-            //             'Content-Type': 'application/json'
-            //         },
-            //         body: JSON.stringify(data),
-            //     },
-            //     setOpen: () => { },
-            //     mutate: () => { },
-            // })
+            console.log(JSON.stringify(data))
+            await submitHandler({
+                url: `reservasi/${id}`,
+                config: {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                },
+                setOpen: () => { },
+                mutate: () => { },
+            })
         } catch (error) {
             console.log(error)
         }
@@ -145,25 +145,8 @@ const Edit: React.FC<EditProps> = ({
     // define fetcher
     const fetcher = useFetcher(session);
 
-    // get list of customer
-    const { data: dataCustomer, isLoading: loadingCustomer, error: errorCustomer } = useSWR(
-        session ? `customer?page=1&limit=10000` : null,
-        fetcher
-    )
-
     // Watch the value of the name field
     const name = watch('name');
-
-    // Use the value of name to find the corresponding nik
-    useEffect(() => {
-        if (dataCustomer && name) {
-            const selectedCustomer = dataCustomer.data.find((item: any) => item.id === name);
-            if (selectedCustomer) {
-                // Use setValue to set the value of the nik field
-                setValue('nik', selectedCustomer.nik);
-            }
-        }
-    }, [dataCustomer, name, setValue]);
 
     // get list current reservasi
     const { data: selectedData, isLoading: loadingSelected, error: errorSelected } = useSWR(
@@ -175,15 +158,12 @@ const Edit: React.FC<EditProps> = ({
     useEffect(() => {
         if (selectedData) {
             reset({
-                name: selectedData?.id_customer,
+                nama_lengkap: selectedData?.nama_lengkap,
                 nik: selectedData?.nik,
                 detail_barang: selectedData?.detail_barang || []
             })
         }
     }, [selectedData, reset]);
-
-    // transform data
-    const transformedData = useTransformObject(dataCustomer?.data ?? [], 'id', 'name')
 
     // get all barang
     const { data: dataBarang, isLoading: loadingBarang, error: errorBarang } = useSWR(
@@ -201,9 +181,9 @@ const Edit: React.FC<EditProps> = ({
         }
     }, [open, resetDetail])
 
-    if (loadingCustomer || !dataCustomer || loadingSelected || !selectedData || loadingBarang || !dataBarang) return <Loading />
+    if (loadingSelected || !selectedData || loadingBarang || !dataBarang) return <Loading />
 
-    if (errorCustomer || errorSelected || errorBarang) return <div>Error...</div>
+    if (errorSelected || errorBarang) return <div>Error...</div>
 
     return (
         <>
@@ -211,19 +191,19 @@ const Edit: React.FC<EditProps> = ({
                 {/* FIRST SECTION */}
                 <Section className='grid md:grid-cols-2 bg-primary rounded-xl px-4 pb-10 pt-4 gap-x-8 gap-y-4'>
 
-                    <ComboBox
-                        required
+                    <InputText
+                        readOnly
+                        // required
                         label='Nama Lengkap Customer'
-                        name='name'
-                        rule={{
-                            required: {
-                                value: true,
-                                message: 'Nama Lengkap Customer wajib diisi'
-                            }
-                        }}
-                        options={transformedData}
-                        control={control}
-                        error={errors.name}
+                        name='nama_lengkap'
+                        // rule={{
+                        //     required: {
+                        //         value: true,
+                        //         message: 'NIK wajib diisi'
+                        //     }
+                        // }}
+                        register={register}
+                    // error={errors.nik}
                     />
 
 
