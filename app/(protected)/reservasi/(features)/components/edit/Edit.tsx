@@ -5,7 +5,7 @@ import React, { useEffect } from 'react'
 import InputText from '@/components/atoms/input/input-text';
 import Button from '@/components/atoms/button';
 import Section from '@/components/atoms/section';
-import ComboBox from '@/components/molecules/combo-box';
+// import ComboBox from '@/components/molecules/combo-box';
 
 // hooks import
 import { SubmitHandler, useForm, useFieldArray } from 'react-hook-form'
@@ -14,7 +14,7 @@ import { useRouter } from 'next/navigation';
 import useFetcher from '@/hooks/useFetcher';
 import { useSession } from 'next-auth/react';
 import useSWR from 'swr';
-import useTransformObject from '@/hooks/useTransformObject';
+// import useTransformObject from '@/hooks/useTransformObject';
 import Modal from '@/components/atoms/modal';
 import useModalState from '@/hooks/useModalState';
 import { PlusIcon } from '@heroicons/react/24/outline';
@@ -54,7 +54,6 @@ const Edit: React.FC<EditProps> = ({
     const {
         register,
         handleSubmit,
-        formState: { errors },
         control,
         // setValue,
         watch,
@@ -145,8 +144,8 @@ const Edit: React.FC<EditProps> = ({
     // define fetcher
     const fetcher = useFetcher(session);
 
-    // Watch the value of the name field
-    const name = watch('name');
+    // // Watch the value of the name field
+    // const name = watch('name');
 
     // get list current reservasi
     const { data: selectedData, isLoading: loadingSelected, error: errorSelected } = useSWR(

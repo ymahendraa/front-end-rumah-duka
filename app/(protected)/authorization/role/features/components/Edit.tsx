@@ -14,7 +14,7 @@ import InputCheckbox from '@/components/atoms/input/input-checkbox';
 // import useTransformObject from '@/hooks/useTransformObject';
 import { SubmitHandler, useForm } from 'react-hook-form'
 import useFetcher from '@/hooks/useFetcher';
-import useSWR, { mutate } from 'swr';
+import useSWR from 'swr';
 import { useSession } from 'next-auth/react';
 
 // utils import

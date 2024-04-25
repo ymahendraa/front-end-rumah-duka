@@ -5,8 +5,8 @@ export async function GET(req: NextRequest) {
   // get token from headers
   const token = req.headers.get("authorization")?.split(" ")[1] || "";
   // get limit, page and search from query params
-  const url = new URL(req.url);
-  const search = url.searchParams.get("q");
+  // const url = new URL(req.url);
+  // const search = url.searchParams.get("q");
 
   // if token does not exist, return an error
   if (!token) {

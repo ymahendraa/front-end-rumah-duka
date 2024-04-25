@@ -6,7 +6,7 @@ import Button from '@/components/atoms/button';
 import Section from '@/components/atoms/section';
 import Label from '@/components/atoms/label';
 import InputCheckbox from '@/components/atoms/input/input-checkbox';
-import { WrapperRadio } from '@/components/molecules/wrapper-radio';
+// import { WrapperRadio } from '@/components/molecules/wrapper-radio';
 
 // hooks import
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -69,7 +69,7 @@ const Edit: React.FC<EditProps> = ({
         handleSubmit,
         formState: { errors },
         reset,
-        control,
+        // control,
         watch,
     } = useForm();
 
@@ -92,18 +92,18 @@ const Edit: React.FC<EditProps> = ({
     const onSubmit: SubmitHandler<any> = async (data: any) => {
         try {
             console.log(data)
-            // submitHandler({
-            //     url: `${url}/${id}`,
-            //     config: {
-            //         method: 'PATCH',
-            //         headers: {
-            //             'Content-Type': 'application/json'
-            //         },
-            //         body: JSON.stringify(data),
-            //     },
-            //     setOpen,
-            //     mutate,
-            // })
+            submitHandler({
+                url: `${url}/${id}`,
+                config: {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data),
+                },
+                setOpen,
+                mutate,
+            })
         } catch (error) {
             console.log(error)
         }

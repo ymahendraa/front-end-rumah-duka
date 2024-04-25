@@ -39,8 +39,7 @@ const useAxiosPrivate = () => {
         if (error.config && error.response && error.response.status == 401) {
           if (!refreshTokenPromise) {
             refreshTokenPromise = refreshAccessToken(
-              session?.user.refreshToken ?? "",
-              session?.user?.id ?? ""
+              session?.user.refreshToken ?? ""
             ).then((token) => {
               refreshTokenPromise = null;
               return token;
