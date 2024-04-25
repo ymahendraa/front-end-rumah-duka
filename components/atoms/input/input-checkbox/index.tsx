@@ -47,6 +47,7 @@ const InputCheckbox: React.FC<InputCheckboxProps> = ({
                 type="checkbox"
                 id={String(props.value)}
                 className={config.className}
+                checked={props.checked}
                 {...register && register(name ?? '', rule)}
                 {...props}
             />

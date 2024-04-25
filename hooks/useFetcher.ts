@@ -49,7 +49,7 @@ const useFetcher = (session: TODO) => {
         return res;
       }
       // if (res.status >= 200 && res.status < 300) {
-      return res.data; // Parse JSON from the response
+      return res?.data; // Parse JSON from the response
       // }
     } catch (error: any) {
       console.error(error); // Log any fetch errors

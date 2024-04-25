@@ -1,3 +1,4 @@
+'use client'
 import React, { useEffect } from 'react'
 
 // components import
@@ -99,7 +100,7 @@ const Create: React.FC<CreateProps> = ({
     )
 
     // transform dataRoles 
-    const transformedRoles = useTransformObject(dataRoles || [])
+    const transformedRoles = useTransformObject(dataRoles || [], "id", "role_name")
 
     if (isLoadingRoles) {
         return (
@@ -243,7 +244,7 @@ const Create: React.FC<CreateProps> = ({
                                 data-testid='authorization-access'
                             >
                                 <InputCheckbox
-                                    key={index}
+                                    // key={index}
                                     name='role'
                                     value={item.label}
                                     label={item.label}

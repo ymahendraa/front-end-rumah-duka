@@ -79,12 +79,11 @@ const Edit: React.FC<EditProps> = ({
             reset({
                 username: selectedData?.username,
                 email: selectedData?.email,
-                first_name: selectedData?.first_name,
-                last_name: selectedData?.last_name,
-                phone: selectedData?.phone,
-                // password: selectedData?.password,
+                nama_admin: selectedData?.nama_admin,
                 role: selectedData?.role,
-                status: selectedData?.status,
+                // phone: selectedData?.phone,
+                // password: selectedData?.password,
+                // status: selectedData?.status,
             })
         }
 
@@ -92,19 +91,19 @@ const Edit: React.FC<EditProps> = ({
     // submit handler
     const onSubmit: SubmitHandler<any> = async (data: any) => {
         try {
-            // console.log(data)
-            submitHandler({
-                url: `${url}/${id}`,
-                config: {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data),
-                },
-                setOpen,
-                mutate,
-            })
+            console.log(data)
+            // submitHandler({
+            //     url: `${url}/${id}`,
+            //     config: {
+            //         method: 'PATCH',
+            //         headers: {
+            //             'Content-Type': 'application/json'
+            //         },
+            //         body: JSON.stringify(data),
+            //     },
+            //     setOpen,
+            //     mutate,
+            // })
         } catch (error) {
             console.log(error)
         }
@@ -122,7 +121,7 @@ const Edit: React.FC<EditProps> = ({
     )
 
     // transform dataRoles 
-    const transformedRoles = useTransformObject(dataRoles || [])
+    const transformedRoles = useTransformObject(dataRoles || [], 'id', 'role_name')
 
     if (isLoadingData || isValidating || !selectedData || isLoadingRoles) {
         return (
@@ -159,18 +158,18 @@ const Edit: React.FC<EditProps> = ({
 
                 <InputText
                     type='text'
-                    label='First Name'
-                    name='first_name'
+                    label='Nama'
+                    name='nama_admin'
                     register={register}
-                    placeholder='Enter first name'
+                    placeholder='Enter name'
                     aria-required={true}
                     rule={{
                         required: {
                             value: true,
-                            message: 'First name is required'
+                            message: 'Name is required'
                         },
                     }}
-                    error={errors.first_name}
+                    error={errors.nama_admin}
                 />
 
                 <InputText
@@ -187,22 +186,6 @@ const Edit: React.FC<EditProps> = ({
                         },
                     }}
                     error={errors.email}
-                />
-
-                <InputText
-                    type='text'
-                    label='Last Name'
-                    name='last_name'
-                    register={register}
-                    placeholder='Enter last name'
-                />
-
-                <InputText
-                    type='text'
-                    label='Phone'
-                    name='phone'
-                    register={register}
-                    placeholder='Enter phone'
                 />
 
                 <InputText
@@ -240,7 +223,7 @@ const Edit: React.FC<EditProps> = ({
                     error={errors.confirm_password}
                 />
 
-                <Section>
+                {/* <Section>
                     <Label label="Status" name="status" />
                     <Section className='-mt-3'>
                         <WrapperRadio
@@ -250,7 +233,7 @@ const Edit: React.FC<EditProps> = ({
                             defaultValue='active'
                         />
                     </Section>
-                </Section>
+                </Section> */}
             </Section>
 
             <Section
@@ -264,11 +247,12 @@ const Edit: React.FC<EditProps> = ({
                             <Section
                                 key={index}
                                 data-testid='authorization-access'
+
                             >
                                 <InputCheckbox
-                                    key={index}
+                                    key={index + item.value}
                                     name='role'
-                                    value={item.label}
+                                    value={item.value}
                                     label={item.label}
                                     register={register}
                                     rule={{
