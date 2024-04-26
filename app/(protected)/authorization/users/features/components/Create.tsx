@@ -224,7 +224,10 @@ const Create: React.FC<CreateProps> = ({
                         <WrapperRadio
                             name="status"
                             control={control}
-                            options={["active", "inactive"]}
+                            options={[
+                                { label: 'Active', value: 1 },
+                                { label: 'Inactive', value: 0 },
+                            ]}
                             defaultValue='active'
                         />
                     </Section>
