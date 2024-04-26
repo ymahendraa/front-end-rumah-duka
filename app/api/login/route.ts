@@ -4,12 +4,12 @@ import { NextRequest, NextResponse } from "next/server";
 // const SECRET_KEY = process.env.VERY_SECRET_KEY ?? "yourSecretKey";
 // const REFRESH_SECRET_KEY =
 //   process.env.REFRESH_VERY_SECRET_KEY ?? "yourRefreshSecretKey";
-const REAL_URL = process.env.NEXT_PUBLIC_REAL_URL ?? "";
+// const REAL_URL = process.env.NEXT_PUBLIC_REAL_URL ?? "";
 
 export async function POST(req: NextRequest) {
   // Parse the string as JSON
   const { username, password } = await req.json();
-  const response = await fetch(`${REAL_URL}/login`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_REAL_URL}/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
