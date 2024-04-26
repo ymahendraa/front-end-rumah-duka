@@ -18,10 +18,10 @@ export async function POST(req: NextRequest) {
   });
 
   if (!response.ok) {
-    return NextResponse.json(
-      { error: "Invalid username or password" },
-      { status: 401 }
-    );
+    if (response.status === 401) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    return NextResponse.json({ error: "Error" }, { status: response.status });
   }
   const data = await response.json();
   const user = data.id;
