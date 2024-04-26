@@ -5,8 +5,8 @@ import { Control, Controller, FieldValues, RegisterOptions } from 'react-hook-fo
 
 type WrapperRadioProps = {
     name: string
-    label?: string
-    options: string[]
+    // label?: string
+    options: { label: string, value: string | number }[]
     control?: Control<FieldValues, any>
     rule?: Omit<RegisterOptions<FieldValues, string>, "setValueAs" | "disabled" | "valueAsNumber" | "valueAsDate"> | undefined
 
@@ -14,7 +14,7 @@ type WrapperRadioProps = {
 
 export const WrapperRadio: React.FC<WrapperRadioProps> = ({
     name,
-    label,
+    // label,
     options,
     control,
     rule,
@@ -34,10 +34,10 @@ export const WrapperRadio: React.FC<WrapperRadioProps> = ({
                                 <RadioButton
                                     key={index}
                                     {...props}
-                                    label={label ?? option}
+                                    label={option.label}
                                     onChange={onChange}
-                                    value={option}
-                                    defaultChecked={defaultValue === option}
+                                    value={option.value}
+                                    defaultChecked={option.value === defaultValue}
                                 />
                             ))}
                         </Section>

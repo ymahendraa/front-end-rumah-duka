@@ -142,7 +142,7 @@ const CustomerPage = () => {
                         setOpen={setOpenDelete}
                         isLoading={isLoadingSubmit}
                         deleteHandler={() => submitHandler({
-                            url: `master/customers/${selectedRow?.id}`,
+                            url: `customer/${selectedRow?.id}`,
                             config: {
                                 method: 'DELETE',
                             },

@@ -28,6 +28,12 @@ export async function GET(
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_REAL_URL}/customer/${id}`
     );
+    if (!response.ok) {
+      if (response.status === 401) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      }
+      return NextResponse.json({ error: "Error" }, { status: response.status });
+    }
     const { data } = await response.json();
 
     // get data.document detail if document exists
@@ -148,6 +154,12 @@ export async function PATCH(
         body: JSON.stringify(body),
       }
     );
+    if (!response.ok) {
+      if (response.status === 401) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      }
+      return NextResponse.json({ error: "Error" }, { status: response.status });
+    }
     const data = await response.json();
     return NextResponse.json(data);
   }
@@ -174,12 +186,27 @@ export async function DELETE(
     //   return NextResponse.json({ error: "Invalid token" }, { status: 401 });
     // }
     // fetch data from json server
-    const response = await fetch(`${process.env.NEXT_PUBLIC_REAL_URL}/${id}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_REAL_URL}/customer/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log("response from route", response);
+    if (
+      response.status !== 201 &&
+      response.status !== 204 &&
+      response.status !== 200
+    ) {
+      if (response.status === 401) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      }
+      console.log("in");
+      return NextResponse.json({ error: "Error" }, { status: response.status });
+    }
     const data = await response.text();
     return NextResponse.json(data);
   }

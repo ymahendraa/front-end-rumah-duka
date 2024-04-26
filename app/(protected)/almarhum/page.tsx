@@ -182,7 +182,7 @@ const AlmarhumPage = () => {
                         setOpen={setOpenDelete}
                         isLoading={isLoadingSubmit}
                         deleteHandler={() => submitHandler({
-                            url: `master/customers/${selectedRow?.id}`,
+                            url: `almarhum/${selectedRow?.id}`,
                             config: {
                                 method: 'DELETE',
                             },

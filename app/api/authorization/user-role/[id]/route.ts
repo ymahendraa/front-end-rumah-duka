@@ -25,6 +25,14 @@ export async function GET(
         },
       }
     );
+
+    if (!response.ok) {
+      if (response.status === 401) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      }
+      return NextResponse.json({ error: "Error" }, { status: response.status });
+    }
+
     const { data } = await response.json();
 
     // map data.group.permission value
@@ -86,7 +94,7 @@ export async function PATCH(
       const responsePermissions = await fetch(
         `${process.env.NEXT_PUBLIC_REAL_URL}/role_permission/${id}`,
         {
-          method: "POST",
+          method: "PATCH",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -131,6 +139,12 @@ export async function DELETE(
         },
       }
     );
+    if (!response.ok) {
+      if (response.status === 401) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      }
+      return NextResponse.json({ error: "Error" }, { status: response.status });
+    }
     const data = await response.text();
     return NextResponse.json(data);
   }

@@ -30,6 +30,12 @@ export async function GET(req: NextRequest) {
         },
       }
     );
+    if (!response.ok) {
+      if (response.status === 401) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      }
+      return NextResponse.json({ error: "Error" }, { status: response.status });
+    }
     const data = await response.json();
     return NextResponse.json(data);
   }
@@ -59,6 +65,12 @@ export async function POST(req: NextRequest) {
         body: JSON.stringify(body),
       }
     );
+    if (!response.ok) {
+      if (response.status === 401) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      }
+      return NextResponse.json({ error: "Error" }, { status: response.status });
+    }
     const data = await response.json();
     return NextResponse.json(data);
   }

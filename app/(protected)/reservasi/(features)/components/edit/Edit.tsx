@@ -63,9 +63,9 @@ const Edit: React.FC<EditProps> = ({
     // define field array
     const { append, remove, update } = useFieldArray({
         control,
-        name: 'detail_barang'
+        name: 'barang_data'
     })
-    const details = watch('detail_barang')
+    const details = watch('barang_data')
 
     // define function for adding detail barang
     const {
@@ -114,7 +114,7 @@ const Edit: React.FC<EditProps> = ({
     // submit handler
     const onSubmit: SubmitHandler<any> = async (data: any) => {
         try {
-            console.log(JSON.stringify(data))
+            // console.log(JSON.stringify(data))
             await submitHandler({
                 url: `reservasi/${id}`,
                 config: {
@@ -159,7 +159,7 @@ const Edit: React.FC<EditProps> = ({
             reset({
                 nama_lengkap: selectedData?.nama_lengkap,
                 nik: selectedData?.nik,
-                detail_barang: selectedData?.detail_barang || []
+                barang_data: selectedData?.detail_barang || []
             })
         }
     }, [selectedData, reset]);

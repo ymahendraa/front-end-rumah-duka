@@ -26,8 +26,13 @@ export async function GET(req: NextRequest) {
         },
       }
     );
+    if (!response.ok) {
+      if (response.status === 401) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      }
+      return NextResponse.json({ error: "Error" }, { status: response.status });
+    }
     const data = await response.json();
-    console.log("data", data);
     return NextResponse.json(data);
   }
 }

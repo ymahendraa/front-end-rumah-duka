@@ -127,7 +127,7 @@ const Edit: React.FC<EditProps> = ({
         reset();
     }, [setOpen]);
 
-    // get list of role
+    // get list of dataPermissions
     const { data: dataPermissions, isLoading: isLoadingPermissions, error: isErrorPermissions } = useSWR(
         session ? 'authorization/permissions' : null,
         fetcher
@@ -135,6 +135,8 @@ const Edit: React.FC<EditProps> = ({
 
     // transform dataPermissions
     const transformedPermission = useGroupPermissions(dataPermissions?.data ?? [])
+
+    console.log('transformedPermission', transformedPermission)
 
     if (isLoading || isLoadingData || isValidating || !selectedData || isLoadingPermissions) {
         return (

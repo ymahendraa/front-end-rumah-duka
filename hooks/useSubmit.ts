@@ -53,6 +53,8 @@ const useSubmit = () => {
     setIsLoading(true);
     try {
       const response = await fetcher(url, config);
+      console.log("response from submit", response);
+
       // show success Swal
       // if ok is clicked, router.back() will be executed
       Swal.fire({
@@ -67,6 +69,7 @@ const useSubmit = () => {
           router.back();
         }
       });
+
       mutate && mutate();
       return response;
     } catch (error: any) {
@@ -74,9 +77,9 @@ const useSubmit = () => {
       Swal.fire({
         icon: "error",
         title: "Oopps...",
-        text: error,
+        text: error.message,
       });
-      throw error;
+      return error;
     } finally {
       setOpen && setOpen(false);
       setIsLoading(false);

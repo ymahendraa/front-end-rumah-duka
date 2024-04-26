@@ -18,6 +18,7 @@ import { useSession } from 'next-auth/react';
 import { TODO } from '@/types/todo';
 import useTransformObject from '@/hooks/useTransformObject';
 import Loading from '@/components/atoms/loader/loading';
+import { WrapperRadio } from '@/components/molecules/wrapper-radio';
 
 type EditProps = {
     submitHandler: (data: any) => void
@@ -69,7 +70,7 @@ const Edit: React.FC<EditProps> = ({
         handleSubmit,
         formState: { errors },
         reset,
-        // control,
+        control,
         watch,
     } = useForm();
 
@@ -83,7 +84,7 @@ const Edit: React.FC<EditProps> = ({
                 role: selectedData?.role,
                 // phone: selectedData?.phone,
                 // password: selectedData?.password,
-                // status: selectedData?.status,
+                active: selectedData?.active,
             })
         }
 
@@ -91,6 +92,7 @@ const Edit: React.FC<EditProps> = ({
     // submit handler
     const onSubmit: SubmitHandler<any> = async (data: any) => {
         try {
+            data.role = parseInt(data.role)
             console.log(data)
             submitHandler({
                 url: `${url}/${id}`,
@@ -122,6 +124,9 @@ const Edit: React.FC<EditProps> = ({
 
     // transform dataRoles 
     const transformedRoles = useTransformObject(dataRoles || [], 'id', 'role_name')
+
+    // watch role
+    const watchRole = watch('role')
 
     if (isLoadingData || isValidating || !selectedData || isLoadingRoles) {
         return (
@@ -193,7 +198,7 @@ const Edit: React.FC<EditProps> = ({
                     label='Password'
                     name='password'
                     register={register}
-                    placeholder='Enter phone'
+                    placeholder='Enter password'
                     // aria-required={true}
                     // rule={{
                     //     required: {
@@ -223,48 +228,38 @@ const Edit: React.FC<EditProps> = ({
                     error={errors.confirm_password}
                 />
 
-                {/* <Section>
-                    <Label label="Status" name="status" />
+                <Section>
+                    <Label label="Status" name="active" />
                     <Section className='-mt-3'>
                         <WrapperRadio
-                            name="status"
+                            name="active"
                             control={control}
-                            options={["active", "inactive"]}
-                            defaultValue='active'
+                            options={[
+                                { label: 'Active', value: 1 },
+                                { label: 'Inactive', value: 0 },
+                            ]}
+                            defaultValue={1}
                         />
                     </Section>
-                </Section> */}
+                </Section>
             </Section>
 
             <Section
             >
                 <Label label="Roles" name="role" aria-required={true} />
                 <Section
-                    className='flex flex-wrap gap-4 -mt-3 '
+                    className='flex flex-wrap gap-4'
                 >
-                    {
-                        transformedRoles?.map((item: TODO, index: number) => (
-                            <Section
-                                key={index}
-                                data-testid='authorization-access'
 
-                            >
-                                <InputCheckbox
-                                    key={index + item.value}
-                                    name='role'
-                                    value={item.value}
-                                    label={item.label}
-                                    register={register}
-                                    rule={{
-                                        required: {
-                                            value: true,
-                                            message: 'Role is required'
-                                        },
-                                    }}
-                                />
-                            </Section>
-                        ))
-                    }
+                    <Section className='-mt-3'>
+                        <WrapperRadio
+                            name="role"
+                            control={control}
+                            options={transformedRoles}
+                            defaultValue={selectedData.role}
+                        />
+                    </Section>
+
                 </Section>
                 {errors.role && <p className='text-red-500 text-xs -mt-3'>{errors.role.message?.toString()}</p>}
             </Section>

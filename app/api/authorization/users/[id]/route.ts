@@ -25,6 +25,14 @@ export async function GET(
         },
       }
     );
+
+    if (!response.ok) {
+      if (response.status === 401) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      }
+      return NextResponse.json({ error: "Error" }, { status: response.status });
+    }
+
     const { data } = await response.json();
     // return NextResponse.json(data);
     return NextResponse.json(data);
@@ -49,7 +57,7 @@ export async function PATCH(
   else {
     // fetch data from json server
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_REAL_URL}/rooms/${id}`,
+      `${process.env.NEXT_PUBLIC_REAL_URL}/admin/${id}`,
       {
         method: "PATCH",
         headers: {
@@ -59,6 +67,14 @@ export async function PATCH(
         body: JSON.stringify(body),
       }
     );
+
+    if (!response.ok) {
+      if (response.status === 401) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      }
+      return NextResponse.json({ error: "Error" }, { status: response.status });
+    }
+
     const data = await response.json();
     return NextResponse.json(data);
   }
@@ -80,7 +96,7 @@ export async function DELETE(
   else {
     // fetch data from json server
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_REAL_URL}/rooms/${id}`,
+      `${process.env.NEXT_PUBLIC_REAL_URL}/admin/${id}`,
       {
         method: "DELETE",
         headers: {
@@ -88,6 +104,14 @@ export async function DELETE(
         },
       }
     );
+
+    if (!response.ok) {
+      if (response.status === 401) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      }
+      return NextResponse.json({ error: "Error" }, { status: response.status });
+    }
+
     const data = await response.text();
     return NextResponse.json(data);
   }

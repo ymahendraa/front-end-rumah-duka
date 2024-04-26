@@ -22,6 +22,7 @@ import { useSession } from 'next-auth/react';
 import useGroupPermissions from '@/hooks/useGroupPermissions';
 import { TODO } from '@/types/todo';
 import Loading from '@/components/atoms/loader/loading';
+import { useRouter } from 'next/navigation';
 
 
 type CreateProps = {
@@ -48,7 +49,7 @@ type CreateProps = {
 const Create: React.FC<CreateProps> = ({
     setOpen,
     // mutate,
-    // url
+    url
 }) => {
     // define session
     const { data: session } = useSession()
@@ -63,24 +64,29 @@ const Create: React.FC<CreateProps> = ({
     } = useForm();
 
     // get submit handler
-    const { isLoading } = useSubmit()
+    const { isLoading, submitHandler } = useSubmit()
+
+    // define router
+    const router = useRouter()
 
     // submit handler
     const onSubmit: SubmitHandler<any> = async (data: any) => {
         try {
             console.log(JSON.stringify(data))
-            // await submitHandler({
-            //     url: url,
-            //     config: {
-            //         method: 'POST',
-            //         headers: {
-            //             'Content-Type': 'application/json'
-            //         },
-            //         body: JSON.stringify(data),
-            //     },
-            //     setOpen,
-            //     mutate,
-            // })
+            await submitHandler({
+                url: url,
+                config: {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data),
+                },
+                setOpen,
+                mutate: () => {
+                    router.refresh()
+                },
+            })
         } catch (error) {
             console.log(error)
         }
@@ -96,16 +102,21 @@ const Create: React.FC<CreateProps> = ({
 
     // get list of permissions
     const { data: dataPermissions, isLoading: isLoadingPermissions, error: isErrorPermissions } = useSWR(
-        'authorization/permissions/all',
+        session ? 'authorization/permissions' : null,
         fetcher
     )
 
     // transform dataPermissions
-    const transformedPermission = useGroupPermissions(dataPermissions || [])
+    const transformedPermission = useGroupPermissions(dataPermissions?.data ?? [])
 
 
-    if (isLoadingPermissions) {
-        <div><Loading /></div>
+    console.log('dataPermissions', dataPermissions)
+    console.log('transformedPermission', transformedPermission)
+
+    if (isLoadingPermissions || !transformedPermission || !dataPermissions) {
+        return (
+            <Loading />
+        )
     }
 
     if (isErrorPermissions) {
@@ -121,7 +132,7 @@ const Create: React.FC<CreateProps> = ({
             <InputText
                 type='text'
                 label='Nama'
-                name='name'
+                name='role_name'
                 register={register}
                 placeholder='Masukkan nama'
                 aria-required={true}
@@ -131,22 +142,22 @@ const Create: React.FC<CreateProps> = ({
                         message: 'Nama wajib diisi'
                     },
                 }}
-                error={errors.name}
+                error={errors.role_name}
             />
 
-            <InputTextArea
-                label='Deskripsi'
-                name='description'
-                placeholder='Masukkan deskripsi'
-                register={register}
-                rule={{
-                    required: {
-                        value: true,
-                        message: 'Deskripsi wajib diisi'
-                    },
-                }}
-                error={errors.description}
-            />
+            {/* <InputTextArea
+            label='Deskripsi'
+            name='description'
+            placeholder='Masukkan deskripsi'
+            register={register}
+            rule={{
+                required: {
+                    value: true,
+                    message: 'Deskripsi wajib diisi'
+                },
+            }}
+            error={errors.description}
+        /> */}
 
             <Section
             >
@@ -155,7 +166,7 @@ const Create: React.FC<CreateProps> = ({
                     className='flex flex-wrap gap-2 -mt-3 '
                 >
                     {
-                        transformedPermission?.map((item: TODO, index: number) => (
+                        transformedPermission && transformedPermission?.map((item: TODO, index: number) => (
                             <Section
                                 key={index}
                                 data-testid='authorization-access'
@@ -166,7 +177,7 @@ const Create: React.FC<CreateProps> = ({
                                     <InputCheckbox
                                         key={index}
                                         name='permissions'
-                                        value={child.name}
+                                        value={child.id}
                                         label={child.name}
                                         register={register}
                                     />

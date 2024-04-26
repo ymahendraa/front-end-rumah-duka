@@ -101,7 +101,8 @@ const ReservasiPage = () => {
                     onClickCreate={() => router.push('reservasi/tambah-data')}
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
-                    disableCreate={!checkPermissions(['transaction.reservation.create'], permissions)}
+                    disableCreate
+                // disableCreate={!checkPermissions(['transaction.reservation.create'], permissions)}
                 />
             </Section>
             <Section

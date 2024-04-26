@@ -45,15 +45,27 @@ const useFetcher = (session: TODO) => {
           data: options?.body,
         }),
       });
-      if (res?.status == 204) {
-        return res;
-      }
-      // if (res.status >= 200 && res.status < 300) {
-      return res?.data; // Parse JSON from the response
+
+      // if (res?.status == 204) {
+      //   return res;
       // }
+      console.log("res", res);
+      // Check if res exists and if the status is in the range 200-299
+      if (res && res.status >= 200 && res.status < 300) {
+        return res.data; // Parse JSON from the response
+      } else {
+        throw new Error("Invalid response from server");
+      }
     } catch (error: any) {
-      console.error(error); // Log any fetch errors
-      throw error; // Rethrow the error for the calling code to handle
+      console.error("Error data:", error);
+      // Check if error.response exists before accessing its properties
+      if (error.response) {
+        throw new Error(
+          error.response.data.error || error.message || error.error
+        );
+      } else {
+        throw error;
+      }
     }
   };
 

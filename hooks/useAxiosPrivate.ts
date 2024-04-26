@@ -1,3 +1,5 @@
+"use client";
+
 // hooks import
 import { useEffect } from "react";
 import { useSession } from "next-auth/react";
@@ -52,13 +54,13 @@ const useAxiosPrivate = () => {
             }
             prevRequest.headers[
               "Authorization"
-            ] = `Bearer ${token?.accessToken}`;
+            ] = `Bearer ${token?.access_token}`;
             // update the token in the session
             await update({
               ...session,
               user: {
-                accessToken: token.accessToken,
-                refreshToken: token.refreshToken,
+                accessToken: token.access_token,
+                refreshToken: token.refresh_token,
               },
             });
             return axiosPrivate(prevRequest);
