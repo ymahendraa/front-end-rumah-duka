@@ -5,7 +5,7 @@ import InputText from '@/components/atoms/input/input-text';
 import Button from '@/components/atoms/button';
 import Section from '@/components/atoms/section';
 import Label from '@/components/atoms/label';
-import InputCheckbox from '@/components/atoms/input/input-checkbox';
+// import InputCheckbox from '@/components/atoms/input/input-checkbox';
 // import { WrapperRadio } from '@/components/molecules/wrapper-radio';
 
 // hooks import
@@ -15,7 +15,7 @@ import useSWR from 'swr';
 import { useSession } from 'next-auth/react';
 
 // utils import
-import { TODO } from '@/types/todo';
+// import { TODO } from '@/types/todo';
 import useTransformObject from '@/hooks/useTransformObject';
 import Loading from '@/components/atoms/loader/loading';
 import { WrapperRadio } from '@/components/molecules/wrapper-radio';
@@ -126,7 +126,7 @@ const Edit: React.FC<EditProps> = ({
     const transformedRoles = useTransformObject(dataRoles || [], 'id', 'role_name')
 
     // watch role
-    const watchRole = watch('role')
+    // const watchRole = watch('role')
 
     if (isLoadingData || isValidating || !selectedData || isLoadingRoles) {
         return (

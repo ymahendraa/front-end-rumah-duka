@@ -6,7 +6,7 @@ import Button from '@/components/atoms/button';
 // import ComboBox from '@/components/molecules/combo-box';
 // import InputIcon from '@/components/molecules/input-icon';
 // import { ICON } from '@/utils/icon';
-import InputTextArea from '@/components/atoms/input/input-text-area';
+// import InputTextArea from '@/components/atoms/input/input-text-area';
 import InputCheckbox from '@/components/atoms/input/input-checkbox';
 import Label from '@/components/atoms/label';
 import Section from '@/components/atoms/section';

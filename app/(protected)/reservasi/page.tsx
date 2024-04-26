@@ -25,7 +25,7 @@ import useSubmit from '@/hooks/useSubmit'
 import CRUDHeaderSection from '@/components/organisms/sections/crud-header-section'
 import { AuthorizationContext } from '@/context/AuthorizationContext/context'
 import { TODO } from '@/types/todo'
-import { checkPermissions } from '@/utils/checkPermissions'
+// import { checkPermissions } from '@/utils/checkPermissions'
 import useSearchQuery from '@/hooks/useSearchQuery'
 
 /**
