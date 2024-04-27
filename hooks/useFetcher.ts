@@ -49,7 +49,6 @@ const useFetcher = (session: TODO) => {
       // if (res?.status == 204) {
       //   return res;
       // }
-      console.log("res", res);
       // Check if res exists and if the status is in the range 200-299
       if (res && res.status >= 200 && res.status < 300) {
         return res.data; // Parse JSON from the response

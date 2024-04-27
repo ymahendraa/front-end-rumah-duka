@@ -8,33 +8,77 @@ import { formatToRupiah } from '@/utils/formatToRupiah'
 import ComboBoxWrapper from '@/components/atoms/combo-box-wrapper'
 import Button from '@/components/atoms/button'
 import LineChart from '@/components/atoms/chart/line'
+import { useGetDataWithPagination } from '@/hooks/useGetDataWithPagination'
+import { usePaginationState } from '@/hooks/usePaginationState'
+import Loading from '@/components/atoms/loader/loading'
+import { useSession } from 'next-auth/react'
+import useFetcher from '@/hooks/useFetcher'
+import useSWR from 'swr'
+import InputDatepicker from '@/components/atoms/input/input-datepicker'
+import { ChevronLeftIcon, ChevronRightIcon, MagnifyingGlassCircleIcon } from '@heroicons/react/24/outline'
+import { DataTableBase } from '@/components/organisms/table/data-table'
+import Pagination from '@/components/organisms/pagination'
+import useColumns from './useColumns'
 // import { DataTableBase } from '@/components/organisms/table/data-table'
 // import Pagination from '@/components/organisms/pagination'
 // import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
 
 const Home: React.FC = () => {
 
-    const data = [
-        {
-            label: '2024',
-            data: [
-                { primary: 'Januari', secondary: 25000000 },
-                { primary: 'Februari', secondary: 110000000 },
-                { primary: 'Maret', secondary: 120000000 },
-                { primary: 'April', secondary: 130000000 },
-                { primary: 'Mei', secondary: 140000000 },
-                { primary: 'Juni', secondary: 150000000 },
-                { primary: 'Juli', secondary: 160000000 },
-                { primary: 'Agustus', secondary: 170000000 },
-                { primary: 'September', secondary: 180000000 },
-                { primary: 'Oktober', secondary: 190000000 },
-                { primary: 'November', secondary: 200000000 },
-                { primary: 'Desember', secondary: 210000000 },
-            ]
-        },
-    ]
+    const {
+        page,
+        limit,
+        setLimit,
+        setPage,
+    } = usePaginationState()
 
-    const revenue = 150250000
+    // define start_date, default to date now in 'YYYY-DD-MM' format
+    const [start_date, setStartDate] = React.useState(new Date().toISOString().split('T')[0])
+    // define end_date, default to date now in 'YYYY-DD-MM' format
+    const [end_date, setEndDate] = React.useState(new Date().toISOString().split('T')[0])
+    // define filter, default 'start_date=${start_date}&end_date=${end_date}'
+    const [filter, setFilter] = React.useState(`start_date=${start_date}&end_date=${end_date}`)
+
+    // get data from api
+    const { data: session } = useSession();
+
+    // define fetcher
+    const fetcher = useFetcher(session);
+
+    // Pass the fetcher to useSWR
+    const { data, error, isLoading, mutate } = useSWR(
+        session
+            ? `revenue?page=${page}&limit=${limit}&${filter}`
+            : null,
+        fetcher
+    );
+
+    const { columns } = useColumns()
+
+    // const dataChart = [
+    //     {
+    //         label: '2024',
+    //         data: [
+    //             { primary: 'Januari', secondary: 25000000 },
+    //             { primary: 'Februari', secondary: 110000000 },
+    //             { primary: 'Maret', secondary: 120000000 },
+    //             { primary: 'April', secondary: 130000000 },
+    //             { primary: 'Mei', secondary: 140000000 },
+    //             { primary: 'Juni', secondary: 150000000 },
+    //             { primary: 'Juli', secondary: 160000000 },
+    //             { primary: 'Agustus', secondary: 170000000 },
+    //             { primary: 'September', secondary: 180000000 },
+    //             { primary: 'Oktober', secondary: 190000000 },
+    //             { primary: 'November', secondary: 200000000 },
+    //             { primary: 'Desember', secondary: 210000000 },
+    //         ]
+    //     },
+    // ]
+
+    if (isLoading) return <Loading />
+
+    if (error) return <p>Error</p>
+
     return (
         <div className="h-full bg-base">
             <main className="w-full flex flex-col gap-8">
@@ -43,22 +87,41 @@ const Home: React.FC = () => {
                         <Icon icon={<ChartBarSquareIcon className='w-12 h-12 bg-red-500 rounded-full p-2' />} />
                         <Section className='flex flex-col gap-2'>
                             <p className='text-gray-500 text-md'>Total Pendapatan (Net)</p>
-                            <p className='text-white font-bold text-4xl'>{formatToRupiah(revenue)}</p>
+                            <p className='text-white font-bold text-4xl'>{formatToRupiah(data?.meta?.totalSumTotal)}</p>
                         </Section>
                     </Section>
-                    <Section className='flex flex-col gap-2 items-start'>
-                        <p className='text-gray-500 text-md text-left'>Tahun</p>
-                        <Section className='flex gap-4'>
-                            <ComboBoxWrapper value='' onChange={() => { }} onBlur={() => { }} label='' options={[{ value: 2021, label: '2021' }, { value: 2022, label: '2022' }]}
-                                inputDark={false}
+                    <Section className='flex gap-2 items-end justify-end'>
+                        <Section className='flex flex-col'>
+                            <p className='text-gray-500 text-md'>Tanggal Awal</p>
+                            <InputDatepicker
+                                value={start_date}
+                                onChange={(e) => setStartDate(e.target.value)}
                             />
-                            <Button className='bg-secondary text-white w-36 rounded-xl hover:bg-secondary-dark cursor-pointer' onClick={() => { }}>Cari</Button>
                         </Section>
+                        <Section className='flex flex-col'>
+                            <p className='text-gray-500 text-md'>Tanggal Akhir</p>
+                            <InputDatepicker
+                                value={end_date}
+                                onChange={(e) => setEndDate(e.target.value)}
+                            />
+                        </Section>
+                        <Button
+                            className='bg-secondary flex items-center justify-center text-white w-10 h-12 rounded-xl hover:bg-secondary-dark cursor-pointer'
+                            onClick={() => {
+                                setFilter(`start_date=${start_date}&end_date=${end_date}`)
+                                mutate()
+                            }}>
+                            <MagnifyingGlassCircleIcon className='w-8 h-8' />
+                        </Button>
                     </Section>
                 </Section>
                 <Section className='p-4 bg-primary rounded-xl'>
                     <Section className='h-[300px]'>
-                        <LineChart data={data} />
+                        {data?.chart ? <LineChart data={[data.chart]} /> : (
+                            <Section className='flex h-full w-full items-center justify-center'>
+                                <p className='text-white text-center'>Data tidak ditemukan</p>
+                            </Section>
+                        )}
                     </Section>
                 </Section>
 
@@ -66,17 +129,15 @@ const Home: React.FC = () => {
                     data-testid='customer-data'
                     className='flex flex-col gap-y-4 bg-primary rounded-xl p-3'
                 >
-                    <p>TEST</p>
-                    {/* <DataTableBase
+                    <DataTableBase
                         columns={columns}
-                        data={Array.isArray(data) ? data : []}
+                        data={data?.data ?? []}
                     />
                     <Pagination
                         page={page}
                         limit={limit}
-                        totalPages={5}
-                        // totalPages={data?.meta?.totalPages}
-                        totalItems={50}
+                        totalPages={data?.meta?.totalPages}
+                        totalItems={data?.meta?.totalItems}
                         options={[
                             { value: 10, label: '10' },
                             { value: 20, label: '20' },
@@ -86,11 +147,10 @@ const Home: React.FC = () => {
                         labelNext={<ChevronRightIcon className='w-5 h-5' />}
                         labelPrev={<ChevronLeftIcon className='w-5 h-5' />}
                         disabledPrev={page === 1}
-                        disabledNext={page === 5}
-                        // disabledNext={page === data?.meta?.totalPages}
+                        disabledNext={page === data?.meta?.totalPages}
                         setLimit={setLimit}
                         handlePageChange={setPage}
-                    /> */}
+                    />
                 </Section>
 
             </main>
