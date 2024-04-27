@@ -123,9 +123,9 @@ export async function PATCH(
         body.document = fileId;
 
         // delete current file in imagekit with data?.documentDetail?.fileId
-        await imageKit.deleteFile(body?.documentDetail?.fileId).catch((err) => {
-          throw console.log(err);
-        });
+        // await imageKit.deleteFile(body?.documentDetail?.fileId).catch((err) => {
+        //   throw console.log(err);
+        // });
       }
       if (buktiTF) {
         const uploadBuktiTF = await imageKit.upload({
@@ -138,11 +138,11 @@ export async function PATCH(
         body.screenshot = bukti_tfId;
 
         // delete current bukti_tf in imagekit with data?.screenshotDetail?.fileId
-        await imageKit
-          .deleteFile(body?.screenshotDetail?.fileId)
-          .catch((err) => {
-            throw console.log(err);
-          });
+        // await imageKit
+        //   .deleteFile(body?.screenshotDetail?.fileId)
+        //   .catch((err) => {
+        //     throw console.log(err);
+        //   });
       }
     } catch (err: any) {
       return NextResponse.json({ error: err.message }, { status: 400 });
