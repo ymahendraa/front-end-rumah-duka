@@ -26,7 +26,13 @@ export async function GET(
 
     // fetch data from json server
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_REAL_URL}/customer/${id}`
+      `${process.env.NEXT_PUBLIC_REAL_URL}/customer/${id}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
     if (!response.ok) {
       if (response.status === 401) {
