@@ -37,7 +37,7 @@ const LineChart: React.FC<LineChartDatumProps> = ({
         []
     );
 
-    console.log(data);
+    // console.log(data);
 
     return (
         <Chart

@@ -1,30 +1,27 @@
 'use client'
 import React from 'react'
+
+// components import
 import Section from '@/components/atoms/section'
 import Icon from '@/components/atoms/icon'
-// import { PresentationChartBarIcon } from '@heroicons/react/24/solid'
 import { ChartBarSquareIcon } from '@heroicons/react/20/solid'
 import { formatToRupiah } from '@/utils/formatToRupiah'
-import ComboBoxWrapper from '@/components/atoms/combo-box-wrapper'
 import Button from '@/components/atoms/button'
 import LineChart from '@/components/atoms/chart/line'
-import { useGetDataWithPagination } from '@/hooks/useGetDataWithPagination'
-import { usePaginationState } from '@/hooks/usePaginationState'
 import Loading from '@/components/atoms/loader/loading'
-import { useSession } from 'next-auth/react'
-import useFetcher from '@/hooks/useFetcher'
-import useSWR from 'swr'
 import InputDatepicker from '@/components/atoms/input/input-datepicker'
 import { ChevronLeftIcon, ChevronRightIcon, MagnifyingGlassCircleIcon } from '@heroicons/react/24/outline'
 import { DataTableBase } from '@/components/organisms/table/data-table'
 import Pagination from '@/components/organisms/pagination'
+
+// hooks import
+import { usePaginationState } from '@/hooks/usePaginationState'
+import { useSession } from 'next-auth/react'
+import useFetcher from '@/hooks/useFetcher'
+import useSWR from 'swr'
 import useColumns from './useColumns'
-// import { DataTableBase } from '@/components/organisms/table/data-table'
-// import Pagination from '@/components/organisms/pagination'
-// import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
 
 const Home: React.FC = () => {
-
     const {
         page,
         limit,

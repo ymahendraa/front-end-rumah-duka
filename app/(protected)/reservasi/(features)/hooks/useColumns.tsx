@@ -14,6 +14,7 @@ import { checkPermissions } from '@/utils/checkPermissions'
 import { useMemo, useState } from 'react'
 import useModalState from '@/hooks/useModalState'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 export type SelectedRowType = {
     name: string
@@ -89,14 +90,18 @@ const useColumns = (permissions: string[]) => {
                     return (
                         <div className="flex flex-row gap-x-2">
                             {checkPermissions(['transaction.reservation.generate-pdf'], permissions) && (
-                                <Button
+                                <Link
                                     // onClick={() => {
-                                    //     router.push(`/reservasi/edit-data/${row.id_reservasi}`)
+                                    //     // push to generate pdf page
+                                    //     // in new tab
+                                    //     router.push(`${process.env.NEXT_PUBLIC_REAL_URL}/generate-pdf/${row.id_reservasi}`)
                                     // }}
+                                    target='_blank'
+                                    href={`${process.env.NEXT_PUBLIC_REAL_URL}/generate_pdf/${row.id_reservasi}`}
                                     className='flex items-center justify-center bg-white hover:bg-gray-200 w-6 h-6 rounded-md transition-colors duration-300 ease-in-out'
                                 >
                                     <Image src="./pdf.svg" alt="pdf-icon" width={12} height={15} />
-                                </Button>
+                                </Link>
                             )}
                             {checkPermissions(['transaction.reservation.update'], permissions) && (
                                 <Button

@@ -1,6 +1,6 @@
 // components import
-import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline'
-import Button from '@/components/atoms/button'
+// import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline'
+// import Button from '@/components/atoms/button'
 
 // utils import
 import { createColumnHelper } from '@tanstack/react-table'
