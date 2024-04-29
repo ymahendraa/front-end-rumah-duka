@@ -12,6 +12,7 @@ import { useRouter } from 'next/navigation'
 import Swal from 'sweetalert2'
 import InputText from '@/components/atoms/input/input-text'
 import Button from '@/components/atoms/button'
+import Image from 'next/image'
 
 
 type Props = {
@@ -55,12 +56,19 @@ const LoginComponent: React.FC<Props> = ({ error, callbackUrl }) => {
   return (
     <div className="flex flex-col lg:flex-row min-h-screen items-center justify-around bg-base py-12 px-4 sm:px-6 lg:px-8">
       <div className="flex flex-col md:w-2/5 h-[450px] bg-primary pt-10 px-4 shadow-xl rounded-xl items-center">
-        <div className="max-w-sm w-full space-y-8 ">
-          <div className='flex flex-col gap-y-10'>
-            <h1 className="text-center text-xl font-bold text-white">
-              Yayasan Daya Besar Rumah Duka
+        <div className="max-w-sm w-full space-y-4 ">
+          <div className='flex flex-col gap-y-2 md:gap-y-4'>
+            <Image
+              src="/logo_cilincing.png"
+              alt="Yayasan Daya Besar"
+              width={100}
+              height={80}
+              className='mx-auto'
+            />
+            <h1 className="text-center text-lg font-bold text-white">
+              Yayasan Daya Besar <br /> Rumah Duka dan Krematorium Cilincing
             </h1>
-            <h2 className="text-center text-2xl font-bold text-white">
+            <h2 className="text-center text-xl font-bold text-white">
               Log In
             </h2>
           </div>
