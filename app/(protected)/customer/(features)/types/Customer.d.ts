@@ -3,7 +3,8 @@ export type ReceivedCustomer = {
   nik: string;
   name: string;
   hub_almarhum: string;
-  pekerjaan: string;
+  // pekerjaan: string;
+  no_hp: string;
   almarhum: {
     nama_almarhum: string;
     umur_almarhum: string;
@@ -28,13 +29,14 @@ export type ReceivedCustomer = {
 export type SendCustomer = {
   nik: string;
   nama_lengkap_pemohon: string;
-  jenis_pekerjaan: string;
+  // jenis_pekerjaan?: string;
   alamat: string;
+  no_hp: string;
   hub_almarhum: string;
   nama_lengkap_almarhum: string;
   umur: string;
   jenis_kelamin: "Pria" | "Wanita";
-  riwayat_pekerjaan: string;
+  // riwayat_pekerjaan: string;
   alamat_almarhum: string;
   tgl_waktu_meninggal: string;
   tempat_meninggal: string;

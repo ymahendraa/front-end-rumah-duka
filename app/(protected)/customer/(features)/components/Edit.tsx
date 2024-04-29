@@ -63,11 +63,12 @@ const Edit = ({ id }: { id: string }) => {
                 nik: selectedData.nik,
                 nama_lengkap_pemohon: selectedData.nama_lengkap_pemohon,
                 hub_almarhum: selectedData.hub_almarhum,
-                jenis_pekerjaan: selectedData.pekerjaan,
+                // jenis_pekerjaan: selectedData.pekerjaan,
+                no_hp: selectedData.no_hp,
                 alamat: selectedData.alamat,
                 nama_lengkap_almarhum: selectedData.nama_lengkap_almarhum,
                 umur: selectedData.umur,
-                riwayat_pekerjaan: selectedData.riwayat_pekerjaan,
+                // riwayat_pekerjaan: selectedData.riwayat_pekerjaan,
                 alamat_almarhum: selectedData.alamat_almarhum,
                 jenis_kelamin: selectedData.jenis_kelamin,
                 diagnosa: selectedData.diagnosa,
@@ -216,17 +217,17 @@ const Edit = ({ id }: { id: string }) => {
                 <InputText
                     type='text'
                     aria-required
-                    label='Jenis Pekerjaan Customer'
-                    name='jenis_pekerjaan'
-                    placeholder='Cth: ASN'
+                    label='No. Telp'
+                    name='no_hp'
+                    placeholder='Cth: 08123456789'
                     register={register}
                     rule={{
                         required: {
                             value: true,
-                            message: 'Jenis Pekerjaan wajib diisi'
+                            message: 'No. Telp wajib diisi'
                         },
                     }}
-                    error={errors.jenis_pekerjaan}
+                    error={errors.no_hp}
                 />
 
                 <InputText
@@ -284,7 +285,7 @@ const Edit = ({ id }: { id: string }) => {
                     error={errors.umur}
                 />
 
-                <InputText
+                {/* <InputText
                     type='text'
                     aria-required
                     label='Jenis Pekerjaan Almarhum'
@@ -298,7 +299,7 @@ const Edit = ({ id }: { id: string }) => {
                         },
                     }}
                     error={errors.riwayat_pekerjaan}
-                />
+                /> */}
 
                 <InputText
                     type='text'
@@ -454,7 +455,7 @@ const Edit = ({ id }: { id: string }) => {
                     //     }
                     // }
                     options={[
-                        { value: 'Pending', label: 'Pending' },
+                        { value: 'Paid', label: 'Paid' },
                         { value: 'Done', label: 'Done' },
                     ]}
                     control={control}

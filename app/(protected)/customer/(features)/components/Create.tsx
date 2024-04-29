@@ -45,11 +45,12 @@ const Create: React.FC = () => {
                 nik: '',
                 nama_lengkap_pemohon: '',
                 hub_almarhum: '',
-                jenis_pekerjaan: '',
+                no_hp: '',
+                // jenis_pekerjaan: '',
                 nama_lengkap_almarhum: '',
                 umur: '',
                 alamat: '',
-                riwayat_pekerjaan: '',
+                // riwayat_pekerjaan: '',
                 alamat_almarhum: '',
                 diagnosa: '',
                 tgl_waktu_meninggal: '',
@@ -190,17 +191,17 @@ const Create: React.FC = () => {
                 <InputText
                     type='text'
                     aria-required
-                    label='Jenis Pekerjaan Customer'
-                    name='jenis_pekerjaan'
-                    placeholder='Cth: ASN'
+                    label='No. Telp'
+                    name='no_hp'
+                    placeholder='Cth: 081234567890'
                     register={register}
                     rule={{
                         required: {
                             value: true,
-                            message: 'Jenis Pekerjaan wajib diisi'
+                            message: 'No. Telp wajib diisi'
                         },
                     }}
-                    error={errors.jenis_pekerjaan}
+                    error={errors.no_hp}
                 />
 
                 <InputText
@@ -258,7 +259,7 @@ const Create: React.FC = () => {
                     error={errors.umur}
                 />
 
-                <InputText
+                {/* <InputText
                     type='text'
                     aria-required
                     label='Jenis Pekerjaan Almarhum'
@@ -272,7 +273,7 @@ const Create: React.FC = () => {
                         },
                     }}
                     error={errors.riwayat_pekerjaan}
-                />
+                /> */}
 
                 <InputText
                     type='text'

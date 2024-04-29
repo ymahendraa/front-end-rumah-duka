@@ -72,10 +72,10 @@ const useColumns = (permissions: string[]) => {
                 cell: (info) => info.getValue(),
                 size: 150,
             }),
-            columnHelper.accessor((row) => row.pekerjaan, {
-                id: 'jenis_pekerjaan',
-                header: () => 'Pekerjaan',
-                cell: (info) => info.getValue(),
+            columnHelper.accessor((row) => row.no_hp, {
+                id: 'no_hp',
+                header: () => 'No. Telp',
+                cell: (info) => info.getValue() || '-',
                 size: 50,
             }),
             columnHelper.accessor((row) => row.hub_almarhum, {
