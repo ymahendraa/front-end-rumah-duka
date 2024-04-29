@@ -61,9 +61,15 @@ const useColumns = (permissions: string[]) => {
                 size: 150,
             }),
             columnHelper.accessor((row) => row.jenis_barang, {
-                id: 'jenis',
+                id: 'jenis_barang',
                 header: () => 'Jenis Barang',
                 cell: (info) => info.getValue(),
+                size: 250,
+            }),
+            columnHelper.accessor((row) => row.jenis_satuan, {
+                id: 'jenis_satuan',
+                header: () => 'Jenis Satuan',
+                cell: (info) => info.getValue() || '-',
                 size: 250,
             }),
             columnHelper.accessor((row) => row.harga, {

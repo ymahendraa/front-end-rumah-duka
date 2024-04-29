@@ -89,6 +89,7 @@ const Edit: React.FC<EditProps> = ({
             reset({
                 nama_barang: data.data.nama_barang,
                 jenis_barang: data.data.jenis_barang,
+                jenis_satuan: data.data.jenis_satuan,
                 harga: data.data.harga
             })
         }
@@ -144,6 +145,21 @@ const Edit: React.FC<EditProps> = ({
                     ]}
                     control={control}
                     error={errors.jenis_barang}
+                />
+
+                <InputText
+                    aria-required
+                    label='Jenis Satuan'
+                    name='jenis_satuan'
+                    placeholder='Cth: PCS'
+                    register={register}
+                    rule={{
+                        required: {
+                            value: true,
+                            message: 'Jenis satuan wajib diisi'
+                        }
+                    }}
+                    error={errors.jenis_satuan}
                 />
 
                 <InputText

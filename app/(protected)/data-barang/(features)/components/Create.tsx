@@ -107,6 +107,21 @@ const Create: React.FC = () => {
                 />
 
                 <InputText
+                    aria-required
+                    label='Jenis Satuan'
+                    name='jenis_satuan'
+                    placeholder='Cth: PCS'
+                    register={register}
+                    rule={{
+                        required: {
+                            value: true,
+                            message: 'Jenis satuan wajib diisi'
+                        }
+                    }}
+                    error={errors.jenis_satuan}
+                />
+
+                <InputText
                     type='number'
                     aria-required
                     label='Harga'
