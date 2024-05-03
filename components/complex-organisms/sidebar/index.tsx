@@ -116,7 +116,7 @@ const SidebarModule: React.FC<SidebarProps> = ({ show, setter }) => {
             {/* MINIMIZED BUTTON */}
             <button onClick={handleMinimized} className='flex items-center justify-center md:absolute lg:z-50 lg:-right-5 lg:top-3 w-[30px] h-[30px] shadow-xl rounded-md text-secondary bg-primary-dark'>{minimized ? <ChevronDoubleRightIcon className='w-5 h-5' /> : <ChevronDoubleLeftIcon className='w-5 h-5' />}</button>
             <aside className={`${className} ${appendClass}`}>
-                <Section className="flex flex-col gap-y-6">
+                <Section className="flex flex-col gap-y-6 max-h-[85%] md:max-h-[100%]">
                     {/* HEADER */}
                     <Section className={`flex flex-row gap-4 items-center ${minimized && 'self-center justify-center'}`}>
                         {/* USER PILL */}
