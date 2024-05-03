@@ -57,7 +57,7 @@ const PermissionsPage = () => {
 
 
     // get data from api
-    const { data, isLoading } = useGetDataWithPagination({
+    const { data, isLoading, error } = useGetDataWithPagination({
         page,
         limit,
         filter: debouncedSearch,
@@ -69,6 +69,14 @@ const PermissionsPage = () => {
         return (
             <section data-testid="loading-component">
                 <Loading />
+            </section>
+        )
+    }
+
+    if (error) {
+        return (
+            <section data-testid="error-component">
+                <p>Error</p>
             </section>
         )
     }

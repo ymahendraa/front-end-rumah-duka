@@ -28,6 +28,7 @@ export async function GET(req: NextRequest) {
         },
       }
     );
+    console.log("response", response);
     if (!response.ok) {
       if (response.status === 401) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

@@ -86,7 +86,7 @@ const UsersPage = () => {
     }, [debouncedSearch, createQueryString, path, router]);
 
     // get data from api
-    const { data, isLoading, mutate } = useGetDataWithPagination({
+    const { data, isLoading, mutate, error } = useGetDataWithPagination({
         page,
         limit,
         filter: debouncedSearch,
@@ -101,6 +101,15 @@ const UsersPage = () => {
             </section>
         )
     }
+
+    if (error) {
+        return (
+            <section data-testid="error-component">
+                <p>Error</p>
+            </section>
+        )
+    }
+
     return (
         <main className='flex flex-col gap-y-4'>
             <Section

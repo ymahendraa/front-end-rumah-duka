@@ -97,7 +97,7 @@ const SidebarModule: React.FC<SidebarProps> = ({ show, setter }) => {
 
     // Define our base class
     const className =
-        `flex flex-col bg-primary ${minimizedClass} ease-in-out duration-500 fixed lg:sticky top-0 bottom-0 left-0 z-40 gap-y-6 shadow-lg px-4 py-4 justify-between h-screen transition-all overflow-hidden scrollbar-hide`
+        `flex flex-col bg-primary ${minimizedClass} ease-in-out duration-500 fixed lg:sticky top-0 bottom-0 left-0 z-40 gap-y-6 shadow-lg px-4 py-4 md:justify-between h-screen transition-all overflow-hidden scrollbar-hide`
 
     // Append class based on state of sidebar visiblity
     const appendClass = show ? ' ml-0' : 'ml-[-300px] lg:ml-0'

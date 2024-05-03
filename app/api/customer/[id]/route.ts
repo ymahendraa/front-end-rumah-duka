@@ -126,6 +126,9 @@ export async function PATCH(
         // await imageKit.deleteFile(body?.documentDetail?.fileId).catch((err) => {
         //   throw console.log(err);
         // });
+      } else if (!file) {
+        // if file is empty, assign document in body to ""
+        body.document = "";
       }
       if (buktiTF) {
         const uploadBuktiTF = await imageKit.upload({
@@ -143,6 +146,9 @@ export async function PATCH(
         //   .catch((err) => {
         //     throw console.log(err);
         //   });
+      } else if (!buktiTF) {
+        // if bukti_tf is empty, assign screenshot in body to ""
+        body.screenshot = "";
       }
     } catch (err: any) {
       return NextResponse.json({ error: err.message }, { status: 400 });

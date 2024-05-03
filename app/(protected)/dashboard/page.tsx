@@ -74,7 +74,13 @@ const Home: React.FC = () => {
 
     if (isLoading) return <Loading />
 
-    if (error) return <p>Error</p>
+    if (error) {
+        return (
+            <section data-testid="error-component">
+                <p>Error</p>
+            </section>
+        )
+    }
 
     return (
         <div className="h-full bg-base">

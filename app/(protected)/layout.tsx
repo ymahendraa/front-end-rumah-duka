@@ -26,7 +26,7 @@ export default function RootLayout({
             <Section className="flex flex-row min-h-screen w-full max-w-screen-2xl">
                 <SidebarModule show={showSidebar} setter={setShowSidebar} />
                 {/* <Section className="flex-1"> */}
-                <Section className="w-full flex flex-col pb-8 pt-2 px-4 lg:p-8 gap-8">
+                <Section className="w-full flex flex-col pb-8 pt-20 md:pt-2 px-4 lg:p-8 gap-8">
                     <Breadcrumbs />
                     {children}
                 </Section>

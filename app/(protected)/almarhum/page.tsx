@@ -27,6 +27,7 @@ import { AuthorizationContext } from '@/context/AuthorizationContext/context'
 import { TODO } from '@/types/todo'
 // import { checkPermissions } from '@/utils/checkPermissions'
 import useSearchQuery from '@/hooks/useSearchQuery'
+import { error } from 'console'
 
 /**
  * 
@@ -79,7 +80,7 @@ const AlmarhumPage = () => {
     // const q: string = searchParams.get('q') ?? ''
 
     // get data from api
-    const { data, isLoading, mutate } = useGetDataWithPagination({
+    const { data, isLoading, mutate, error } = useGetDataWithPagination({
         page,
         limit,
         filter: debouncedSearch,
@@ -87,10 +88,18 @@ const AlmarhumPage = () => {
         // accessToken,
     })
 
-    if (isLoading || !data) {
+    if (isLoading) {
         return (
             <section data-testid="loading-component">
                 <Loading />
+            </section>
+        )
+    }
+
+    if (error) {
+        return (
+            <section data-testid="error-component">
+                <p>Error</p>
             </section>
         )
     }

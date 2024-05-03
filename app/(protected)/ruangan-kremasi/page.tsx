@@ -75,7 +75,7 @@ const RuanganKremasiPage = () => {
         router.push(path + '?' + createQueryString('q', debouncedSearch));
     }, [debouncedSearch, createQueryString, path, router]);
     // get data from api
-    const { data, isLoading, mutate } = useGetDataWithPagination({
+    const { data, isLoading, mutate, error } = useGetDataWithPagination({
         page,
         limit,
         filter: debouncedSearch,
@@ -87,6 +87,14 @@ const RuanganKremasiPage = () => {
         return (
             <section data-testid="loading-component">
                 <Loading />
+            </section>
+        )
+    }
+
+    if (error) {
+        return (
+            <section data-testid="error-component">
+                <p>Error</p>
             </section>
         )
     }

@@ -2,6 +2,7 @@
 const nextConfig = {
   images: {
     domains: ["ik.imagekit.io"],
+    unoptimized: true,
   },
   redirects: async () => {
     return [
