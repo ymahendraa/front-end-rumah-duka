@@ -15,6 +15,7 @@ import { useMemo, useState } from 'react'
 import useModalState from '@/hooks/useModalState'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { formatToRupiah } from '@/utils/formatToRupiah'
 
 export type SelectedRowType = {
     name: string
@@ -65,7 +66,10 @@ const useColumns = (permissions: string[]) => {
             columnHelper.accessor((row) => row.sum_total, {
                 id: 'total',
                 header: () => 'Total Harga',
-                cell: (info) => info.getValue(),
+                cell: (info) => {
+                    const total = info.getValue() ? Number(info.getValue()) : 0
+                    return formatToRupiah(total)
+                },
                 size: 250,
             }),
             columnHelper.accessor((row) => row.nama_lengkap, {

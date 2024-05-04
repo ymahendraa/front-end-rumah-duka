@@ -10,6 +10,7 @@ import { DetailTambahan } from '../../types/DetailTambahan'
 // hooks import
 import { useMemo, useState } from 'react'
 import useModalState from '@/hooks/useModalState'
+import { formatToRupiah } from '@/utils/formatToRupiah'
 
 export type SelectedRowType = {
     name: string
@@ -70,7 +71,10 @@ const useColumns = (editHandler: any, deleteHandler: any, fields: any) => {
             columnHelper.accessor((row) => row.total_harga, {
                 id: 'total_harga',
                 header: () => 'Total Harga',
-                cell: (info) => info.getValue(),
+                cell: (info) => {
+                    const total = info.getValue() ? Number(info.getValue()) : 0
+                    return formatToRupiah(total)
+                },
                 size: 250,
             }),
             columnHelper.accessor((row) => row, {

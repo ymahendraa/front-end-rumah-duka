@@ -129,9 +129,12 @@ const useOperatingDetail = ({
   const validateDetail = (): boolean => {
     // get id from id
     const idDetail = parseInt(id.split(";")[0]);
-    return details.some(
-      (detail) => detail.id === idDetail && detail.nama_barang === detailName
-    );
+    // check if more than 1 idDetail in details
+    const isExist =
+      details.filter((detail) => detail.id === idDetail).length > 1;
+
+    console.log(isExist);
+    return isExist;
   };
 
   return {
