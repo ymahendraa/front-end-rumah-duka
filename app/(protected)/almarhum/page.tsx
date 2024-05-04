@@ -27,7 +27,6 @@ import { AuthorizationContext } from '@/context/AuthorizationContext/context'
 import { TODO } from '@/types/todo'
 // import { checkPermissions } from '@/utils/checkPermissions'
 import useSearchQuery from '@/hooks/useSearchQuery'
-import { error } from 'console'
 
 /**
  * 
