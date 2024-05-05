@@ -55,8 +55,8 @@ const useOperatingDetail = ({
    * @returns void
    */
   const addDetail = (): void => {
-    const isExist = validateDetail();
-    if (isExist) {
+    const isNotValid = validateDetail();
+    if (isNotValid) {
       Swal.fire({
         icon: "error",
         title: "Error",
@@ -100,7 +100,23 @@ const useOperatingDetail = ({
    */
   const editDetail = () => {
     const isExist = validateDetail();
+    const idDetail = parseInt(id.split(";")[0]);
     if (isExist) {
+      // check if details[selectedIndex].id is equal to idDetail
+      // then update the details
+      if (details[selectedIndex].id === idDetail) {
+        update(selectedIndex, {
+          id: idDetail,
+          nama_barang: detailName,
+          jenis_barang: type,
+          stok: quantity,
+          harga: price,
+          total_harga: price * quantity,
+        });
+        resetDetail();
+        return;
+      }
+
       Swal.fire({
         icon: "error",
         title: "Error",
@@ -109,7 +125,6 @@ const useOperatingDetail = ({
       return;
     }
     // get id from id
-    const idDetail = parseInt(id.split(";")[0]);
     update(selectedIndex, {
       id: idDetail,
       nama_barang: detailName,
@@ -129,11 +144,11 @@ const useOperatingDetail = ({
   const validateDetail = (): boolean => {
     // get id from id
     const idDetail = parseInt(id.split(";")[0]);
-    // check if more than 1 idDetail in details
-    const isExist =
-      details.filter((detail) => detail.id === idDetail).length > 1;
 
-    console.log(isExist);
+    const isExist = details.some((detail) => detail.id === idDetail);
+
+    // check if detail barang already exist
+    // console.log("isExist", isExist);
     return isExist;
   };
 
