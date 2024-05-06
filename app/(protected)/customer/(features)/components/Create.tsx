@@ -13,15 +13,15 @@ import InputDatepicker from '@/components/atoms/input/input-datepicker';
 import { SubmitHandler, useForm } from 'react-hook-form'
 import useSubmit from '@/hooks/useSubmit';
 import { useRouter } from 'next/navigation';
-import useSWR from 'swr';
-import useFetcher from '@/hooks/useFetcher';
-import { useSession } from 'next-auth/react';
+// import useSWR from 'swr';
+// import useFetcher from '@/hooks/useFetcher';
+// import { useSession } from 'next-auth/react';
 
 // utils import
 // import { fileToBase64 } from '@/utils/convertToBase64';
 import { SendCustomer } from '../types/Customer';
-import useTransformObject from '@/hooks/useTransformObject';
-import Loading from '@/components/atoms/loader/loading';
+// import useTransformObject from '@/hooks/useTransformObject';
+// import Loading from '@/components/atoms/loader/loading';
 
 
 /**
@@ -57,8 +57,8 @@ const Create: React.FC = () => {
                 tempat_meninggal: '',
                 jenis_kelamin: 'Pria',
                 // document: undefined,
-                no_room: '',
-                no_kremasi: '',
+                // no_room: '',
+                // no_kremasi: '',
                 // screenshot: undefined,
                 // status: '',
                 // reservation_date: ''
@@ -67,10 +67,10 @@ const Create: React.FC = () => {
     );
 
     // define session
-    const { data: session } = useSession()
+    // const { data: session } = useSession()
 
     // define fetcher
-    const fetcher = useFetcher(session);
+    // const fetcher = useFetcher(session);
 
     // define router
     const router = useRouter()
@@ -104,28 +104,28 @@ const Create: React.FC = () => {
     }
 
     // get list of room
-    const { data: dataRoom, isLoading: loadingRoom, error: errorRoom } = useSWR(
-        session ? `ruangan?page=1&limit=1000` : null,
-        fetcher
-    )
+    // const { data: dataRoom, isLoading: loadingRoom, error: errorRoom } = useSWR(
+    //     session ? `ruangan?page=1&limit=1000` : null,
+    //     fetcher
+    // )
 
     // transform room data
-    const transformedRoom = useTransformObject(dataRoom?.data ?? [], 'id', 'id')
+    // const transformedRoom = useTransformObject(dataRoom?.data ?? [], 'id', 'id')
 
     // get list of ruangan_kremasi
-    const { data: dataKremasi, isLoading: loadingKremasi, error: errorKremasi } = useSWR(
-        session ? `ruangan-kremasi?page=1&limit=1000` : null,
-        fetcher
-    )
+    // const { data: dataKremasi, isLoading: loadingKremasi, error: errorKremasi } = useSWR(
+    //     session ? `ruangan-kremasi?page=1&limit=1000` : null,
+    //     fetcher
+    // )
 
     // transform ruangan_kremasi data
-    const transformedKremasi = useTransformObject(dataKremasi?.data ?? [], 'id', 'id')
+    // const transformedKremasi = useTransformObject(dataKremasi?.data ?? [], 'id', 'id')
 
-    if (loadingRoom || loadingKremasi || !dataKremasi || !dataRoom) return <div>
-        <Loading />
-    </div>
+    // if (loadingRoom || loadingKremasi || !dataKremasi || !dataRoom) return <div>
+    //     <Loading />
+    // </div>
 
-    if (errorKremasi || errorRoom) return <div>Error...</div>
+    // if (errorKremasi || errorRoom) return <div>Error...</div>
 
     return (
         <form className='flex flex-col gap-8 w-full' onSubmit={handleSubmit(onSubmit)}>
@@ -373,7 +373,7 @@ const Create: React.FC = () => {
                 /> */}
             </Section>
 
-            {/* THIRD SECTION */}
+            {/* THIRD SECTION
             <Section className='grid md:grid-cols-2 bg-primary rounded-lg px-4 pb-10 pt-4 gap-x-8 gap-y-4'>
 
                 <ComboBox
@@ -410,7 +410,7 @@ const Create: React.FC = () => {
                     error={errors.no_kremasi}
                 />
 
-            </Section>
+            </Section> */}
 
             <Section
                 data-testid='save-button'

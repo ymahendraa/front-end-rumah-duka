@@ -41,7 +41,7 @@ const MenuList: React.FC<MenuListProps> = ({
                         label={item.name}
                         path={item.path}
                         menu={item.children}
-                        classNameLink={`flex flex-row justify-between gap-x-2 px-4 py-3 rounded-2xl  transition-colors cursor-pointer ${item?.path === activeRoute
+                        classNameLink={`flex flex-row justify-between gap-x-2 px-4 py-3 rounded-2xl  transition-colors cursor-pointer ${item?.path === activeRoute || (item.path && (activeRoute?.startsWith(`${item.path}/`)))
                             ? 'bg-secondary'
                             : 'bg-primary hover:bg-secondary '
                             }`}

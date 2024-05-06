@@ -16,6 +16,8 @@ import useModalState from '@/hooks/useModalState'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { formatToRupiah } from '@/utils/formatToRupiah'
+import PopOver from '@/components/atoms/pop-over'
+import Section from '@/components/atoms/section'
 
 export type SelectedRowType = {
     name: string
@@ -94,18 +96,43 @@ const useColumns = (permissions: string[]) => {
                     return (
                         <div className="flex flex-row gap-x-2">
                             {checkPermissions(['transaction.reservation.generate-pdf'], permissions) && (
-                                <Link
-                                    // onClick={() => {
-                                    //     // push to generate pdf page
-                                    //     // in new tab
-                                    //     router.push(`${process.env.NEXT_PUBLIC_REAL_URL}/generate-pdf/${row.id_reservasi}`)
-                                    // }}
-                                    target='_blank'
-                                    href={`${process.env.NEXT_PUBLIC_REAL_URL}/generate_pdf/${row.id_reservasi}`}
-                                    className='flex items-center justify-center bg-white hover:bg-gray-200 w-6 h-6 rounded-md transition-colors duration-300 ease-in-out'
-                                >
-                                    <Image src="./pdf.svg" alt="pdf-icon" width={12} height={15} />
-                                </Link>
+                                <PopOver
+                                    PopOverButton={
+                                        <Section
+                                            // onClick={() => {
+                                            //     // push to generate pdf page
+                                            //     // in new tab
+                                            //     router.push(`${process.env.NEXT_PUBLIC_REAL_URL}/generate-pdf/${row.id_reservasi}`)
+                                            // }}
+                                            // target='_blank'
+                                            // href={`${process.env.NEXT_PUBLIC_REAL_URL}/generate_pdf/${row.id_reservasi}`}
+                                            className='flex items-center justify-center bg-white hover:bg-gray-200 w-6 h-6 rounded-md transition-colors duration-300 ease-in-out'
+                                        >
+                                            <Image src="./pdf.svg" alt="pdf-icon" width={12} height={15} />
+                                        </Section>
+                                    }
+                                    PopOverPanel={
+                                        <Section
+                                            className='flex flex-col items-start justify-between text-black'
+                                        >
+                                            <Link
+                                                // href={`${process.env.NEXT_PUBLIC_REAL_URL}/generate_pdf/${row.id_reservasi}`}
+                                                href='#'
+                                                className='hover:bg-primary-light w-full rounded-md p-2 transition-colors duration-300 ease-in-out'
+                                            >
+                                                Invoice 1
+                                            </Link>
+                                            <Link
+                                                // href={`${process.env.NEXT_PUBLIC_REAL_URL}/generate_pdf/${row.id_reservasi}`}
+                                                href='#'
+                                                className='hover:bg-primary-light w-full rounded-md p-2 transition-colors duration-300 ease-in-out'
+                                            >
+                                                Invoice 2
+                                            </Link>
+                                        </Section>
+                                    }
+                                />
+
                             )}
                             {checkPermissions(['transaction.reservation.update'], permissions) && (
                                 <Button

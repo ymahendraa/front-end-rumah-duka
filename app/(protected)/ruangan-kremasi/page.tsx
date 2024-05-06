@@ -83,7 +83,7 @@ const RuanganKremasiPage = () => {
         // accessToken,
     })
 
-    if (isLoading || !data) {
+    if (isLoading) {
         return (
             <section data-testid="loading-component">
                 <Loading />

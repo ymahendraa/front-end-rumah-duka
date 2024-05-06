@@ -13,7 +13,7 @@ const PopOver: React.FC<PopOverProps> = ({
     PopOverPanelClassName
 }) => {
     const config = {
-        PopOverStyle: PopOverPanelClassName ?? "absolute left-full z-50 mt-3 w-screen max-w-sm -translate-x-44 lg:-translate-x-full transform px-4 sm:px-0"
+        PopOverStyle: PopOverPanelClassName ?? "absolute left-full z-50 mt-3 w-screen max-w-[200px] -translate-x-44 lg:-translate-x-full transform px-4 sm:px-0"
     }
     return (
         // <div className="fixed top-16 w-full max-w-sm px-4">

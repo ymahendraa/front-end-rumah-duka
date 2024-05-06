@@ -90,7 +90,11 @@ const SidebarModule: React.FC<SidebarProps> = ({ show, setter }) => {
         }
     }
     // get active item
-    const isItemActive = (item: MenuType) => activeItems === item
+    const isItemActive = (item: MenuType) => {
+        // console.log(activeItems, 'activeItems')
+        // console.log(item, 'item')
+        return activeItems === item
+    }
 
     // define minimized class
     const minimizedClass = minimized ? 'lg:w-[80px]' : 'lg:w-[300px]'

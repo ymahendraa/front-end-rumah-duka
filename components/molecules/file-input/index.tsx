@@ -31,7 +31,8 @@ const FileInput: React.FC<FileInputProps> = ({
             return value ?
                 <Image
                     src={URL_IMAGE}
-                    alt={value.name}
+                    // alt={value.name}
+                    alt='image'
                     width={400}
                     height={400}
                 />

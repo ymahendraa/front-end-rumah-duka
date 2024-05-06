@@ -16,7 +16,7 @@ import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import useFetcher from '@/hooks/useFetcher';
 import useSWR from 'swr';
-import useTransformObject from '@/hooks/useTransformObject';
+// import useTransformObject from '@/hooks/useTransformObject';
 
 // types import
 import { SendCustomer } from '../types/Customer';
@@ -76,8 +76,8 @@ const Edit = ({ id }: { id: string }) => {
                 tempat_meninggal: selectedData.tempat_meninggal,
                 document: selectedData.document,
                 documentDetail: selectedData.documentDetail,
-                no_room: selectedData.room_id,
-                no_kremasi: selectedData.kremasi_id,
+                // no_room: selectedData.room_id,
+                // no_kremasi: selectedData.kremasi_id,
                 screenshot: selectedData.screenshot,
                 status: selectedData.status,
                 reservation_date: selectedData.reservation_date,
@@ -132,26 +132,26 @@ const Edit = ({ id }: { id: string }) => {
     }
 
     // get list of room
-    const { data: dataRoom, isLoading: loadingRoom, error: errorRoom } = useSWR(
-        session ? `ruangan?page=1&limit=1000` : null,
-        fetcher
-    )
+    // const { data: dataRoom, isLoading: loadingRoom, error: errorRoom } = useSWR(
+    //     session ? `ruangan?page=1&limit=1000` : null,
+    //     fetcher
+    // )
 
     // transform room data
-    const transformedRoom = useTransformObject(dataRoom?.data ?? [], 'id', 'id')
+    // const transformedRoom = useTransformObject(dataRoom?.data ?? [], 'id', 'id')
 
     // get list of ruangan_kremasi
-    const { data: dataKremasi, isLoading: loadingKremasi, error: errorKremasi } = useSWR(
-        session ? `ruangan-kremasi?page=1&limit=1000` : null,
-        fetcher
-    )
+    // const { data: dataKremasi, isLoading: loadingKremasi, error: errorKremasi } = useSWR(
+    //     session ? `ruangan-kremasi?page=1&limit=1000` : null,
+    //     fetcher
+    // )
 
     // transform ruangan_kremasi data
-    const transformedKremasi = useTransformObject(dataKremasi?.data ?? [], 'id', 'id')
+    // const transformedKremasi = useTransformObject(dataKremasi?.data ?? [], 'id', 'id')
 
-    if (isLoadingData || !selectedData || loadingRoom || loadingKremasi || !dataKremasi || !dataRoom) return <div><Loading /></div>
+    if (isLoadingData || !selectedData) return <div><Loading /></div>
 
-    if (errorSelectedData || errorKremasi || errorRoom) return <div>Error...</div>
+    if (errorSelectedData) return <div>Error...</div>
 
     return (
         <form className='flex flex-col gap-8 w-full' onSubmit={handleSubmit(onSubmit)}>
@@ -400,7 +400,7 @@ const Edit = ({ id }: { id: string }) => {
                 />
             </Section>
 
-            {/* THIRD SECTION */}
+            {/* THIRD SECTION
             <Section className='grid md:grid-cols-2 bg-primary rounded-lg px-4 pb-10 pt-4 gap-x-8 gap-y-4'>
 
                 <ComboBox
@@ -437,7 +437,7 @@ const Edit = ({ id }: { id: string }) => {
                     error={errors.no_kremasi}
                 />
 
-            </Section>
+            </Section> */}
 
             {/* FOURTH SECTION */}
             <Section className='grid md:grid-cols-2 bg-primary rounded-lg px-4 pb-10 pt-4 gap-x-8 gap-y-4'>
