@@ -114,7 +114,7 @@ const Edit: React.FC<EditProps> = ({
     // submit handler
     const onSubmit: SubmitHandler<any> = async (data: any) => {
         try {
-            // console.log(JSON.stringify(data))
+            // console.log(data)
             await submitHandler({
                 url: `reservasi/${id}`,
                 config: {
@@ -180,7 +180,7 @@ const Edit: React.FC<EditProps> = ({
         }
     }, [open, resetDetail])
 
-    if (loadingSelected || !selectedData || loadingBarang || !dataBarang) return <Loading />
+    if (loadingSelected || loadingBarang) return <Loading />
 
     if (errorSelected || errorBarang) return <div>Error...</div>
 

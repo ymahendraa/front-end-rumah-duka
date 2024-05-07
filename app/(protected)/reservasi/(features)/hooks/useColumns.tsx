@@ -116,15 +116,17 @@ const useColumns = (permissions: string[]) => {
                                             className='flex flex-col items-start justify-between text-black'
                                         >
                                             <Link
-                                                // href={`${process.env.NEXT_PUBLIC_REAL_URL}/generate_pdf/${row.id_reservasi}`}
-                                                href='#'
+                                                href={`${process.env.NEXT_PUBLIC_REAL_URL}/generate_pdf/${row.id_reservasi}`}
+                                                target='_blank'
+                                                // href='#'
                                                 className='hover:bg-primary-light w-full rounded-md p-2 transition-colors duration-300 ease-in-out'
                                             >
                                                 Invoice 1
                                             </Link>
                                             <Link
-                                                // href={`${process.env.NEXT_PUBLIC_REAL_URL}/generate_pdf/${row.id_reservasi}`}
-                                                href='#'
+                                                href={`${process.env.NEXT_PUBLIC_REAL_URL}/generate_kwitansi/${row.id_reservasi}`}
+                                                target='_blank'
+                                                // href='#'
                                                 className='hover:bg-primary-light w-full rounded-md p-2 transition-colors duration-300 ease-in-out'
                                             >
                                                 Invoice 2

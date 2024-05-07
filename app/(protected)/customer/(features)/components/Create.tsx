@@ -66,10 +66,10 @@ const Create: React.FC = () => {
         }
     );
 
-    // define session
+    // // define session
     // const { data: session } = useSession()
 
-    // define fetcher
+    // // define fetcher
     // const fetcher = useFetcher(session);
 
     // define router
