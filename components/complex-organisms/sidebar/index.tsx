@@ -72,7 +72,7 @@ const SidebarModule: React.FC<SidebarProps> = ({ show, setter }) => {
         // await fetch(`/api/redis/${id}`, {
         //     method: 'DELETE'
         // })
-        signOut()
+        signOut({ callbackUrl: '/login' })
     }
 
     /**
