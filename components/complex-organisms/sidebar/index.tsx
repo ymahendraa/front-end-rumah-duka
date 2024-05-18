@@ -145,7 +145,7 @@ const SidebarModule: React.FC<SidebarProps> = ({ show, setter }) => {
                                 </Section>
                             }
                         /> */}
-                        <Link href={`/authorization/users/detail/${permissions?.id}`}>
+                        <Link href={`/authorization/users/detail/${permissions?.id_admin}`}>
                             <UserPill minimized={minimized} username={permissions?.nama_admin} role={permissions?.group?.role_name} />
                         </Link>
                     </Section>
