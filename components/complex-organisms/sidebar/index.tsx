@@ -10,12 +10,14 @@ import { ArrowLeftCircleIcon, ChevronDoubleLeftIcon, ChevronDoubleRightIcon } fr
 import { usePathname } from 'next/navigation'
 
 // utils import
-import { signOut } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import { MenuType } from '@/utils/menuArray'
 import { AuthorizationContext } from '@/context/AuthorizationContext/context'
 import Button from '@/components/atoms/button'
 import UserPill from '@/components/molecules/user-pill'
 import Divider from '@/components/atoms/divider'
+import PopOver from '@/components/atoms/pop-over'
+import Link from 'next/link'
 
 
 type SidebarProps = {
@@ -122,9 +124,30 @@ const SidebarModule: React.FC<SidebarProps> = ({ show, setter }) => {
             <aside className={`${className} ${appendClass}`}>
                 <Section className="flex flex-col gap-y-6 max-h-[85%] md:max-h-[100%]">
                     {/* HEADER */}
-                    <Section className={`flex flex-row gap-4 items-center ${minimized && 'self-center justify-center'}`}>
+                    <Section className={`flex flex-row gap-4 items-center ${minimized && 'self-center justify-center'} `}>
                         {/* USER PILL */}
-                        <UserPill minimized={minimized} />
+                        {/* <UserPill minimized={minimized} /> */}
+
+                        {/* POP OVER */}
+
+
+                        {/* <PopOver
+                            PopOverButton={
+                                <Section className='cursor-pointer w-[250px] border'>
+                                    <UserPill minimized={minimized} />
+                                </Section>
+                            }
+                            PopOverPanel={
+                                <Section
+                                    className='flex flex-col items-start justify-between text-black'
+                                >
+                                    <div>Change Password</div>
+                                </Section>
+                            }
+                        /> */}
+                        <Link href={`/authorization/users/detail/${permissions?.id}`}>
+                            <UserPill minimized={minimized} username={permissions?.nama_admin} role={permissions?.group?.role_name} />
+                        </Link>
                     </Section>
 
                     <Divider className='w-full self-center' />

@@ -1,5 +1,6 @@
 import Section from '@/components/atoms/section'
 import { Bars3Icon, UserCircleIcon } from '@heroicons/react/24/outline'
+import Image from 'next/image'
 // import Image from 'next/image'
 import React from 'react'
 
@@ -16,11 +17,13 @@ const MobileSidebar: React.FC<ModalSidebarProps> = ({ setter }) => {
         onClick={() => setter((prev) => !prev)}
       />
       {/* APP NAME */}
-      <Section className='flex flex-col'>
-        <h1 className="text-lg text-white font-bold text-center">Random</h1>
-        <h3 className="text-sm text-white font-medium">
-          Management System
-        </h3>
+      <Section className='flex flex-col items-center'>
+        {/* <h1 className="text-sm text-white font-bold text-center">Rumah Duka dan Krematorium</h1>
+        <h3 className="text-xs text-white font-medium">
+          Cilincing
+        </h3> */}
+        <Image src="/logo_cilincing.png" alt="logo" width={80} height={40} />
+
       </Section>
       {/* LOGO */}
       {/* <Image src="/logo.png" alt="logo" width={20} height={40} /> */}
