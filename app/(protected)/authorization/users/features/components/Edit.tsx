@@ -19,6 +19,7 @@ import { useSession } from 'next-auth/react';
 import useTransformObject from '@/hooks/useTransformObject';
 import Loading from '@/components/atoms/loader/loading';
 import { WrapperRadio } from '@/components/molecules/wrapper-radio';
+import { useRouter } from 'next/navigation';
 
 type EditProps = {
     submitHandler: (data: any) => void
@@ -93,7 +94,7 @@ const Edit: React.FC<EditProps> = ({
     const onSubmit: SubmitHandler<any> = async (data: any) => {
         try {
             data.role = parseInt(data.role)
-            console.log(data)
+            // console.log(data)
             submitHandler({
                 url: `${url}/${id}`,
                 config: {
@@ -121,6 +122,9 @@ const Edit: React.FC<EditProps> = ({
         'authorization/user-role/all',
         fetcher
     )
+
+    // useRouter
+    const router = useRouter()
 
     // transform dataRoles 
     const transformedRoles = useTransformObject(dataRoles || [], 'id', 'role_name')
@@ -193,7 +197,7 @@ const Edit: React.FC<EditProps> = ({
                     error={errors.email}
                 />
 
-                <InputText
+                {/* <InputText
                     type='password'
                     label='Password'
                     name='password'
@@ -226,7 +230,7 @@ const Edit: React.FC<EditProps> = ({
                         }
                     }}
                     error={errors.confirm_password}
-                />
+                /> */}
 
                 <Section>
                     <Label label="Status" name="active" />
@@ -264,17 +268,27 @@ const Edit: React.FC<EditProps> = ({
                 {errors.role && <p className='text-red-500 text-xs -mt-3'>{errors.role.message?.toString()}</p>}
             </Section>
 
-            <section
+            <Section
                 data-testid='save-button'
+                className='flex justify-end gap-4'
             >
                 <Button
+                    // type='submit'
+                    type='button'
+                    className='bg-red-500 hover:bg-red-600 rounded-lg text-white p-2 md:p-2 mt-2 text-xs md:text-sm'
+                    onClick={() => router.push(`/authorization/users/detail/${id}/change-password`)}
+                    disabled={isLoading}
+                >
+                    Ganti Password
+                </Button>
+                <Button
                     type='submit'
-                    className='bg-primary hover:bg-primary-dark rounded-md text-white w-full h-8 mt-2 text-sm'
+                    className='bg-secondary hover:bg-secondary-dark rounded-md text-white p-2 md:p-2 mt-2 text-xs md:text-sm'
                     disabled={isLoading}
                 >
                     {isLoading ? 'Loading...' : 'Simpan'}
                 </Button>
-            </section>
+            </Section>
         </form>
     )
 }

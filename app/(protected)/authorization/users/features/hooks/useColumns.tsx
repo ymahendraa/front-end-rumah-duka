@@ -87,8 +87,8 @@ const useColumns = (permissions: string[]) => {
                 },
                 size: 50,
             }),
-            columnHelper.accessor((row) => row.status, {
-                id: 'status',
+            columnHelper.accessor((row) => row.active, {
+                id: 'active',
                 header: () => 'Status',
                 cell: (info) => info.getValue() ? 'Active' : 'Inactive',
                 size: 50,

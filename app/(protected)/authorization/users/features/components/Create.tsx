@@ -137,18 +137,18 @@ const Create: React.FC<CreateProps> = ({
 
                 <InputText
                     type='text'
-                    label='First Name'
-                    name='first_name'
+                    label='Nama'
+                    name='nama_admin'
                     register={register}
-                    placeholder='Enter first name'
+                    placeholder='Enter name'
                     aria-required={true}
                     rule={{
                         required: {
                             value: true,
-                            message: 'First name is required'
+                            message: 'Name is required'
                         },
                     }}
-                    error={errors.first_name}
+                    error={errors.nama_admin}
                 />
 
                 <InputText
@@ -168,34 +168,18 @@ const Create: React.FC<CreateProps> = ({
                 />
 
                 <InputText
-                    type='text'
-                    label='Last Name'
-                    name='last_name'
-                    register={register}
-                    placeholder='Enter last name'
-                />
-
-                <InputText
-                    type='text'
-                    label='Phone'
-                    name='phone'
-                    register={register}
-                    placeholder='Enter phone'
-                />
-
-                <InputText
                     type='password'
                     label='Password'
                     name='password'
                     register={register}
-                    placeholder='Enter phone'
-                    aria-required={true}
-                    rule={{
-                        required: {
-                            value: true,
-                            message: 'Password is required'
-                        },
-                    }}
+                    placeholder='Enter password'
+                    // aria-required={true}
+                    // rule={{
+                    //     required: {
+                    //         value: true,
+                    //         message: 'Password is required'
+                    //     },
+                    // }}
                     error={errors.password}
                 />
 
@@ -204,11 +188,11 @@ const Create: React.FC<CreateProps> = ({
                     label='Confirm Password'
                     name='confirm_password'
                     register={register}
-                    placeholder='Enter phone'
-                    aria-required={true}
+                    placeholder='Enter confirm password'
+                    // aria-required={true}
                     rule={{
                         required: {
-                            value: true,
+                            value: watch('password') ? true : false,
                             message: 'Confirm password is required'
                         },
                         validate: (value: any) => {
@@ -219,16 +203,16 @@ const Create: React.FC<CreateProps> = ({
                 />
 
                 <Section>
-                    <Label label="Status" name="status" />
+                    <Label label="Status" name="active" />
                     <Section className='-mt-3'>
                         <WrapperRadio
-                            name="status"
+                            name="active"
                             control={control}
                             options={[
                                 { label: 'Active', value: 1 },
                                 { label: 'Inactive', value: 0 },
                             ]}
-                            defaultValue='active'
+                            defaultValue={1}
                         />
                     </Section>
                 </Section>
@@ -238,30 +222,18 @@ const Create: React.FC<CreateProps> = ({
             >
                 <Label label="Roles" name="role" aria-required={true} />
                 <Section
-                    className='flex flex-wrap gap-4 -mt-3 '
+                    className='flex flex-wrap gap-4'
                 >
-                    {
-                        transformedRoles?.map((item: TODO, index: number) => (
-                            <Section
-                                key={index}
-                                data-testid='authorization-access'
-                            >
-                                <InputCheckbox
-                                    // key={index}
-                                    name='role'
-                                    value={item.label}
-                                    label={item.label}
-                                    register={register}
-                                    rule={{
-                                        required: {
-                                            value: true,
-                                            message: 'Role is required'
-                                        },
-                                    }}
-                                />
-                            </Section>
-                        ))
-                    }
+
+                    <Section className='-mt-3'>
+                        <WrapperRadio
+                            name="role"
+                            control={control}
+                            options={transformedRoles}
+                        // defaultValue={selectedData.role}
+                        />
+                    </Section>
+
                 </Section>
                 {errors.role && <p className='text-red-500 text-xs -mt-3'>{errors.role.message?.toString()}</p>}
             </Section>
@@ -271,7 +243,7 @@ const Create: React.FC<CreateProps> = ({
             >
                 <Button
                     type='submit'
-                    className='bg-primary hover:bg-primary-dark rounded-md text-white w-full h-8 mt-2 text-sm'
+                    className='bg-secondary hover:bg-secondary-dark rounded-md text-white w-full h-8 mt-2 text-sm'
                     disabled={isLoading}
                 >
                     {isLoading ? 'Loading...' : 'Simpan'}
