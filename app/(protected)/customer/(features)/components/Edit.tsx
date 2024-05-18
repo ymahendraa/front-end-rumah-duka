@@ -457,6 +457,7 @@ const Edit = ({ id }: { id: string }) => {
                     options={[
                         { value: 'Paid', label: 'Paid' },
                         { value: 'Pending', label: 'Pending' },
+                        { value: 'Down Payment', label: 'Down Payment' }
                     ]}
                     control={control}
                     error={errors.status}
