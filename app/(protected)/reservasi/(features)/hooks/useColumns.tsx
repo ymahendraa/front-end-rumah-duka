@@ -76,7 +76,7 @@ const useColumns = (permissions: string[]) => {
             }),
             columnHelper.accessor((row) => row.nama_lengkap, {
                 id: 'nama',
-                header: () => 'Nama Customer',
+                header: () => 'Nama Almarhum',
                 cell: (info) => info.getValue(),
                 size: 50,
             }),
@@ -121,7 +121,7 @@ const useColumns = (permissions: string[]) => {
                                                 // href='#'
                                                 className='hover:bg-primary-light w-full rounded-md p-2 transition-colors duration-300 ease-in-out'
                                             >
-                                                Invoice 1
+                                                Invoice
                                             </Link>
                                             <Link
                                                 href={`${process.env.NEXT_PUBLIC_REAL_URL}/generate_kwitansi/${row.id_reservasi}`}
@@ -129,7 +129,7 @@ const useColumns = (permissions: string[]) => {
                                                 // href='#'
                                                 className='hover:bg-primary-light w-full rounded-md p-2 transition-colors duration-300 ease-in-out'
                                             >
-                                                Invoice 2
+                                                Receipt
                                             </Link>
                                         </Section>
                                     }
