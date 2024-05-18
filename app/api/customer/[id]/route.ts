@@ -167,6 +167,7 @@ export async function PATCH(
       }
     );
     if (!response.ok) {
+      console.log(response);
       if (response.status === 401) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
       }

@@ -44,9 +44,10 @@ export type SendCustomer = {
   no_room: string;
   no_kremasi: string;
   status: string;
-  reservation_date: string;
-  reservation_checkin: string;
-  reservation_checkout: string;
+  reservation_date?: string;
+  reservation_checkin?: string;
+  reservation_checkout?: string;
+  sales_memo?: string;
   screenshot?: File | string;
   document: File | string;
   screenshotDetail?: any;

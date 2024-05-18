@@ -80,7 +80,10 @@ const Edit = ({ id }: { id: string }) => {
                 // no_kremasi: selectedData.kremasi_id,
                 screenshot: selectedData.screenshot,
                 status: selectedData.status,
-                reservation_date: selectedData.reservation_date,
+                // reservation_date: selectedData.reservation_date,
+                reservation_checkin: selectedData.reservation_checkin,
+                reservation_checkout: selectedData.reservation_checkout,
+                sales_memo: selectedData.sales_memo,
                 screenshotDetail: selectedData.screenshotDetail,
             })
         }
@@ -111,6 +114,9 @@ const Edit = ({ id }: { id: string }) => {
             else {
                 // remove file from data
                 delete data.screenshot
+            }
+            if (data.sales_memo && typeof data.sales_memo === 'string') {
+                data.sales_memo = parseInt(data.sales_memo)
             }
             // console.log('data', data)
             await submitHandler({
@@ -463,19 +469,52 @@ const Edit = ({ id }: { id: string }) => {
                     error={errors.status}
                 />
 
+
+
                 <InputDatepicker
-                    label='Tanggal Reservasi'
+                    label='Tanggal Check In'
                     register={register}
-                    aria-required
+                    // aria-required
                     classNameWrapper='w-full'
-                    name='tgl_waktu_meninggal'
+                    name='reservation_checkin'
                     // rule={{
                     //     required: {
                     //         value: true,
                     //         message: 'Tanggal Reservasi wajib diisi'
                     //     },
                     // }}
-                    error={errors.tgl_waktu_meninggal}
+                    error={errors.reservation_checkin}
+                />
+
+                <InputText
+                    type='number'
+                    // aria-required
+                    label='Sales Memo (Jika ada yang melakukan Down Payment)'
+                    name='sales_memo'
+                    placeholder='Cth:1000000'
+                    register={register}
+                    // rule={{
+                    //     required: {
+                    //         value: true,
+                    //         message: 'Alamat Lengkap wajib diisi'
+                    //     },
+                    // }}
+                    error={errors.sales_memo}
+                />
+
+                <InputDatepicker
+                    label='Tanggal Check Out'
+                    register={register}
+                    // aria-required
+                    classNameWrapper='w-full'
+                    name='reservation_checkout'
+                    // rule={{
+                    //     required: {
+                    //         value: true,
+                    //         message: 'Tanggal Reservasi wajib diisi'
+                    //     },
+                    // }}
+                    error={errors.reservation_checkout}
                 />
 
                 <FileInput
