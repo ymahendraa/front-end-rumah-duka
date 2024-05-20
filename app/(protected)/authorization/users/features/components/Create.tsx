@@ -4,7 +4,7 @@ import React, { useEffect } from 'react'
 // components import
 import InputText from '@/components/atoms/input/input-text';
 import Button from '@/components/atoms/button';
-import InputCheckbox from '@/components/atoms/input/input-checkbox';
+// import InputCheckbox from '@/components/atoms/input/input-checkbox';
 import Label from '@/components/atoms/label';
 import Section from '@/components/atoms/section';
 
@@ -17,7 +17,7 @@ import useTransformObject from '@/hooks/useTransformObject';
 import { useSession } from 'next-auth/react';
 
 // utils import
-import { TODO } from '@/types/todo';
+// import { TODO } from '@/types/todo';
 import { WrapperRadio } from '@/components/molecules/wrapper-radio';
 import Loading from '@/components/atoms/loader/loading';
 

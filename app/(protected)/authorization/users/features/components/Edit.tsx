@@ -72,7 +72,6 @@ const Edit: React.FC<EditProps> = ({
         formState: { errors },
         reset,
         control,
-        watch,
     } = useForm();
 
     // reset form when data is fetched

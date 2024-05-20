@@ -10,13 +10,13 @@ import { ArrowLeftCircleIcon, ChevronDoubleLeftIcon, ChevronDoubleRightIcon } fr
 import { usePathname } from 'next/navigation'
 
 // utils import
-import { signOut, useSession } from 'next-auth/react'
+import { signOut } from 'next-auth/react'
 import { MenuType } from '@/utils/menuArray'
 import { AuthorizationContext } from '@/context/AuthorizationContext/context'
 import Button from '@/components/atoms/button'
 import UserPill from '@/components/molecules/user-pill'
 import Divider from '@/components/atoms/divider'
-import PopOver from '@/components/atoms/pop-over'
+// import PopOver from '@/components/atoms/pop-over'
 import Link from 'next/link'
 
 

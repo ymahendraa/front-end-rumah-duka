@@ -6,7 +6,7 @@ import InputText from '@/components/atoms/input/input-text';
 import Button from '@/components/atoms/button';
 // import FileInput from '@/components/molecules/file-input';
 import Section from '@/components/atoms/section';
-import ComboBox from '@/components/molecules/combo-box';
+// import ComboBox from '@/components/molecules/combo-box';
 
 // hooks import
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -16,7 +16,7 @@ import { useRouter } from 'next/navigation';
 // import { useSession } from 'next-auth/react';
 // import useTransformObject from '@/hooks/useTransformObject';
 // import useSWR from 'swr';
-import { ROOM_CATEGORY } from '@/utils/const/room-category';
+// import { ROOM_CATEGORY } from '@/utils/const/room-category';
 // import Loading from '@/components/atoms/loader/loading';
 
 // utils import
@@ -26,7 +26,7 @@ import { ROOM_CATEGORY } from '@/utils/const/room-category';
  * ChangePasswordPage : change password page
  * @returns ChangePasswordPage component for changing password
  */
-const ChangePasswordPage = ({ params }: { params: { id: string } }) => {
+const ChangePasswordPage = () => {
     // define session
     // const { data: session } = useSession()
 

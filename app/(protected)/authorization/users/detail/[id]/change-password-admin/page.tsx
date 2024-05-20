@@ -6,7 +6,7 @@ import InputText from '@/components/atoms/input/input-text';
 import Button from '@/components/atoms/button';
 // import FileInput from '@/components/molecules/file-input';
 import Section from '@/components/atoms/section';
-import ComboBox from '@/components/molecules/combo-box';
+// import ComboBox from '@/components/molecules/combo-box';
 
 // hooks import
 import { SubmitHandler, useForm } from 'react-hook-form'

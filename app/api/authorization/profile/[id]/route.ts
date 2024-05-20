@@ -39,11 +39,7 @@ export async function GET(
   }
 }
 
-export async function PATCH(
-  req: NextRequest,
-  params: { params: { id: string } }
-) {
-  const { id } = params.params;
+export async function PATCH(req: NextRequest) {
   // get token from headers
   const token = req.headers.get("authorization")?.split(" ")[1] || "";
   // get body from request
