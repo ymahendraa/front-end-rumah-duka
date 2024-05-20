@@ -9,21 +9,23 @@ import axios from "./axios";
 export async function refreshAccessToken(refreshToken: string) {
   try {
     // Send a request to the refresh token endpoint
-    const res = await axios("/refresh", {
+    const res = await axios(`${process.env.NEXT_PUBLIC_REAL_URL}/refresh`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${refreshToken}`,
         "Content-Type": "application/json",
       },
     });
+    // console.log("res", res);
 
     // Parse the response
-    const data = await res.data;
+    const data = await res.data.id;
+    // console.log("data refresh", data);
 
     // If the response status is not ok, throw an error
-    if (![200, 201].includes(res.status)) {
-      throw new Error(data.error);
-    }
+    // if (![200, 201].includes(res.status)) {
+    //   throw new Error(data.error);
+    // }
 
     // Return the new access token
     return data;
@@ -35,7 +37,9 @@ export async function refreshAccessToken(refreshToken: string) {
 
       console.log(error);
       // If the refresh token is expired, sign out
-      signOut();
+      // signOut();
+      signOut({ callbackUrl: "/login" });
+
       return;
     }
     throw error;

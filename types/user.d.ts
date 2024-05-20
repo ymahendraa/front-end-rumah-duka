@@ -6,6 +6,7 @@ type User = {
   nama_admin: string;
   password: string;
   status?: boolean;
+  active?: boolean;
   role: {
     id: string;
     name: string;
