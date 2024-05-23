@@ -42,6 +42,8 @@ export async function GET(
     }
     const { data } = await response.json();
 
+    console.log("data", data);
+
     // get data.document detail if document exists
     if (data?.document) {
       const documentDetail: any = await getImageDetail(data?.document || "");

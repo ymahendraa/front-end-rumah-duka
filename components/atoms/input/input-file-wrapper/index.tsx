@@ -2,6 +2,8 @@ import React, { ReactElement, ReactNode } from 'react';
 import Label from '../../label';
 import Section from '../../section';
 import { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form';
+import Button from '../../button';
+import { ArrowDownTrayIcon } from '@heroicons/react/24/outline';
 
 type InputFileWrapperProps = {
     name: string
@@ -10,7 +12,8 @@ type InputFileWrapperProps = {
     label?: string
     error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
     placeholder?: string,
-    inputContent: ReactNode
+    inputContent: ReactNode,
+    onlineUrl?: string,
 } & React.InputHTMLAttributes<HTMLInputElement>
 
 
@@ -67,7 +70,20 @@ const InputFileWrapper = React.forwardRef<HTMLInputElement, InputFileWrapperProp
                     className='hidden'
                     onChange={props.onChange}
                 />
+                {/* {props.onlineUrl && (
+                    <Button
+                        type='button'
+                        onClick={() => {
+                            // download file from online url
+                            window.open(props.onlineUrl, '_blank');
+
+                        }}>
+                        <ArrowDownTrayIcon className='h-5 w-5' />
+                    </Button>
+                )
+                } */}
             </Section>
+
         </div>
     );
 });

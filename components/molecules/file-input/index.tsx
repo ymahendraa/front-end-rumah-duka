@@ -2,6 +2,9 @@ import React from 'react'
 import InputFileWrapper from '@/components/atoms/input/input-file-wrapper'
 import { Controller, FieldError, FieldErrorsImpl, FieldValues, Merge, RegisterOptions } from 'react-hook-form'
 import Image from 'next/image'
+import Button from '@/components/atoms/button'
+import { ArrowDownTrayIcon } from '@heroicons/react/24/outline'
+import Section from '@/components/atoms/section'
 
 type FileInputProps = {
     error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
@@ -10,7 +13,8 @@ type FileInputProps = {
     label: string,
     id: string,
     name: string,
-    type: 'file' | 'image'
+    type: 'file' | 'image',
+    onlineUrl?: string,
 } & React.InputHTMLAttributes<HTMLInputElement>
 
 const FileInput: React.FC<FileInputProps> = ({
@@ -42,7 +46,24 @@ const FileInput: React.FC<FileInputProps> = ({
 
         // check if value is string
         if (typeof value === 'string') {
-            return <p className='text-gray-400'>{value}</p>
+            return (
+                <Section className='flex w-full justify-between items-center'>
+                    <p className='text-gray-400'>{value}</p>
+                    {props.onlineUrl && (
+                        <Button
+                            type='button'
+                            className='bg-secondary hover:bg-secondary-dark text-white rounded-md p-1 cursor-pointer'
+                            onClick={() => {
+                                // download file from online url
+                                window.open(props.onlineUrl, '_blank');
+
+                            }}>
+                            <ArrowDownTrayIcon className='h-5 w-5' />
+                        </Button>
+                    )
+                    }
+                </Section>
+            )
         }
         return <p className='text-gray-400'>{value?.name}</p>
     }
@@ -68,6 +89,7 @@ const FileInput: React.FC<FileInputProps> = ({
                         error={error}
                         label={label}
                         id={props.id}
+                        onlineUrl={props.onlineUrl}
                     />
                 );
             }}

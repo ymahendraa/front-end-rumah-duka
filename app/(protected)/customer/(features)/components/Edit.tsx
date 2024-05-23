@@ -401,6 +401,7 @@ const Edit = ({ id }: { id: string }) => {
                     //     },
                     // }}
                     control={control}
+                    onlineUrl={selectedData.documentDetail?.url}
                     id='almarhum.file'
                 // error={errors.document}
                 />
@@ -534,7 +535,15 @@ const Edit = ({ id }: { id: string }) => {
                 />
 
                 <Section className='flex items-center md:mt-2'>
-                    <p className='text-xs md:text-sm text-white'>Note: Jika Gambar yang di masukan diubah maka status transaksi akan menjadi pending.</p>
+                    <p className='text-xs md:text-sm text-white'>Note: Jika Gambar yang di masukan diubah maka status transaksi akan menjadi pending.
+                        <span
+                            className='bg-secondary hover:bg-secondary-dark rounded-md text-white w-10 p-[2px] ml-2 text-xs cursor-pointer'
+                            onClick={() => window.open(selectedData.screenshotDetail?.url, '_blank')}
+                        >
+                            Download Bukti Transaksi
+                        </span>
+                    </p>
+
                 </Section>
 
             </Section>
