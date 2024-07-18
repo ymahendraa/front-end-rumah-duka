@@ -60,8 +60,8 @@ export async function PATCH(
     delete body.nama_lengkap;
     delete body.nik;
     body.barang_data = body.barang_data.map((item: any) => {
-      const { id, stok } = item;
-      return { barang_id: id, stok };
+      const { id, stok, discount } = item;
+      return { barang_id: id, stok, discount };
     });
 
     // fetch data from json server

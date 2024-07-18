@@ -11,6 +11,7 @@ type AddDetail = {
     jenis_barang: string;
     stok: number;
     total_harga: number;
+    discount: number;
     harga: number;
   }>;
 };
@@ -34,6 +35,7 @@ const useOperatingDetail = ({
   const [price, setPrice] = useState(0);
   const [type, setType] = useState("Free");
   const [quantity, setQuantity] = useState(1);
+  const [discount, setDiscount] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState(-1);
 
   /**
@@ -45,6 +47,7 @@ const useOperatingDetail = ({
     setDetailName("");
     setPrice(0);
     setQuantity(1);
+    setDiscount(0);
     setType("Free");
     setSelectedIndex(-1);
     setOpen(false);
@@ -71,7 +74,8 @@ const useOperatingDetail = ({
       nama_barang: detailName,
       jenis_barang: type,
       stok: quantity,
-      total_harga: price * quantity,
+      total_harga: price * quantity - (price * quantity * discount) / 100,
+      discount: discount,
       harga: price,
     });
     resetDetail();
@@ -91,6 +95,7 @@ const useOperatingDetail = ({
     setDetailName(details[index].nama_barang);
     setPrice(details[index].harga);
     setType(details[index].jenis_barang);
+    setDiscount(details[index].discount);
     setQuantity(details[index].stok);
   };
 
@@ -111,7 +116,8 @@ const useOperatingDetail = ({
           jenis_barang: type,
           stok: quantity,
           harga: price,
-          total_harga: price * quantity,
+          discount: discount,
+          total_harga: price * quantity - (price * quantity * discount) / 100,
         });
         resetDetail();
         return;
@@ -131,7 +137,8 @@ const useOperatingDetail = ({
       jenis_barang: type,
       stok: quantity,
       harga: price,
-      total_harga: price * quantity,
+      discount: discount,
+      total_harga: price * quantity - (price * quantity * discount) / 100,
     });
     resetDetail();
   };
@@ -163,6 +170,8 @@ const useOperatingDetail = ({
     setType,
     quantity,
     setQuantity,
+    discount,
+    setDiscount,
     addDetail,
     selectedIndex,
     editHandler,

@@ -1,30 +1,30 @@
-'use client'
-import React, { useEffect } from 'react'
+"use client";
+import React, { useEffect } from "react";
 
 // components import
-import InputText from '@/components/atoms/input/input-text';
-import Button from '@/components/atoms/button';
-import Section from '@/components/atoms/section';
+import InputText from "@/components/atoms/input/input-text";
+import Button from "@/components/atoms/button";
+import Section from "@/components/atoms/section";
 // import ComboBox from '@/components/molecules/combo-box';
 
 // hooks import
-import { SubmitHandler, useForm, useFieldArray } from 'react-hook-form'
-import useSubmit from '@/hooks/useSubmit';
-import { useRouter } from 'next/navigation';
-import useFetcher from '@/hooks/useFetcher';
-import { useSession } from 'next-auth/react';
-import useSWR from 'swr';
+import { SubmitHandler, useForm, useFieldArray } from "react-hook-form";
+import useSubmit from "@/hooks/useSubmit";
+import { useRouter } from "next/navigation";
+import useFetcher from "@/hooks/useFetcher";
+import { useSession } from "next-auth/react";
+import useSWR from "swr";
 // import useTransformObject from '@/hooks/useTransformObject';
-import Modal from '@/components/atoms/modal';
-import useModalState from '@/hooks/useModalState';
-import { PlusIcon } from '@heroicons/react/24/outline';
-import useColumns from './useColumns';
-import { DataTableBase } from '@/components/organisms/table/data-table';
-import ComboBoxWrapper from '@/components/atoms/combo-box-wrapper';
-import Label from '@/components/atoms/label';
-import Loading from '@/components/atoms/loader/loading';
-import useOperatingDetail from '../../hooks/useOperatingDetails';
-import useTransformBarang from '../../hooks/useTransformBarang';
+import Modal from "@/components/atoms/modal";
+import useModalState from "@/hooks/useModalState";
+import { PlusIcon } from "@heroicons/react/24/outline";
+import useColumns from "./useColumns";
+import { DataTableBase } from "@/components/organisms/table/data-table";
+import ComboBoxWrapper from "@/components/atoms/combo-box-wrapper";
+import Label from "@/components/atoms/label";
+import Loading from "@/components/atoms/loader/loading";
+import useOperatingDetail from "../../hooks/useOperatingDetails";
+import useTransformBarang from "../../hooks/useTransformBarang";
 
 /**
  * @description
@@ -34,304 +34,297 @@ import useTransformBarang from '../../hooks/useTransformBarang';
  */
 
 type EditProps = {
-    id: string
+  id: string;
+};
 
-}
+const Edit: React.FC<EditProps> = ({ id }) => {
+  // define session
+  const { data: session } = useSession();
 
-const Edit: React.FC<EditProps> = ({
-    id
-}) => {
-    // define session
-    const { data: session } = useSession()
+  // define modal state
+  const { open, setOpen } = useModalState();
 
-    // define modal state
-    const {
-        open,
-        setOpen,
-    } = useModalState()
+  // get form data
+  const {
+    register,
+    handleSubmit,
+    control,
+    // setValue,
+    watch,
+    reset,
+  } = useForm();
 
-    // get form data
-    const {
-        register,
-        handleSubmit,
-        control,
-        // setValue,
-        watch,
-        reset
-    } = useForm();
+  // define field array
+  const { append, remove, update } = useFieldArray({
+    control,
+    name: "barang_data",
+  });
+  const details = watch("barang_data");
 
-    // define field array
-    const { append, remove, update } = useFieldArray({
-        control,
-        name: 'barang_data'
-    })
-    const details = watch('barang_data')
+  // define function for adding detail barang
+  const {
+    id: idDetail,
+    setId,
+    addDetail,
+    // detailName,
+    setDetailName,
+    price,
+    setPrice,
+    type,
+    setType,
+    quantity,
+    setQuantity,
+    discount,
+    setDiscount,
+    selectedIndex,
+    editHandler,
+    editDetail,
+    resetDetail,
+  } = useOperatingDetail({
+    append,
+    update,
+    setOpen,
+    details,
+  });
 
-    // define function for adding detail barang
-    const {
-        id: idDetail,
-        setId,
-        addDetail,
-        // detailName,
-        setDetailName,
-        price,
-        setPrice,
-        type,
-        setType,
-        quantity,
-        setQuantity,
-        selectedIndex,
-        editHandler,
-        editDetail,
-        resetDetail
-    } = useOperatingDetail(
-        {
-            append,
-            update,
-            setOpen,
-            details,
-        }
-    )
+  // define router
+  const router = useRouter();
 
-    // define router
-    const router = useRouter()
+  // get submit handler
+  const { isLoading, submitHandler } = useSubmit();
 
-    // get submit handler
-    const { isLoading, submitHandler } = useSubmit()
+  // get columns
+  const {
+    columns,
+    // selectedRow,
+    // openDelete,
+    // setOpenDelete
+  } = useColumns(editHandler, deleteHandler, details);
 
-    // get columns
-    const {
-        columns,
-        // selectedRow,
-        // openDelete,
-        // setOpenDelete
-    } = useColumns(
-        editHandler,
-        deleteHandler,
-        details
-    )
-
-    // submit handler
-    const onSubmit: SubmitHandler<any> = async (data: any) => {
-        try {
-            // console.log(data)
-            await submitHandler({
-                url: `reservasi/${id}`,
-                config: {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data),
-                },
-                setOpen: () => { },
-                mutate: () => { },
-            })
-        } catch (error) {
-            console.log(error)
-        }
+  // submit handler
+  const onSubmit: SubmitHandler<any> = async (data: any) => {
+    try {
+      // console.log(data)
+      await submitHandler({
+        url: `reservasi/${id}`,
+        config: {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        },
+        setOpen: () => {},
+        mutate: () => {},
+      });
+    } catch (error) {
+      console.log(error);
     }
+  };
 
-    /**
-     * @description deleteHandler : function for handling delete button
-     * @param {number} index : index of selected row
-     * @returns void
-     */
-    function deleteHandler(index: number) {
-        remove(index)
+  /**
+   * @description deleteHandler : function for handling delete button
+   * @param {number} index : index of selected row
+   * @returns void
+   */
+  function deleteHandler(index: number) {
+    remove(index);
+  }
+
+  // define fetcher
+  const fetcher = useFetcher(session);
+
+  // // Watch the value of the name field
+  // const name = watch('name');
+
+  // get list current reservasi
+  const {
+    data: selectedData,
+    isLoading: loadingSelected,
+    error: errorSelected,
+  } = useSWR(`reservasi/${id}`, fetcher);
+
+  // reset form when data is fetched
+  useEffect(() => {
+    if (selectedData) {
+      reset({
+        nama_lengkap: selectedData?.nama_lengkap,
+        nik: selectedData?.nik,
+        barang_data: selectedData?.detail_barang || [],
+      });
     }
+  }, [selectedData, reset]);
 
-    // define fetcher
-    const fetcher = useFetcher(session);
+  // get all barang
+  const {
+    data: dataBarang,
+    isLoading: loadingBarang,
+    error: errorBarang,
+  } = useSWR(session ? `data-barang?page=1&limit=10000` : null, fetcher);
 
-    // // Watch the value of the name field
-    // const name = watch('name');
+  // transform data
+  const transformedBarang = useTransformBarang(
+    dataBarang?.data ?? [],
+    "nama_barang"
+  );
 
-    // get list current reservasi
-    const { data: selectedData, isLoading: loadingSelected, error: errorSelected } = useSWR(
-        `reservasi/${id}`,
-        fetcher
-    )
+  // reset detail form every time the modal is closed
+  useEffect(() => {
+    if (!open) {
+      resetDetail();
+    }
+  }, [open, resetDetail]);
 
-    // reset form when data is fetched
-    useEffect(() => {
-        if (selectedData) {
-            reset({
-                nama_lengkap: selectedData?.nama_lengkap,
-                nik: selectedData?.nik,
-                barang_data: selectedData?.detail_barang || []
-            })
-        }
-    }, [selectedData, reset]);
+  if (loadingSelected || loadingBarang) return <Loading />;
 
-    // get all barang
-    const { data: dataBarang, isLoading: loadingBarang, error: errorBarang } = useSWR(
-        session ? `data-barang?page=1&limit=10000` : null,
-        fetcher
-    )
+  if (errorSelected || errorBarang) return <div>Error...</div>;
 
-    // transform data
-    const transformedBarang = useTransformBarang(dataBarang?.data ?? [], 'nama_barang')
+  return (
+    <>
+      <form
+        className="flex flex-col gap-8 w-full"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        {/* FIRST SECTION */}
+        <Section className="grid md:grid-cols-2 bg-primary rounded-xl px-4 pb-10 pt-4 gap-x-8 gap-y-4">
+          <InputText
+            readOnly
+            // required
+            label="Nama Lengkap Customer"
+            name="nama_lengkap"
+            // rule={{
+            //     required: {
+            //         value: true,
+            //         message: 'NIK wajib diisi'
+            //     }
+            // }}
+            register={register}
+            // error={errors.nik}
+          />
 
-    // reset detail form every time the modal is closed
-    useEffect(() => {
-        if (!open) {
-            resetDetail()
-        }
-    }, [open, resetDetail])
+          <InputText
+            readOnly
+            // required
+            label="NIK"
+            name="nik"
+            // rule={{
+            //     required: {
+            //         value: true,
+            //         message: 'NIK wajib diisi'
+            //     }
+            // }}
+            register={register}
+            // error={errors.nik}
+          />
+        </Section>
 
-    if (loadingSelected || loadingBarang) return <Loading />
+        {/* SECOND SECTION */}
+        <Section className="flex flex-col bg-primary rounded-xl px-4 pb-4 pt-4 gap-x-8 gap-y-4">
+          <DataTableBase data={details || []} columns={columns} />
+          <Button
+            type="button"
+            className="flex items-center justify-center bg-primary border rounded-xl text-white p-3 text-sm gap-2 hover:bg-secondary-dark transition-colors duration-300 ease-in-out "
+            onClick={() => setOpen(true)}
+          >
+            <PlusIcon className="w-6 h-6" />
+            Tambah Barang Lainnya
+          </Button>
+        </Section>
 
-    if (errorSelected || errorBarang) return <div>Error...</div>
+        <Section data-testid="save-button" className="flex justify-end gap-4">
+          <Button
+            type="submit"
+            className="bg-secondary hover:bg-secondary-dark rounded-lg text-white w-32 p-3 mt-2 text-sm"
+            disabled={isLoading}
+          >
+            {isLoading ? "Loading..." : "Simpan"}
+          </Button>
+          <Button
+            // type='submit'
+            type="button"
+            className="bg-red-500 hover:bg-red-600 rounded-lg text-white w-32 p-3 mt-2 text-sm"
+            onClick={() => router.back()}
+            disabled={isLoading}
+          >
+            Kembali
+          </Button>
+        </Section>
+      </form>
 
-    return (
-        <>
-            <form className='flex flex-col gap-8 w-full' onSubmit={handleSubmit(onSubmit)}>
-                {/* FIRST SECTION */}
-                <Section className='grid md:grid-cols-2 bg-primary rounded-xl px-4 pb-10 pt-4 gap-x-8 gap-y-4'>
+      <Modal
+        isOpen={open}
+        setIsOpen={setOpen}
+        dialogTitle="Tambah Barang Lainnya"
+        dialogContent={
+          <div className="flex w-[300px] flex-col gap-4">
+            <Section className="flex flex-col gap-1">
+              <Label name="type" label="Tipe Barang" />
+              <ComboBoxWrapper
+                options={transformedBarang}
+                onBlur={() => {}}
+                value={idDetail}
+                onChange={(e: any) => {
+                  setId(e);
+                  // get detail name based on e
+                  const [id, nama_barang, jenis_barang, harga] = e.split(";");
+                  console.log(id);
+                  setDetailName(nama_barang);
+                  setType(jenis_barang);
+                  setPrice(Number(harga));
+                }}
+                label="Nama Barang"
+              />
+            </Section>
 
-                    <InputText
-                        readOnly
-                        // required
-                        label='Nama Lengkap Customer'
-                        name='nama_lengkap'
-                        // rule={{
-                        //     required: {
-                        //         value: true,
-                        //         message: 'NIK wajib diisi'
-                        //     }
-                        // }}
-                        register={register}
-                    // error={errors.nik}
-                    />
-
-
-                    <InputText
-                        readOnly
-                        // required
-                        label='NIK'
-                        name='nik'
-                        // rule={{
-                        //     required: {
-                        //         value: true,
-                        //         message: 'NIK wajib diisi'
-                        //     }
-                        // }}
-                        register={register}
-                    // error={errors.nik}
-                    />
-
-
-                </Section>
-
-                {/* SECOND SECTION */}
-                <Section className='flex flex-col bg-primary rounded-xl px-4 pb-4 pt-4 gap-x-8 gap-y-4'>
-                    <DataTableBase
-                        data={details || []}
-                        columns={columns}
-                    />
-                    <Button
-                        type='button'
-                        className='flex items-center justify-center bg-primary border rounded-xl text-white p-3 text-sm gap-2 hover:bg-secondary-dark transition-colors duration-300 ease-in-out '
-                        onClick={() => setOpen(true)}
-                    >
-                        <PlusIcon className='w-6 h-6' />
-                        Tambah Barang Lainnya
-                    </Button>
-                </Section>
-
-                <Section
-                    data-testid='save-button'
-                    className='flex justify-end gap-4'
-                >
-                    <Button
-                        type='submit'
-                        className='bg-secondary hover:bg-secondary-dark rounded-lg text-white w-32 p-3 mt-2 text-sm'
-                        disabled={isLoading}
-                    >
-                        {isLoading ? 'Loading...' : 'Simpan'}
-                    </Button>
-                    <Button
-                        // type='submit'
-                        type='button'
-                        className='bg-red-500 hover:bg-red-600 rounded-lg text-white w-32 p-3 mt-2 text-sm'
-                        onClick={() => router.back()}
-                        disabled={isLoading}
-                    >
-                        Kembali
-                    </Button>
-                </Section>
-            </form>
-
-            <Modal
-                isOpen={open}
-                setIsOpen={setOpen}
-                dialogTitle='Tambah Barang Lainnya'
-                dialogContent={
-                    <div className='flex w-[300px] flex-col gap-4'>
-                        <Section className='flex flex-col gap-1'>
-                            <Label name="type" label='Tipe Barang' />
-                            <ComboBoxWrapper
-                                options={transformedBarang}
-                                onBlur={() => { }}
-                                value={idDetail}
-                                onChange={(e: any) => {
-                                    setId(e)
-                                    // get detail name based on e
-                                    const [id, nama_barang, jenis_barang, harga] = e.split(';')
-                                    console.log(id)
-                                    setDetailName(nama_barang)
-                                    setType(jenis_barang)
-                                    setPrice(Number(harga))
-                                }}
-                                label='Nama Barang'
-                            />
-                        </Section>
-
-                        <InputText
-                            type='text'
-                            label='Jenis Barang'
-                            value={type}
-                            readOnly
-                        // onChange={(e) => setQuantity(Number(e.target.value))}
-                        />
-
-                        <InputText
-                            type='number'
-                            label='Kuantitas'
-                            value={quantity}
-                            min={1}
-                            onChange={(e) => setQuantity(Number(e.target.value))}
-                        />
-                        <InputText
-                            type='number'
-                            label='Harga Barang'
-                            value={price}
-                            // disabled={type === 'Free'}
-                            readOnly
-                        // onChange={(e) => setPrice(Number(e.target.value))}
-                        />
-
-                        <Button
-                            type='button'
-                            className='bg-secondary hover:bg-secondary-dark rounded-xl text-white p-3 text-sm disabled:bg-gray-700'
-                            onClick={() => {
-                                if (selectedIndex !== -1) {
-                                    editDetail();
-                                    return;
-                                }
-                                addDetail();
-                            }}
-                            disabled={!idDetail || !quantity}
-                        >
-                            {selectedIndex !== -1 ? 'Simpan' : 'Tambah'}
-                        </Button>
-                    </div>
-                }
+            <InputText
+              type="text"
+              label="Jenis Barang"
+              value={type}
+              readOnly
+              // onChange={(e) => setQuantity(Number(e.target.value))}
             />
-        </>
 
-    )
-}
+            <InputText
+              type="number"
+              label="Kuantitas"
+              value={quantity}
+              min={1}
+              onChange={(e) => setQuantity(Number(e.target.value))}
+            />
+            <InputText
+              type="number"
+              label="Diskon"
+              value={discount}
+              onChange={(e) => setDiscount(Number(e.target.value))}
+            />
+            <InputText
+              type="number"
+              label="Harga Barang"
+              value={price * quantity - (price * quantity * discount) / 100}
+              // disabled={type === 'Free'}
+              readOnly
+              // onChange={(e) => setPrice(Number(e.target.value))}
+            />
 
-export default Edit
+            <Button
+              type="button"
+              className="bg-secondary hover:bg-secondary-dark rounded-xl text-white p-3 text-sm disabled:bg-gray-700"
+              onClick={() => {
+                if (selectedIndex !== -1) {
+                  editDetail();
+                  return;
+                }
+                addDetail();
+              }}
+              disabled={!idDetail || !quantity}
+            >
+              {selectedIndex !== -1 ? "Simpan" : "Tambah"}
+            </Button>
+          </div>
+        }
+      />
+    </>
+  );
+};
+
+export default Edit;

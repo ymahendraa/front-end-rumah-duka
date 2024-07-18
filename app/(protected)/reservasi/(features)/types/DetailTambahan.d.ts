@@ -4,5 +4,6 @@ export type DetailTambahan = {
   jenis_barang: string;
   nama_barang: string;
   stok: string | number;
+  discount: string | number;
   total_harga: string | number;
 };
